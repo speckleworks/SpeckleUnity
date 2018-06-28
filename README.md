@@ -3,14 +3,15 @@ Proof-of-Concept integration of speckle and unity
 
 ## Disclaimer
 
-This is a rough proof-of-concept project, not intended for actual use
+This is a very rough proof-of-concept project, not intended for actual use
 
-Developed for Unity 2018.1.4f1
+Developed for Unity 2018.1.4f1, using .NET 4.x Equivalent (change in Player Settings->Other Settings)
 
 ### To use:
-1. Add SpeckleManager to scene
-2. Set StreamID on SpeckleManager in inspector. 
-3. Set server and authtoken directly in the UnityReciever script
+1. Drag UnitySpeckle folder into a new project
+2. Add SpeckleManager from Prefabs folder to scene
+3. Set StreamID on SpeckleManager in inspector. 
+4. Set server and authtoken directly in the UnityReciever script
 
 Does not implement runtime login or stream selection.
 
