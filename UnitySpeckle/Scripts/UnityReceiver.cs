@@ -20,7 +20,8 @@ public class UnityReceiver : MonoBehaviour
     private bool bUpdateDisplay = false;
     private bool bRefreshDisplay = false;
 
-    private string restURL = "http://put/server/here/"; //TODO - get this from UnitySpeckle manager
+    private GameObject rootGameObject;
+    
     private string authToken = "put auth token here"; //TODO - actually login to get this
     private string StreamID;
 
@@ -55,9 +56,9 @@ public class UnityReceiver : MonoBehaviour
 
     }
 
-    public void Init(string inStreamID) 
+    public void Init(string inStreamID, string URL) 
     {
-        Client = new SpeckleApiClient(restURL);
+        Client = new SpeckleApiClient(URL);
 
         //Assign events
         Client.OnReady += Client_OnReady;
@@ -73,6 +74,9 @@ public class UnityReceiver : MonoBehaviour
         StreamID = inStreamID;
         Client.IntializeReceiver(StreamID, "UnityTest", "Unity", "UnityGuid", authToken);
         UpdateGlobal();
+
+       
+
     }
 
 
@@ -93,6 +97,10 @@ public class UnityReceiver : MonoBehaviour
         }
 
         Client.Stream = streamGetResponse.Resource;
+
+        //Create root GameObject to attach to
+        if (rootGameObject == null)
+            rootGameObject = new GameObject(Client.Stream.Name);
 
         Debug.Log("Getting objects....");
         var payload = Client.Stream.Objects.Select(obj => obj._id).ToArray();
@@ -132,6 +140,11 @@ public class UnityReceiver : MonoBehaviour
     {
         //Generate native GameObjects with methods from SpeckleUnityConverter 
         ConvertedObjects = SpeckleCore.Converter.Deserialise(SpeckleObjects);
+        
+
+        foreach (GameObject go in ConvertedObjects)        
+            go.transform.SetParent(rootGameObject.transform);
+        
 
         ////Set layer information
         int objectCount = 0;
@@ -142,7 +155,10 @@ public class UnityReceiver : MonoBehaviour
                         
             LayerObject = (GameObject.Find(LayerName));
             if (LayerObject == null)
+            {
                 LayerObject = new GameObject(LayerName);
+                LayerObject.transform.SetParent(rootGameObject.transform);
+            }
             
 
             for (int i = 0; i < layer.ObjectCount; i++)

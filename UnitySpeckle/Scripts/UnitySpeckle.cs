@@ -12,14 +12,15 @@ using System.Reflection;
 
 public class UnitySpeckle : MonoBehaviour
 {
-   
-    public string StreamID;
+      
+    public List<string> StreamIDs;
+    public string ServerURL;
 
     //TODO - Enable login
     //Currently URL and AuthToken are being defined directly in UnityReceiver
 
-    //public string ServerURL;
-    //public string UserName; /
+    
+    //public string UserName; 
     //public string Password;
 
     //Prefabs for displaying objects. Maybe easier to simply build these in code than having prefabs
@@ -37,8 +38,12 @@ public class UnitySpeckle : MonoBehaviour
         if (OnUpdateRecieved == null)
             OnUpdateRecieved = new UnityEvent();
 
-        Receiver = transform.gameObject.AddComponent<UnityReceiver>();
-        Receiver.Init(StreamID);
+        foreach (var stream in StreamIDs)
+        {
+            Receiver = transform.gameObject.AddComponent<UnityReceiver>();
+            Receiver.Init(stream, ServerURL);
+        }
+              
 
     }
 
