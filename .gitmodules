@@ -1,0 +1,3 @@
+[submodule "UnityNurbs"]
+	path = UnityNurbs
+	url = https://chriswelch@bitbucket.org/AureconSDE/unity-nurbs.git
