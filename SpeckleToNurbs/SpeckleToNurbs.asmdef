@@ -1,7 +1,6 @@
 {
-    "name": "SpeckleUnityConverter",
+    "name": "SpeckleToNurbs",
     "references": [
-        "unityNurbs",
         "SpeckleToNurbs"
     ],
     "includePlatforms": [],
