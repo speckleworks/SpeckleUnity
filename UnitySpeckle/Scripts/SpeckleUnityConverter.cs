@@ -3,7 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq; 
 using UnityEngine;
-
 using SpeckleCore;
 
 
@@ -49,7 +48,7 @@ public static class SpeckleUnityConverter
         return go;        
     }
 
-    private static GameObject BaseLineObejct()
+    private static GameObject BaseLineObject()
     {
         GameObject prefab = GameObject.Find("SpeckleManager").GetComponent<UnitySpeckle>().LinePrefab;
         GameObject go = GameObject.Instantiate(prefab);
@@ -82,7 +81,7 @@ public static class SpeckleUnityConverter
 
     public static GameObject ToNative(this SpecklePolyline pl)
     {
-        GameObject go = BaseLineObejct();
+        GameObject go = BaseLineObject();
         go.GetComponent<UnitySpeckleObjectData>().Id = pl._id;
 
         Vector3[] pts = pl.Value.ToPoints();
@@ -144,4 +143,19 @@ public static class SpeckleUnityConverter
     }
 
     #endregion
+
+    public static GameObject ToNative(this SpeckleCurve curve)
+    {
+        var verb = curve.ToVerb();
+
+        GameObject go = BaseLineObject();
+        go.GetComponent<UnitySpeckleObjectData>().Id = curve._id;
+
+        Vector3[] pts = verb.Tessellate();
+        go.GetComponent<LineRenderer>().positionCount = pts.Count();
+        go.GetComponent<LineRenderer>().SetPositions(pts);
+
+        return go;
+    }
+
 }
