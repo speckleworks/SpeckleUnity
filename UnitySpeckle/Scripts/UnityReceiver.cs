@@ -148,7 +148,7 @@ public class UnityReceiver : MonoBehaviour
             for (int i = 0; i < layer.ObjectCount; i++)
             {               
                 GameObject go = (GameObject)ConvertedObjects[objectCount];
-                //go.GetComponent<UnitySpeckleObjectData>().LayerName = LayerName;
+                go.GetComponent<UnitySpeckleObjectData>().LayerName = LayerName;
                 go.transform.SetParent(LayerObject.transform);               
                 objectCount++;
             }

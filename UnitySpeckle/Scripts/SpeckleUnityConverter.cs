@@ -148,12 +148,35 @@ public static class SpeckleUnityConverter
     {
         var verb = curve.ToVerb();
 
-        GameObject go = BaseLineObject();
-        go.GetComponent<UnitySpeckleObjectData>().Id = curve._id;
+        return CurveToObject(curve._id, verb);
+    }
 
-        Vector3[] pts = verb.Tessellate();
-        go.GetComponent<LineRenderer>().positionCount = pts.Count();
-        go.GetComponent<LineRenderer>().SetPositions(pts);
+    public static GameObject ToNative(this SpeckleArc curve)
+    {
+        var verb = curve.ToVerb();
+
+        return CurveToObject(curve._id, verb);
+    }
+
+    public static GameObject ToNative(this SpeckleLine curve)
+    {
+        var verb = curve.ToVerb();
+    
+        return CurveToObject(curve._id, verb);
+    }
+
+
+    static GameObject CurveToObject(string id, UnityNurbs.NurbsCurve nurbsCurve)
+    {
+        GameObject go = BaseLineObject();
+        go.GetComponent<UnitySpeckleObjectData>().Id = id;
+
+        Vector3[] pts = nurbsCurve.Tessellate();
+        //Vector3[] ptz = blurb.Tessellate();
+        var line = go.GetComponent<LineRenderer>();
+
+        line.positionCount = pts.Length;
+        line.SetPositions(pts);
 
         return go;
     }

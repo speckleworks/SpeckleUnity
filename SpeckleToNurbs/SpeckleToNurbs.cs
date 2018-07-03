@@ -10,12 +10,12 @@ public static class SpeckleToNurbs {
 
         public static Vector3 ToVector3(this SpecklePoint p)
         {
-            return new Vector3((float)p.Value[0], (float)p.Value[1], (float)p.Value[2]);
+            return new Vector3((float)p.Value[0], (float)p.Value[2], (float)p.Value[1]);
         }
 
         public static Vector3 ToVector3(this SpeckleVector p)
         {
-            return new Vector3((float)p.Value[0], (float)p.Value[1], (float)p.Value[2]);
+            return new Vector3((float)p.Value[0], (float)p.Value[2], (float)p.Value[1]);
         }
 
     public static Vector3[] ToVector3Array(this List<double> array)
@@ -25,7 +25,7 @@ public static class SpeckleToNurbs {
         for (int i = 0; i < vecs.Length; i++)
         {
             var u = i * 3;
-            vecs[i] = new Vector3(u, u + 2, u + 1);
+            vecs[i] = new Vector3((float)array[u], (float)array[u + 2], (float)array[u + 1]);
         }
 
         return vecs;
@@ -62,27 +62,29 @@ public static class SpeckleToNurbs {
         return new Ellipse(plane.Origin.ToVector3(), plane.Xdir.ToVector3(), plane.Ydir.ToVector3());
     }
 
+    public static Line ToVerb(this SpeckleLine sLine)
+    {
+        var points = sLine.Value.ToVector3Array();
+        return new Line(points[0], points[1]);
+    }
+
     public static NurbsCurve ToVerb(this SpeckleCurve curve)
     {
         var degree = curve.Degree;
-        var knots = curve.Knots.ToArray();
+        var knotsList = curve.Knots;//.ToArray();  
+        var points = curve.Points.ToVector3Array();
 
-        for (int i = 0; i < knots.Length; i++)
+        if (knotsList.Count != degree + points.Length + 1)
         {
-            knots[i] = Mathf.InverseLerp((float)curve.Domain.Start, (float)curve.Domain.End, (float)knots[i]); //yes this should probably be all doubles or all floats, shut up
+            knotsList.Insert(0, knotsList[0]);
+            knotsList.Add(knotsList[knotsList.Count-1]);
         }
 
-        var points = curve.Points.ToVector3Array();
-        //var weights = curve.Weights.ToArray();
+        var knots = knotsList.ToArray();
+        var weights = curve.Weights.ToArray();
 
-        var nurbs = new NurbsCurve(degree, knots, points);
+        var nurbs = new NurbsCurve(degree, knots, points, weights);
 
-        return nurbs;
+        return nurbs;        
     }
-
-
-
-
-
-
 }
