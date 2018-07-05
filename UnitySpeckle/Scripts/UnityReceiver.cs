@@ -20,8 +20,8 @@ public class UnityReceiver : MonoBehaviour
     private bool bUpdateDisplay = false;
     private bool bRefreshDisplay = false;
 
-    private string restURL = "http://put/server/here/"; //TODO - get this from UnitySpeckle manager
-    private string authToken = "put auth token here"; //TODO - actually login to get this
+    private string restURL = ""; //TODO - get this from UnitySpeckle manager
+    private string authToken = ""; //TODO - actually login to get this
     private string StreamID;
 
     
@@ -146,7 +146,7 @@ public class UnityReceiver : MonoBehaviour
             
 
             for (int i = 0; i < layer.ObjectCount; i++)
-            {
+            {               
                 GameObject go = (GameObject)ConvertedObjects[objectCount];
                 go.GetComponent<UnitySpeckleObjectData>().LayerName = LayerName;
                 go.transform.SetParent(LayerObject.transform);               
