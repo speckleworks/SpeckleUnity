@@ -104,8 +104,9 @@ public class UnityReceiver : MonoBehaviour
 
         Debug.Log("Getting objects....");
         var payload = Client.Stream.Objects.Select(obj => obj._id).ToArray();
-
-        var getTask = Client.ObjectGetBulkAsync(payload, "omit=displayValue");
+	
+	//var getTask = Client.ObjectGetBulkAsync(payload, "omit=displayValue"); //Need displayvalue for brep display mesh
+        var getTask = Client.ObjectGetBulkAsync(payload, null);
         while (!getTask.IsCompleted) yield return null;
         var getObjectResult = getTask.Result;
                
