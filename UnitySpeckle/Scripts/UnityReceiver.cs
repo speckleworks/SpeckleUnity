@@ -22,7 +22,7 @@ public class UnityReceiver : MonoBehaviour
 
     private GameObject rootGameObject;
     
-    private string authToken = "put auth token here"; //TODO - actually login to get this
+    private string authToken = "JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1YWQ4YWIyYWQ3NDQ3YzA4MTNlYWFiMzgiLCJpYXQiOjE1MjQxNDkwMzQsImV4cCI6MTU4NzI2NDIzNH0.bhxOm0hZP2T75J4TlhlIYl5WM5HwehVFIcuLXIBv6xs"; //TODO - actually login to get this
     private string StreamID;
 
     
@@ -45,7 +45,7 @@ public class UnityReceiver : MonoBehaviour
             CreateObjects();
 
             //call event on SpeckleManager to allow users to do their own thing when a stream is updated
-            transform.GetComponent<UnitySpeckle>().OnUpdateRecieved.Invoke();
+            transform.GetComponent<UnitySpeckle>().OnUpdateRecieved.Invoke(this);
         }
         if (bRefreshDisplay)
         {
@@ -141,11 +141,13 @@ public class UnityReceiver : MonoBehaviour
     {
         //Generate native GameObjects with methods from SpeckleUnityConverter 
         ConvertedObjects = SpeckleCore.Converter.Deserialise(SpeckleObjects);
-        
 
-        foreach (GameObject go in ConvertedObjects)        
-            go.transform.SetParent(rootGameObject.transform);
-        
+
+        foreach (GameObject go in ConvertedObjects)
+        {
+            if (go != null)
+                go.transform.SetParent(rootGameObject.transform);
+        }
 
         ////Set layer information
         int objectCount = 0;
@@ -165,8 +167,11 @@ public class UnityReceiver : MonoBehaviour
             for (int i = 0; i < layer.ObjectCount; i++)
             {
                 GameObject go = (GameObject)ConvertedObjects[objectCount];
-                go.GetComponent<UnitySpeckleObjectData>().LayerName = LayerName;
-                go.transform.SetParent(LayerObject.transform);               
+                if (go != null)
+                {
+                    go.GetComponent<UnitySpeckleObjectData>().LayerName = LayerName;
+                    go.transform.SetParent(LayerObject.transform);                   
+                }
                 objectCount++;
             }
         }

@@ -10,6 +10,11 @@ using Newtonsoft.Json;
 
 using System.Reflection;
 
+[System.Serializable]
+public class ReceiverEvent : UnityEvent<UnityReceiver>
+{
+}
+
 public class UnitySpeckle : MonoBehaviour
 {
       
@@ -27,7 +32,7 @@ public class UnitySpeckle : MonoBehaviour
     public GameObject prefab;
     public GameObject LinePrefab;
 
-    public UnityEvent OnUpdateRecieved; //Provide event to access outside unity speckle
+    public ReceiverEvent OnUpdateRecieved; //Provide event to access outside unity speckle
 
     private UnityReceiver Receiver;
    
@@ -36,7 +41,7 @@ public class UnitySpeckle : MonoBehaviour
     void Start()
     {
         if (OnUpdateRecieved == null)
-            OnUpdateRecieved = new UnityEvent();
+            OnUpdateRecieved = new ReceiverEvent();
 
         foreach (var stream in StreamIDs)
         {

@@ -8,9 +8,9 @@ using SpeckleCore;
 
 public class ConverterHack { /*makes sure the assembly is loaded*/  public ConverterHack() { } }
 
-public static class SpeckleUnityConverter
+public static partial class SpeckleUnityConverter
 {
-      
+          
     #region convenience methods
 
         public static Vector3 ToPoint(double x, double y, double z)
@@ -145,26 +145,6 @@ public static class SpeckleUnityConverter
 
     #endregion
 
-    public static GameObject ToNative(this SpeckleCurve curve)
-    {
-        var verb = curve.ToVerb();
-
-        return CurveToObject(curve._id, verb);
-    }
-
-    public static GameObject ToNative(this SpeckleArc curve)
-    {
-        var verb = curve.ToVerb();
-
-        return CurveToObject(curve._id, verb);
-    }
-
-    public static GameObject ToNative(this SpeckleLine curve)
-    {
-        var verb = curve.ToVerb();
-    
-        return CurveToObject(curve._id, verb);
-    }
 
     public static GameObject ToNative(this SpeckleBrep brep)
     {
@@ -172,24 +152,4 @@ public static class SpeckleUnityConverter
         return mesh.ToNative();
 
     }
-
-    static GameObject CurveToObject(string id, UnityNurbs.NurbsCurve nurbsCurve)
-    {
-        GameObject go = BaseLineObject();
-        var verbData = nurbsCurve.AddToGameObject(go);
-
-        go.name = "Speckle " + verbData.Type;
-
-        go.GetComponent<UnitySpeckleObjectData>().Id = id;
-
-        Vector3[] pts = nurbsCurve.Tessellate();
-        //Vector3[] ptz = blurb.Tessellate();
-        var line = go.GetComponent<LineRenderer>();
-
-        line.positionCount = pts.Length;
-        line.SetPositions(pts);
-
-        return go;
-    }
-
 }

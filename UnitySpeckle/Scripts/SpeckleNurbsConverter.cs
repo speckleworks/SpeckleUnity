@@ -88,3 +88,49 @@ internal static class SpeckleToNurbs {
         return nurbs;        
     }
 }
+
+
+public static partial class SpeckleUnityConverter
+{
+    public static GameObject ToNative(this SpeckleCurve curve)
+    {
+        var verb = curve.ToVerb();
+
+        return CurveToObject(curve._id, verb);
+    }
+
+    public static GameObject ToNative(this SpeckleArc curve)
+    {
+        var verb = curve.ToVerb();
+
+        return CurveToObject(curve._id, verb);
+    }
+
+    public static GameObject ToNative(this SpeckleLine curve)
+    {
+        var verb = curve.ToVerb();
+
+        return CurveToObject(curve._id, verb);
+    }
+
+  
+
+    static GameObject CurveToObject(string id, UnityNurbs.NurbsCurve nurbsCurve)
+    {
+        GameObject go = BaseLineObject();
+        var verbData = nurbsCurve.AddToGameObject(go);
+
+        go.name = "Speckle " + verbData.Type;
+
+        go.GetComponent<UnitySpeckleObjectData>().Id = id;
+
+        Vector3[] pts = nurbsCurve.Tessellate();
+        //Vector3[] ptz = blurb.Tessellate();
+        var line = go.GetComponent<LineRenderer>();
+
+        line.positionCount = pts.Length;
+        line.SetPositions(pts);
+
+        return go;
+    }
+}
