@@ -20,8 +20,8 @@ public class UnityReceiver : MonoBehaviour
     private bool bUpdateDisplay = false;
     private bool bRefreshDisplay = false;
 
-    private string restURL = "http://speckle.aurecon.info/api/v1/"; //TODO - get this from UnitySpeckle manager
-    private string authToken = "JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1YjMxOWQ4MWU1ZTViZTY2MDZmZWYxMjEiLCJpYXQiOjE1Mjk5NzgyNDEsImV4cCI6MTU5MzA5MzQ0MX0.5LbV8K-ahEgbPjznOjxkIEKBsMyKBnaG0Isa-qVZCig"; //TODO - actually login to get this
+    private string restURL = ""; //TODO - get this from UnitySpeckle manager
+    private string authToken = ""; //TODO - actually login to get this
     private string StreamID;
 
     

@@ -4,19 +4,19 @@ using UnityEngine;
 using SpeckleCore;
 using UnityNurbs;
 
-public static class SpeckleToNurbs {
+internal static class SpeckleToNurbs {
 
     //unity functions
 
-        public static Vector3 ToVector3(this SpecklePoint p)
-        {
-            return new Vector3((float)p.Value[0], (float)p.Value[2], (float)p.Value[1]);
-        }
+    public static Vector3 ToVector3(this SpecklePoint p)
+    {
+        return new Vector3((float)p.Value[0], (float)p.Value[2], (float)p.Value[1]);
+    }
 
-        public static Vector3 ToVector3(this SpeckleVector p)
-        {
-            return new Vector3((float)p.Value[0], (float)p.Value[2], (float)p.Value[1]);
-        }
+    public static Vector3 ToVector3(this SpeckleVector p)
+    {
+        return new Vector3((float)p.Value[0], (float)p.Value[2], (float)p.Value[1]);
+    }
 
     public static Vector3[] ToVector3Array(this List<double> array)
     {
@@ -33,12 +33,12 @@ public static class SpeckleToNurbs {
 
     //verb functions
 
-        public static Arc ToVerb(this SpeckleArc sArc)
-        {
-            var plane = sArc.Plane;
+    public static Arc ToVerb(this SpeckleArc sArc)
+    {
+        var plane = sArc.Plane;
 
-            return new Arc(plane.Origin.ToVector3(), plane.Xdir.ToVector3(), plane.Ydir.ToVector3(), (float)sArc.Radius, (float)sArc.StartAngle, (float)sArc.EndAngle);
-        } 
+        return new Arc(plane.Origin.ToVector3(), plane.Xdir.ToVector3(), plane.Ydir.ToVector3(), (float)sArc.Radius, (float)sArc.StartAngle, (float)sArc.EndAngle);
+    } 
 
     //needs plane definition
     

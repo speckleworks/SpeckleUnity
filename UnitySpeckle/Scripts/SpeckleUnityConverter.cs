@@ -68,11 +68,12 @@ public static class SpeckleUnityConverter
         //go.GetComponent<UnitySpeckleObjectData>().LayerName = (string)pt.Properties["LayerName"];
 
         go.GetComponent<MeshFilter>().mesh = CreatePrimitiveMesh(PrimitiveType.Sphere);
-        go.transform.localScale = new Vector3(0.02f, 0.02f, 0.02f);
+        go.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
+
+        go.name = "Speckle Point";
         
         go.transform.position = ToPoint(pt.Value[0], pt.Value[1], pt.Value[2]);
         return go;
-
     }
 
     #endregion
@@ -165,10 +166,20 @@ public static class SpeckleUnityConverter
         return CurveToObject(curve._id, verb);
     }
 
+    public static GameObject ToNative(this SpeckleBrep brep)
+    {
+        var mesh = brep.DisplayValue;
+        return mesh.ToNative();
+
+    }
 
     static GameObject CurveToObject(string id, UnityNurbs.NurbsCurve nurbsCurve)
     {
         GameObject go = BaseLineObject();
+        var verbData = nurbsCurve.AddToGameObject(go);
+
+        go.name = "Speckle " + verbData.Type;
+
         go.GetComponent<UnitySpeckleObjectData>().Id = id;
 
         Vector3[] pts = nurbsCurve.Tessellate();
