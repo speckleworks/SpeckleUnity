@@ -6,6 +6,8 @@ public class UnitySpeckleObjectData : MonoBehaviour {
 
     public string Id {  get;  set; }
     public string LayerName;
+   // public Dictionary<string, object> Properties;
+    public SpeckleCore.SpeckleObject speckleObject;
 
 	// Use this for initialization
 	void Start () {

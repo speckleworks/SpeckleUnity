@@ -20,9 +20,9 @@ public class UnityReceiver : MonoBehaviour
     private bool bUpdateDisplay = false;
     private bool bRefreshDisplay = false;
 
-    private GameObject rootGameObject;
+    public GameObject rootGameObject;
     
-    private string authToken = "JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1YWQ4YWIyYWQ3NDQ3YzA4MTNlYWFiMzgiLCJpYXQiOjE1MjQxNDkwMzQsImV4cCI6MTU4NzI2NDIzNH0.bhxOm0hZP2T75J4TlhlIYl5WM5HwehVFIcuLXIBv6xs"; //TODO - actually login to get this
+    private string authToken = "put auth token here"; //TODO - actually login to get this
     private string StreamID;
 
     
@@ -45,7 +45,7 @@ public class UnityReceiver : MonoBehaviour
             CreateObjects();
 
             //call event on SpeckleManager to allow users to do their own thing when a stream is updated
-            transform.GetComponent<UnitySpeckle>().OnUpdateRecieved.Invoke(this);
+            transform.GetComponent<UnitySpeckle>().OnUpdateReceived.Invoke(this);
         }
         if (bRefreshDisplay)
         {
@@ -56,7 +56,14 @@ public class UnityReceiver : MonoBehaviour
 
     }
 
+    //Wrapper to call coroutine
     public void Init(string inStreamID, string URL) 
+    {
+        StartCoroutine(InitAsync(inStreamID, URL));       
+    }
+
+    //Initialize receiver
+    IEnumerator InitAsync(string inStreamID, string URL)
     {
         Client = new SpeckleApiClient(URL);
 
@@ -65,7 +72,7 @@ public class UnityReceiver : MonoBehaviour
         Client.OnLogData += Client_OnLogData;
         Client.OnWsMessage += Client_OnWsMessage;
         Client.OnError += Client_OnError;
-              
+
         //make sure convereter is loaded
         var hack = new ConverterHack();
 
@@ -73,20 +80,28 @@ public class UnityReceiver : MonoBehaviour
 
         StreamID = inStreamID;
         Client.IntializeReceiver(StreamID, "UnityTest", "Unity", "UnityGuid", authToken);
+
+        var streamGetResponse = Client.StreamGetAsync(StreamID, null);
+        while (!streamGetResponse.IsCompleted) yield return null;
+
+        Client.Stream = streamGetResponse.Result.Resource;
+
+        if (rootGameObject == null)
+            rootGameObject = new GameObject(Client.Stream.Name);
+
+        //call event on SpeckleManager to allow users to do their own thing when a stream is created
+        transform.GetComponent<UnitySpeckle>().OnReceiverCreated.Invoke(this);
+
         UpdateGlobal();
-
-       
-
     }
 
-
+    //Wrapper for update coroutine
     public void UpdateGlobal()
-    {
-        //Using coroutines for async calls
-        StartCoroutine(UpdateData());
+    {        
+        StartCoroutine(UpdateGlobalAsync());
     }
 
-    IEnumerator UpdateData()
+    IEnumerator UpdateGlobalAsync()
     {
         SpeckleObjects.Clear();
         ObjectCache.Clear();
@@ -97,30 +112,21 @@ public class UnityReceiver : MonoBehaviour
         }
 
         Client.Stream = streamGetResponse.Resource;
-
-        //Create root GameObject to attach to
-        if (rootGameObject == null)
-            rootGameObject = new GameObject(Client.Stream.Name);
-
+        
         Debug.Log("Getting objects....");
         var payload = Client.Stream.Objects.Select(obj => obj._id).ToArray();
 	
-	//var getTask = Client.ObjectGetBulkAsync(payload, "omit=displayValue"); //Need displayvalue for brep display mesh
-        var getTask = Client.ObjectGetBulkAsync(payload, null);
+	    var getTask = Client.ObjectGetBulkAsync(payload, null);
         while (!getTask.IsCompleted) yield return null;
         var getObjectResult = getTask.Result;
                
         foreach (var x in getObjectResult.Resources)
-        {
-            //Debug.Log(x.ToJson());
-            //Debug.Log(x.GetType());
             ObjectCache.Add(x._id, x);
-        }
-
+        
         foreach (var obj in Client.Stream.Objects)
             SpeckleObjects.Add(ObjectCache[obj._id]);             
 
-        bUpdateDisplay = true;
+        bUpdateDisplay = true;       
     }
 
     public void RefreshObjects()
@@ -141,13 +147,11 @@ public class UnityReceiver : MonoBehaviour
     {
         //Generate native GameObjects with methods from SpeckleUnityConverter 
         ConvertedObjects = SpeckleCore.Converter.Deserialise(SpeckleObjects);
+        
 
-
-        foreach (GameObject go in ConvertedObjects)
-        {
-            if (go != null)
-                go.transform.SetParent(rootGameObject.transform);
-        }
+        foreach (GameObject go in ConvertedObjects)        
+            go.transform.SetParent(rootGameObject.transform, false);
+        
 
         ////Set layer information
         int objectCount = 0;
@@ -163,15 +167,11 @@ public class UnityReceiver : MonoBehaviour
                 LayerObject.transform.SetParent(rootGameObject.transform);
             }
             
-
             for (int i = 0; i < layer.ObjectCount; i++)
             {
                 GameObject go = (GameObject)ConvertedObjects[objectCount];
-                if (go != null)
-                {
-                    go.GetComponent<UnitySpeckleObjectData>().LayerName = LayerName;
-                    go.transform.SetParent(LayerObject.transform);                   
-                }
+                go.GetComponent<UnitySpeckleObjectData>().LayerName = LayerName;
+                go.transform.SetParent(LayerObject.transform);               
                 objectCount++;
             }
         }
@@ -197,6 +197,7 @@ public class UnityReceiver : MonoBehaviour
 
         //Set refresh to true to prompt recreating geometry
         bRefreshDisplay = true;
+        
     }
     public virtual void Client_OnError(object source, SpeckleEventArgs e)
     {

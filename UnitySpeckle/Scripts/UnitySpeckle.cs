@@ -29,10 +29,13 @@ public class UnitySpeckle : MonoBehaviour
     //public string Password;
 
     //Prefabs for displaying objects. Maybe easier to simply build these in code than having prefabs
-    public GameObject prefab;
+    public GameObject MeshPrefab;
     public GameObject LinePrefab;
+    public GameObject PointPrefab;
 
-    public ReceiverEvent OnUpdateRecieved; //Provide event to access outside unity speckle
+    //public delegate void OnUpdateReceived(UnityReceiver rec);
+    public ReceiverEvent OnReceiverCreated; //Called after the initial creation of the stream
+    public ReceiverEvent OnUpdateReceived; //Provide event to access outside unity speckle
 
     private UnityReceiver Receiver;
    
@@ -40,8 +43,8 @@ public class UnitySpeckle : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        if (OnUpdateRecieved == null)
-            OnUpdateRecieved = new ReceiverEvent();
+        if (OnUpdateReceived == null)
+            OnUpdateReceived = new ReceiverEvent();
 
         foreach (var stream in StreamIDs)
         {

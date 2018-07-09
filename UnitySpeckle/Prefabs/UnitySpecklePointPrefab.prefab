@@ -9,31 +9,31 @@ Prefab:
     m_Modifications: []
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
-  m_RootGameObject: {fileID: 1293004965568348}
+  m_RootGameObject: {fileID: 1107968097332212}
   m_IsPrefabParent: 1
---- !u!1 &1293004965568348
+--- !u!1 &1107968097332212
 GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 5
   m_Component:
-  - component: {fileID: 4315266005622844}
-  - component: {fileID: 114987351615415956}
-  - component: {fileID: 120989373397621042}
+  - component: {fileID: 4961357630367476}
+  - component: {fileID: 114208674771306268}
+  - component: {fileID: 120090280386241660}
   m_Layer: 0
-  m_Name: UnitySpeckleLinePrefab
+  m_Name: UnitySpecklePointPrefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &4315266005622844
+--- !u!4 &4961357630367476
 Transform:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1293004965568348}
+  m_GameObject: {fileID: 1107968097332212}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -41,24 +41,24 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &114987351615415956
+--- !u!114 &114208674771306268
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1293004965568348}
+  m_GameObject: {fileID: 1107968097332212}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4552212d29e2cae46acf1e8efe2e7cb4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   LayerName: 
---- !u!120 &120989373397621042
+--- !u!120 &120090280386241660
 LineRenderer:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1293004965568348}
+  m_GameObject: {fileID: 1107968097332212}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 0
@@ -93,7 +93,7 @@ LineRenderer:
   - {x: 0, y: 0, z: 1}
   m_Parameters:
     serializedVersion: 2
-    widthMultiplier: 0.002
+    widthMultiplier: 0.005
     widthCurve:
       serializedVersion: 2
       m_Curve:
