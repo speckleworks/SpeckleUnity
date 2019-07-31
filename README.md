@@ -2,25 +2,29 @@
 Proof-of-Concept integration of speckle and unity
 
 ## Disclaimer
+Updated July 2019
 
 This is a very rough proof-of-concept project, not intended for actual use
 
-Developed for Unity 2018.1.4f1, using .NET 4.x Equivalent (change in Player Settings->Other Settings)
+Developed for Unity 2019.1.xx for Windows (not yet tested for mobile or other platforms)
 
 ### To use:
 1. Drag UnitySpeckle folder into a new project
-2. Add SpeckleManager from Prefabs folder to scene
-3. Set StreamID on SpeckleManager in inspector. 
-4. Set server and authtoken directly in the UnityReciever script
+2. Set authtoken directly in the SpeckleUnityClient.cs script
+3. Add SpeckleManager from Prefabs folder to scene
+4. Set Server URL on SpeckleManager in inspector. 
+5. Add Sender and/or Receiver prefabs to the scene
+6. For any receiver prefabs, enter the Stream Id
+7. Add a specific SendComponent to game objects that have data you want to send (see the example scene)
+
+
+
+### Notes 
 
 Does not implement runtime login or stream selection.
 
-Does not implement a sender of any kind.
+Only displays mesh, point, and polyline data types. Breps and Curves are displayed with display values.
 
-Only reads mesh, point, and polyline data types.
+Currently only implements sending a transform as a Speckle Point, or sending numbers
 
-### Notes on Hololens dev:
-
-Hololens uses Universal Windows Platforms. Things that run in the editor while testing may not work when deploying to the Hololens. This project includes a SpeckleCoreUWP.dll, set to target WSAPlayer only while SpeckleCore.dll excludes WSAPlayer
-
-Additionally, websocket-sharp does not work on UWP, so websocket-sharp.dll also excludes WSAPlayer. SpeckleCoreUWP.dll includes an alternative websocket implementation through Windows MessageWebSockets
+Does not use the Speckle Kit workflow. Any kit DLLs must be added manually to the Unity Project. 
