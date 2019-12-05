@@ -46,8 +46,7 @@ MonoBehaviour:
   StreamId: 
   Persistent: 0
   KeyForSaving: 
+  authToken: 
   OnUpdateReceived:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: ReceiverEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-      PublicKeyToken=null
