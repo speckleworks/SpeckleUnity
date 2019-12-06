@@ -11,26 +11,25 @@ namespace SpeckleUnity
 
 	public class SpeckleUnityReceiver : SpeckleUnityClient
 	{
-
 		public List<SpeckleObject> SpeckleObjects { get; set; }
 		public List<object> ConvertedObjects = new List<object> ();
 
-		private Dictionary<String, SpeckleObject> ObjectCache = new Dictionary<string, SpeckleObject> ();
+		protected Dictionary<string, SpeckleObject> ObjectCache = new Dictionary<string, SpeckleObject> ();
 
-		private bool messageReceived = false;
-		private string messageContent;
+		protected bool messageReceived = false;
+		protected string messageContent;
 
 		//Provides event to access outside unity speckle
 		[Header ("Events")]
 		public ReceiverEvent OnUpdateReceived;
 
-		private void Start ()
+		protected virtual void Start ()
 		{
 			if (OnUpdateReceived == null)
 				OnUpdateReceived = new ReceiverEvent ();
 		}
 
-		private void Update ()
+		protected virtual void Update ()
 		{
 			//Update global was not working when triggered from the socket events, due to threading conflicts?
 			//Current solution is to set a value with the socket event, and then check every frame to see if an action needs to be taken
@@ -40,13 +39,19 @@ namespace SpeckleUnity
 		/// <summary>
 		/// Initialize Unity Receiver
 		/// </summary>
-		/// <param name="inStreamID"></param>
 		/// <param name="URL"></param>
 		public override void InitializeClient (string URL)
 		{
 			StartCoroutine (IntializeReceiverAsync (StreamId, URL));
 		}
-		private IEnumerator IntializeReceiverAsync (string inStreamID, string URL)
+
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="inStreamID"></param>
+		/// <param name="URL"></param>
+		/// <returns></returns>
+		protected virtual IEnumerator IntializeReceiverAsync (string inStreamID, string URL)
 		{
 			Client = new SpeckleApiClient (URL, true);
 			Client.BaseUrl = URL;
@@ -66,7 +71,12 @@ namespace SpeckleUnity
 
 		}
 
+		public override void CompleteDeserialization (SpeckleApiClient client)
+		{
+			Client = client;
+			StreamId = Client.StreamId;
 
+		}
 
 
 		public override void Client_OnWsMessage (object source, SpeckleEventArgs e)
@@ -81,7 +91,7 @@ namespace SpeckleUnity
 			messageContent = wSMessageData.args.eventType;
 		}
 
-		private void OnWsMessageCheck ()
+		protected virtual void OnWsMessageCheck ()
 		{
 			//Events aren't firing coroutines directly, so putting this here in update
 			if (messageReceived)
@@ -114,11 +124,12 @@ namespace SpeckleUnity
 		/// <summary>
 		/// Update incoming objects
 		/// </summary>
-		public void UpdateGlobal ()
+		public virtual void UpdateGlobal ()
 		{
 			StartCoroutine (UpdateGlobalAsync ());
 		}
-		private IEnumerator UpdateGlobalAsync ()
+
+		protected virtual IEnumerator UpdateGlobalAsync ()
 		{
 			//TODO - use LocalContext for caching, etc
 
@@ -176,7 +187,7 @@ namespace SpeckleUnity
 		/// <summary>
 		/// Create native gameobjects and deal with Unity specific things
 		/// </summary>
-		private void DisplayContents ()
+		protected virtual void DisplayContents ()
 		{
 			//TODO - update existing objects instead of destroying/recreating all of them
 

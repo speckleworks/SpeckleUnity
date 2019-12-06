@@ -27,20 +27,31 @@ namespace SpeckleUnity
 
 	public class SpeckleUnityManager : MonoBehaviour, ISpeckleInitializer
 	{
+		/// <summary>
+		/// 
+		/// </summary>
 		[Tooltip ("URL for the Speckle Server you want to use. eg: https://hestia.speckle.works/api/v1")]
-		public string ServerURL;
+		[SerializeField] protected string ServerURL; 
 
-		//TODO - Enable login
-		//Currently the AuthToken is being defined directly in SpeckleUnityClient   
+		/// <summary>
+		/// 
+		/// </summary>
+		protected BinaryFormatter formatter;
 
+		/// <summary>
+		/// 
+		/// </summary>
+		protected const string DATA_FILENAME = "TestSaveClient.dat";
 
-		private BinaryFormatter formatter;
-		private const string DATA_FILENAME = "TestSaveClient.dat";
+		/// <summary>
+		/// 
+		/// </summary>
+		protected Dictionary<string, SpeckleApiClient> ClientSaveDictionary = new Dictionary<string, SpeckleApiClient> ();
 
-		private Dictionary<string, SpeckleApiClient> ClientSaveDictionary = new Dictionary<string, SpeckleApiClient> ();
-
-
-		void Start ()
+		/// <summary>
+		/// 
+		/// </summary>
+		protected virtual void Start ()
 		{
 			SpeckleInitializer.Initialize ();
 			LocalContext.Init ();
@@ -57,16 +68,20 @@ namespace SpeckleUnity
 			}
 		}
 
-
-		void OnApplicationQuit ()
+		/// <summary>
+		/// 
+		/// </summary>
+		protected virtual void OnApplicationQuit ()
 		{
 			Debug.Log ("Application ending after " + Time.time + " seconds");
 			SaveClients ();
 		}
 
 
-		//TODO - improve saving system  
-		private void SaveClients ()
+		/// <summary>
+		/// 
+		/// </summary>
+		protected virtual void SaveClients ()
 		{
 			//check for persistent clients
 			SpeckleUnityClient[] Clients = FindObjectsOfType<SpeckleUnityClient> ();
@@ -84,6 +99,7 @@ namespace SpeckleUnity
 
 			//dictionaries aren't serializable?
 			List<ClientSaveObject> ClientSaveList = new List<ClientSaveObject> ();
+
 			foreach (var kvp in ClientSaveDictionary)
 			{
 				ClientSaveObject c = new ClientSaveObject
@@ -93,7 +109,6 @@ namespace SpeckleUnity
 				};
 				ClientSaveList.Add (c);
 			}
-
 
 			try
 			{
@@ -112,18 +127,18 @@ namespace SpeckleUnity
 			} // end try-catch
 		}
 
-
-		private void LoadClients ()
+		/// <summary>
+		/// 
+		/// </summary>
+		protected virtual void LoadClients ()
 		{
 			// Check if we had previously Save information 
 			if (File.Exists (DATA_FILENAME))
 			{
-
 				try
 				{
 					// Create a FileStream will gain read access to the data file
-					FileStream readerFileStream = new FileStream (DATA_FILENAME,
-						FileMode.Open, FileAccess.Read);
+					FileStream readerFileStream = new FileStream (DATA_FILENAME, FileMode.Open, FileAccess.Read);
 					// Reconstruct information
 					List<ClientSaveObject> ClientSaveList = (List<ClientSaveObject>)this.formatter.Deserialize (readerFileStream);
 

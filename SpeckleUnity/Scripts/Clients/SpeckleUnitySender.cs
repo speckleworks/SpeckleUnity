@@ -16,9 +16,9 @@ namespace SpeckleUnity
 	[Serializable]
 	public class SpeckleUnitySender : SpeckleUnityClient
 	{
-		private const string StreamNamePrefix = "UnityStream_";
+		protected const string StreamNamePrefix = "UnityStream_";
 
-		private List<SpeckleUnityObject> nativeObjectsToSend = new List<SpeckleUnityObject> ();
+		protected List<SpeckleUnityObject> nativeObjectsToSend = new List<SpeckleUnityObject> ();
 
 
 		/// <summary>
@@ -29,8 +29,9 @@ namespace SpeckleUnity
 		{
 			StartCoroutine (InitializeSenderAsync (URL));
 		}
+
 		//Initialize sender
-		IEnumerator InitializeSenderAsync (string URL)
+		protected virtual IEnumerator InitializeSenderAsync (string URL)
 		{
 			Client = new SpeckleApiClient (URL, true);
 			AssignEvents ();
@@ -61,14 +62,15 @@ namespace SpeckleUnity
 		/// <summary>
 		/// Send updated geometry to stream
 		/// </summary>
-		public void SendStaggeredUpdate ()
+		public virtual void SendStaggeredUpdate ()
 		{
 			//TODO - use a timer to limit the send frequency?
 			if (Client != null)
 				if (Client.Stream != null)
 					StartCoroutine (SendStaggeredUpdateAsync ());
 		}
-		IEnumerator SendStaggeredUpdateAsync ()
+
+		protected virtual IEnumerator SendStaggeredUpdateAsync ()
 		{
 
 			// create a clone
@@ -152,11 +154,12 @@ namespace SpeckleUnity
 
 		}
 
-		public void OnObjectUpdated (object source)
+		public virtual void OnObjectUpdated (object source)
 		{
 			SendStaggeredUpdate ();
 		}
-		public void RegisterObject (SpeckleUnityObject obj)
+
+		public virtual void RegisterObject (SpeckleUnityObject obj)
 		{
 			//TODO - test if the object is already added
 			nativeObjectsToSend.Add (obj);
@@ -164,7 +167,7 @@ namespace SpeckleUnity
 			SendStaggeredUpdate ();
 		}
 
-		public void UnregisterObject (SpeckleUnityObject obj)
+		public virtual void UnregisterObject (SpeckleUnityObject obj)
 		{
 			nativeObjectsToSend.Remove (obj);
 			obj.ValueChanged -= OnObjectUpdated;

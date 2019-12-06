@@ -8,10 +8,10 @@ namespace SpeckleUnity
 
 	public class SpeckleSendSlider : SpeckleSend
 	{
-		private SpeckleUnityNumber number;
-		private Slider Slider;
+		protected SpeckleUnityNumber number;
+		protected Slider Slider;
 
-		private void Start ()
+		protected virtual void Start ()
 		{
 			Slider = transform.GetComponent<Slider> ();
 			number = new SpeckleUnityNumber (Slider.value);
@@ -22,7 +22,7 @@ namespace SpeckleUnity
 
 		//This sends a new value every frame
 		//Either this should be rewritten to only send once it has stopped changing, or the sender should implement a timer to prevent too many updates
-		private void HandleSliderChange (float value)
+		protected virtual void HandleSliderChange (float value)
 		{
 			number.value = value;
 			number.OnValueChanged ();

@@ -43,4 +43,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2a5f374aa5217d74ca279457483027d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ServerURL: 
+  ServerURL: https://hestia.speckle.works/api/v1

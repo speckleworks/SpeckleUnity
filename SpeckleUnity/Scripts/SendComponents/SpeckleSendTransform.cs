@@ -7,15 +7,15 @@ namespace SpeckleUnity
 	public class SpeckleSendTransform : SpeckleSend
 	{
 		//set to true when moving, if transform has not moved, and hasMoved is true, send update
-		bool hasMoved = false;
+		protected bool hasMoved = false;
 
-		private void Start ()
+		protected virtual void Start ()
 		{
 			obj = new SpeckleUnityTransform (this.gameObject);
 			Sender?.RegisterObject (obj);
 		}
 
-		void Update ()
+		protected virtual void Update ()
 		{
 			//don't update every frame - check once it has stopped moving          
 			if (transform.hasChanged)
