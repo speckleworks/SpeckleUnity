@@ -1,30 +1,15 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
-
-using System.Linq;
 using SpeckleCore;
-//using Newtonsoft.Json;
-
-using System.Reflection;
 using System.IO;
-using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
-using System.Text;
 
 namespace SpeckleUnity
 {
-	[System.Serializable]
-	public class ClientSaveObject
-	{
-		public SpeckleApiClient client;
-		public string key;
-	}
-
-
-
+	/// <summary>
+	/// 
+	/// </summary>
 	public class SpeckleUnityManager : MonoBehaviour, ISpeckleInitializer
 	{
 		/// <summary>
@@ -58,11 +43,11 @@ namespace SpeckleUnity
 			formatter = new BinaryFormatter ();
 
 			LoadClients ();
-			SpeckleUnityClient[] Clients = FindObjectsOfType<SpeckleUnityClient> ();
+			SpeckleUnitySender[] Clients = FindObjectsOfType<SpeckleUnitySender> ();
 			foreach (var c in Clients)
 			{
-				if (ClientSaveDictionary.ContainsKey (c.KeyForSaving) && c.Persistent)
-					c.CompleteDeserialization (ClientSaveDictionary[c.KeyForSaving]);
+				if (ClientSaveDictionary.ContainsKey (c.keyForSaving) && c.persistent)
+					c.CompleteDeserialization (ClientSaveDictionary[c.keyForSaving]);
 				else
 					c.InitializeClient (ServerURL);
 			}
@@ -84,14 +69,14 @@ namespace SpeckleUnity
 		protected virtual void SaveClients ()
 		{
 			//check for persistent clients
-			SpeckleUnityClient[] Clients = FindObjectsOfType<SpeckleUnityClient> ();
+			SpeckleUnitySender[] Clients = FindObjectsOfType<SpeckleUnitySender> ();
 			foreach (var c in Clients)
 			{
-				if (c.Persistent)
-					ClientSaveDictionary[c.KeyForSaving] = c.Client;
+				if (c.persistent)
+					ClientSaveDictionary[c.keyForSaving] = c.client;
 				else
 				{
-					ClientSaveDictionary.Remove (c.KeyForSaving);
+					ClientSaveDictionary.Remove (c.keyForSaving);
 					c.DisposeClient ();
 				}
 			}

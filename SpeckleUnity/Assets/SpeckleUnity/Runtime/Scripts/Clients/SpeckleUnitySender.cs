@@ -16,8 +16,29 @@ namespace SpeckleUnity
 	[Serializable]
 	public class SpeckleUnitySender : SpeckleUnityClient
 	{
-		protected const string StreamNamePrefix = "UnityStream_";
+		/// <summary>
+		/// 
+		/// </summary>
+		[Header ("Persistence")]
+		[Tooltip ("Set to true to save this client. Only used for senders.")]
+		public bool persistent = false;
 
+		/// <summary>
+		/// Used to find the appropriate client next time the application is loaded
+		/// Needs to be defined in editor, so can't use client speckle id which won't exist
+		/// Only used if persistent is set to true
+		/// </summary>
+		[Tooltip ("Enter a unique value for saving this sending client")]
+		public string keyForSaving;
+
+		/// <summary>
+		/// 
+		/// </summary>
+		protected const string streamNamePrefix = "UnityStream_";
+
+		/// <summary>
+		/// 
+		/// </summary>
 		protected List<SpeckleUnityObject> nativeObjectsToSend = new List<SpeckleUnityObject> ();
 
 
@@ -30,21 +51,25 @@ namespace SpeckleUnity
 			StartCoroutine (InitializeSenderAsync (URL));
 		}
 
-		//Initialize sender
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="URL"></param>
+		/// <returns></returns>
 		protected virtual IEnumerator InitializeSenderAsync (string URL)
 		{
-			Client = new SpeckleApiClient (URL, true);
+			client = new SpeckleApiClient (URL, true);
 			AssignEvents ();
 
 			//TODO: store guid?
-			unity_guid = Guid.NewGuid ().ToString ();
-			Client.IntializeSender (authToken, "UnityTestSender", "Unity", unity_guid);
+			unityGUID = Guid.NewGuid ().ToString ();
+			client.IntializeSender (authToken, "UnityTestSender", "Unity", unityGUID);
 
 			//wait for receiver to be connected
-			while (!Client.IsConnected) yield return null;
+			while (!client.IsConnected) yield return null;
 
-			StreamId = Client.Stream.StreamId;
-			Client.Stream.Name = StreamNamePrefix + gameObject.name;
+			streamID = client.Stream.StreamId;
+			client.Stream.Name = streamNamePrefix + gameObject.name;
 
 
 			SendStaggeredUpdate ();
@@ -52,10 +77,14 @@ namespace SpeckleUnity
 
 		}
 
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="client"></param>
 		public override void CompleteDeserialization (SpeckleApiClient client)
 		{
-			Client = client;
-			StreamId = Client.StreamId;
+			base.client = client;
+			streamID = base.client.StreamId;
 
 		}
 
@@ -65,21 +94,25 @@ namespace SpeckleUnity
 		public virtual void SendStaggeredUpdate ()
 		{
 			//TODO - use a timer to limit the send frequency?
-			if (Client != null)
-				if (Client.Stream != null)
+			if (client != null)
+				if (client.Stream != null)
 					StartCoroutine (SendStaggeredUpdateAsync ());
 		}
 
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <returns></returns>
 		protected virtual IEnumerator SendStaggeredUpdateAsync ()
 		{
 
 			// create a clone
 			//Not sure why we are doing this, copied it from the Rhino sender
 
-			var cloneResult = Client.StreamCloneAsync (StreamId);
+			var cloneResult = client.StreamCloneAsync (streamID);
 			while (!cloneResult.IsCompleted) yield return null;
-			Client.Stream.Children.Add (cloneResult.Result.Clone.StreamId);
-			Client.BroadcastMessage ("stream", StreamId, new { eventType = "update-children" });
+			client.Stream.Children.Add (cloneResult.Result.Clone.StreamId);
+			client.BroadcastMessage ("stream", streamID, new { eventType = "update-children" });
 
 			//CREATE SPECKLE OBJECTS FROM NATIVE OBJECTS
 			var convertedObjects = new List<SpeckleObject> ();
@@ -104,15 +137,15 @@ namespace SpeckleUnity
 			};
 			List<Layer> theLayers = new List<Layer> ();
 			theLayers.Add (newLayer);
-			Client.Stream.Layers = theLayers.ToList ();
+			client.Stream.Layers = theLayers.ToList ();
 
 
 			//UPDATE/CREATE OBJECTS IN CLIENT
-			LocalContext.PruneExistingObjects (convertedObjects, Client.BaseUrl);
+			LocalContext.PruneExistingObjects (convertedObjects, client.BaseUrl);
 
 			List<SpeckleObject> persistedObjects = new List<SpeckleObject> ();
 
-			var createTask = Client.ObjectCreateAsync (payload);
+			var createTask = client.ObjectCreateAsync (payload);
 			while (!createTask.IsCompleted) yield return null;
 			persistedObjects.AddRange (createTask.Result.Resources);
 
@@ -128,7 +161,7 @@ namespace SpeckleUnity
 				foreach (var oL in payload)
 				{
 					if (oL.Type != "Placeholder")
-						LocalContext.AddSentObject (oL, Client.BaseUrl);
+						LocalContext.AddSentObject (oL, client.BaseUrl);
 				}
 			});
 
@@ -141,24 +174,32 @@ namespace SpeckleUnity
 
 			// create stream update payload
 			SpeckleStream streamUpdatePayload = new SpeckleStream ();
-			streamUpdatePayload.Layers = Client.Stream.Layers;
+			streamUpdatePayload.Layers = client.Stream.Layers;
 			streamUpdatePayload.Objects = placeholders;
-			streamUpdatePayload.Name = Client.Stream.Name;
+			streamUpdatePayload.Name = client.Stream.Name;
 
-			var responseStreamUpdate = Client.StreamUpdateAsync (Client.Stream.StreamId, streamUpdatePayload);
+			var responseStreamUpdate = client.StreamUpdateAsync (client.Stream.StreamId, streamUpdatePayload);
 			while (!responseStreamUpdate.IsCompleted) yield return null;
 
-			Client.Stream.Objects = placeholders;
+			client.Stream.Objects = placeholders;
 
-			Client.BroadcastMessage ("stream", StreamId, new { eventType = "update-global" });
+			client.BroadcastMessage ("stream", streamID, new { eventType = "update-global" });
 
 		}
 
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="source"></param>
 		public virtual void OnObjectUpdated (object source)
 		{
 			SendStaggeredUpdate ();
 		}
 
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="obj"></param>
 		public virtual void RegisterObject (SpeckleUnityObject obj)
 		{
 			//TODO - test if the object is already added
@@ -167,15 +208,16 @@ namespace SpeckleUnity
 			SendStaggeredUpdate ();
 		}
 
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="obj"></param>
 		public virtual void UnregisterObject (SpeckleUnityObject obj)
 		{
 			nativeObjectsToSend.Remove (obj);
 			obj.ValueChanged -= OnObjectUpdated;
 			SendStaggeredUpdate ();
 		}
-
-
-
 	}
 }
 
