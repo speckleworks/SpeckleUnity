@@ -1,0 +1,14 @@
+{
+  "name": "com.open.speckleunity",
+  "displayName": "SpeckleUnity",
+  "author": "Christopher Morse, Luis E. Fraguadam, Jak Hussain",
+  "version": "0.2.0-preview",
+  "unity": "2019.3",
+  "description": "Send and receive Speckle Streams from your Unity application to a Speckle Server of your choice. \n\nRequires .NET 4.x and does not support IL2CPP platforms.",
+  "keywords": [
+    "Open Source",
+    "Module",
+    "Speckle"
+  ],
+  "category": "Open Source"
+}

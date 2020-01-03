@@ -1,0 +1,19 @@
+/*
+
+/*/
+
+!.gitignore
+!README.md
+
+# Include the main folders needed
+!SpeckleUnity/
+!docs/
+!docfx/
+
+# Ignore everything inside project folder
+SpeckleUnity/*
+
+# Select which folders become included
+!SpeckleUnity/Assets/
+!SpeckleUnity/ProjectSettings/
+!SpeckleUnity/Packages/
