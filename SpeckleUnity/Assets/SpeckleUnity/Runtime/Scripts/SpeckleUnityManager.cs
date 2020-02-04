@@ -43,15 +43,21 @@ namespace SpeckleUnity
 			formatter = new BinaryFormatter ();
 
 			LoadClients ();
-			SpeckleUnitySender[] Clients = FindObjectsOfType<SpeckleUnitySender> ();
-			foreach (var c in Clients)
+			SpeckleUnitySender[] SenderClients = FindObjectsOfType<SpeckleUnitySender> ();
+			foreach (var c in SenderClients)
 			{
 				if (ClientSaveDictionary.ContainsKey (c.keyForSaving) && c.persistent)
 					c.CompleteDeserialization (ClientSaveDictionary[c.keyForSaving]);
 				else
 					c.InitializeClient (ServerURL);
 			}
-		}
+
+            SpeckleUnityReceiver[] ReceiverClients = FindObjectsOfType<SpeckleUnityReceiver> ();
+            foreach (var c in ReceiverClients)
+            {
+                c.InitializeClient (ServerURL);
+            }
+        }
 
 		/// <summary>
 		/// 
