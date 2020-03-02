@@ -24,6 +24,7 @@ namespace SpeckleUnity
 			// switch y and z
 			return new Vector3 ((float)x, (float)z, (float)y);
 		}
+
 		public static Vector3 ToPoint (double[] ptValues)
 		{
 			double x = ptValues[0];
@@ -69,7 +70,7 @@ namespace SpeckleUnity
 		//TODO - write speckle Kit with new SpeckleTransform
 		public static SpecklePoint ToSpeckle (this SpeckleUnityTransform obj)
 		{
-			Vector3 p = obj.go.transform.position;
+			Vector3 p = obj.gameObject.transform.position;
 
 			//switch y and z
 			var result = new SpecklePoint (p.x, p.z, p.y);

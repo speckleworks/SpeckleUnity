@@ -33,17 +33,17 @@ namespace SpeckleUnity
 	public class SpeckleUnityGeometry : SpeckleUnityObject
 	{
 		//Display object
-		public GameObject go;
+		public GameObject gameObject;
 
 		public SpeckleUnityGeometry ()
 		{
-			go = new GameObject ();
+			gameObject = new GameObject ();
 
 		}
 
 		public SpeckleUnityGeometry (GameObject go)
 		{
-			this.go = go;
+			this.gameObject = go;
 		}
 	}
 
@@ -63,12 +63,12 @@ namespace SpeckleUnity
 	/// </summary>
 	public class SpeckleUnityMesh : SpeckleUnityGeometry
 	{
-		//Constructor
+		public MeshRenderer meshRenderer;
+		
 		public SpeckleUnityMesh (Vector3[] verts, int[] tris) : base ()
 		{
-			MeshRenderer mr = go.AddComponent<MeshRenderer> ();
-			mr.material = new Material (Shader.Find ("Diffuse"));
-			Mesh mesh = go.AddComponent<MeshFilter> ().mesh;
+			meshRenderer = gameObject.AddComponent<MeshRenderer> ();
+			Mesh mesh = gameObject.AddComponent<MeshFilter> ().mesh;
 
 			mesh.vertices = verts;
 			mesh.triangles = tris;
@@ -76,7 +76,7 @@ namespace SpeckleUnity
 			mesh.RecalculateTangents ();
 
 			//Add mesh collider
-			MeshCollider mc = go.AddComponent<MeshCollider> ();
+			MeshCollider mc = gameObject.AddComponent<MeshCollider> ();
 			mc.sharedMesh = mesh;
 		}
 	}
@@ -90,7 +90,7 @@ namespace SpeckleUnity
 		public SpeckleUnityPolyline (Vector3[] points) : base ()
 		{
 			//create line renderer       
-			LineRenderer lr = go.AddComponent<LineRenderer> ();
+			LineRenderer lr = gameObject.AddComponent<LineRenderer> ();
 			lr.positionCount = points.Length;
 			lr.SetPositions (points);
 			lr.numCapVertices = 1;
@@ -113,7 +113,7 @@ namespace SpeckleUnity
 			this.point = point;
 
 			//create line renderer       
-			LineRenderer lr = go.AddComponent<LineRenderer> ();
+			LineRenderer lr = gameObject.AddComponent<LineRenderer> ();
 			lr.SetPositions (new Vector3[2] { point, point });
 			lr.numCapVertices = 1;
 			lr.startWidth = 0.01f;
