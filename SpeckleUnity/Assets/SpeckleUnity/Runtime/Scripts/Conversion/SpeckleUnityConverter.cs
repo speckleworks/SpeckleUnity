@@ -10,21 +10,41 @@ using SpeckleCoreGeometryClasses;
 
 namespace SpeckleUnity
 {
+	/// <summary>
+	/// 
+	/// </summary>
 	public class Initialiser : ISpeckleInitializer
 	{
+		/// <summary>
+		/// 
+		/// </summary>
 		public Initialiser () { }
 	}
 
-
+	/// <summary>
+	/// 
+	/// </summary>
 	public static partial class Conversions
 	{
 		#region convenience methods
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="x"></param>
+		/// <param name="y"></param>
+		/// <param name="z"></param>
+		/// <returns></returns>
 		public static Vector3 ToPoint (double x, double y, double z)
 		{
 			// switch y and z
 			return new Vector3 ((float)x, (float)z, (float)y);
 		}
 
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="ptValues"></param>
+		/// <returns></returns>
 		public static Vector3 ToPoint (double[] ptValues)
 		{
 			double x = ptValues[0];
@@ -34,6 +54,11 @@ namespace SpeckleUnity
 			return new Vector3 ((float)x, (float)z, (float)y);
 		}
 
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="arr"></param>
+		/// <returns></returns>
 		public static Vector3[] ToPoints (this IEnumerable<double> arr)
 		{
 			if (arr.Count () % 3 != 0) throw new Exception ("Array malformed: length%3 != 0.");
@@ -47,18 +72,33 @@ namespace SpeckleUnity
 		}
 		#endregion
 
-
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="obj"></param>
+		/// <returns></returns>
 		public static SpeckleNumber ToSpeckle (this SpeckleUnityNumber obj)
 		{
 			var result = new SpeckleNumber (obj.value);
 			return result;
 		}
+
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="number"></param>
+		/// <returns></returns>
 		public static SpeckleUnityNumber ToNative (this SpeckleNumber number)
 		{
 			var result = new SpeckleUnityNumber ((float)number.Value);
 			return result;
 		}
 
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="str"></param>
+		/// <returns></returns>
 		public static string ToNative (this SpeckleString str)
 		{
 			var result = str.Value;
@@ -66,6 +106,11 @@ namespace SpeckleUnity
 		}
 
 
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="obj"></param>
+		/// <returns></returns>
 		//Currently just sending the position of a transform
 		//TODO - write speckle Kit with new SpeckleTransform
 		public static SpecklePoint ToSpeckle (this SpeckleUnityTransform obj)
@@ -79,7 +124,11 @@ namespace SpeckleUnity
 
 
 
-
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="obj"></param>
+		/// <returns></returns>
 		public static SpecklePoint ToSpeckle (this SpeckleUnityPoint obj)
 		{
 			Vector3 p = obj.point;
@@ -88,6 +137,12 @@ namespace SpeckleUnity
 			var result = new SpecklePoint (p.x, p.z, p.y);
 			return result;
 		}
+
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="point"></param>
+		/// <returns></returns>
 		public static SpeckleUnityPoint ToNative (this SpecklePoint point)
 		{
 			Vector3 newPt = ToPoint (point.Value.ToArray ());
@@ -95,17 +150,33 @@ namespace SpeckleUnity
 			return result;
 		}
 
-
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="line"></param>
+		/// <returns></returns>
 		public static SpeckleUnityPolyline ToNative (this SpeckleLine line)
 		{
 			var result = new SpeckleUnityPolyline (line.Value.ToPoints ());
 			return result;
 		}
+
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="polyline"></param>
+		/// <returns></returns>
 		public static SpeckleUnityPolyline ToNative (this SpecklePolyline polyline)
 		{
 			var result = new SpeckleUnityPolyline (polyline.Value.ToPoints ());
 			return result;
 		}
+
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="curve"></param>
+		/// <returns></returns>
 		public static SpeckleUnityPolyline ToNative (this SpeckleCurve curve)
 		{
 			var result = new SpeckleUnityPolyline (curve.DisplayValue.Value.ToPoints ());
@@ -113,7 +184,11 @@ namespace SpeckleUnity
 		}
 
 
-
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="speckleMesh"></param>
+		/// <returns></returns>
 		public static SpeckleUnityMesh ToNative (this SpeckleMesh speckleMesh)
 		{
 			//convert speckleMesh.Faces into triangle array           
@@ -147,6 +222,11 @@ namespace SpeckleUnity
 			return result;
 		}
 
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="brep"></param>
+		/// <returns></returns>
 		public static SpeckleUnityMesh ToNative (this SpeckleBrep brep)
 		{
 			var speckleMesh = brep.DisplayValue;

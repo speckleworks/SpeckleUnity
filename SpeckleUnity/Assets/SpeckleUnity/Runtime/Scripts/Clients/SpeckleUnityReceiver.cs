@@ -5,29 +5,13 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.Events;
 using SpeckleCore;
+using System.Threading.Tasks;
 
 namespace SpeckleUnity
 {
-	/// <summary>
-	/// 
-	/// </summary>
+	[Serializable]
 	public class SpeckleUnityReceiver : SpeckleUnityClient
 	{
-		/// <summary>
-		/// 
-		/// </summary>
-		//public List<SpeckleObject> speckleObjects;
-
-		/// <summary>
-		/// 
-		/// </summary>
-		public List<object> convertedObjects = new List<object> ();
-
-		/// <summary>
-		/// 
-		/// </summary>
-		protected Dictionary<string, SpeckleObject> objectCache = new Dictionary<string, SpeckleObject> ();
-
 		/// <summary>
 		/// 
 		/// </summary>
@@ -39,44 +23,39 @@ namespace SpeckleUnity
 		protected string messageContent;
 
 		/// <summary>
-		/// Provides event to access outside unity speckle
+		/// 
 		/// </summary>
-		public UnityEvent onUpdateReceived;
+		public Transform streamRoot;
 
 		/// <summary>
 		/// 
 		/// </summary>
-		protected virtual void Update ()
-		{
-			//Update global was not working when triggered from the socket events, due to threading conflicts?
-			//Current solution is to set a value with the socket event, and then check every frame to see if an action needs to be taken
-			OnWsMessageCheck ();
-		}
-
-		/// <summary>
-		/// Initialize Unity Receiver
-		/// </summary>
-		/// <param name="URL"></param>
-		public override void InitializeClient (string URL)
-		{
-			StartCoroutine (IntializeReceiverAsync (streamID, URL));
-		}
+		protected List<object> convertedObjects = new List<object> ();
 
 		/// <summary>
 		/// 
 		/// </summary>
-		/// <param name="inStreamID"></param>
-		/// <param name="URL"></param>
+		/// <param name="controller"></param>
+		/// <param name="url"></param>
+		/// <param name="authToken"></param>
 		/// <returns></returns>
-		protected virtual IEnumerator IntializeReceiverAsync (string inStreamID, string URL)
+		public override IEnumerator InitializeClient (SpeckleUnityManager controller, string url, string authToken)
 		{
-			client = new SpeckleApiClient (URL, true);
-			client.BaseUrl = URL;
+			if (streamRoot == null)
+			{
+				streamRoot = new GameObject ().transform;
+				streamRoot.name = "Default Stream Root: " + streamID;
+			}
 
-			AssignEvents ();
+			this.controller = controller;
+
+			client = new SpeckleApiClient (url, true);
+			client.BaseUrl = url;
+
+			RegisterClient ();
 
 			//Initialize receiver
-			client.IntializeReceiver (streamID, "UnityTest", "Unity", Guid.NewGuid ().ToString (), authToken);
+			client.IntializeReceiver (streamID, "SpeckleUnity", "Unity", Guid.NewGuid ().ToString (), authToken);
 
 			//wait for receiver to be connected
 			while (!client.IsConnected) yield return null;
@@ -84,18 +63,7 @@ namespace SpeckleUnity
 			//speckleObjects = new List<SpeckleObject> ();
 
 			//after connected, call update global to get geometry
-			UpdateGlobal ();
-
-		}
-
-		/// <summary>
-		/// 
-		/// </summary>
-		/// <param name="client"></param>
-		public override void CompleteDeserialization (SpeckleApiClient client)
-		{
-			base.client = client;
-			streamID = base.client.StreamId;
+			yield return controller.StartCoroutine (UpdateGlobal ());
 		}
 
 		/// <summary>
@@ -103,22 +71,24 @@ namespace SpeckleUnity
 		/// </summary>
 		/// <param name="source"></param>
 		/// <param name="e"></param>
-		public override void ClientOnWsMessage (object source, SpeckleEventArgs e)
+		protected override void ClientOnWsMessage (object source, SpeckleEventArgs e)
 		{
-			var wSMessageData = JsonUtility.FromJson<WSMessageData> (e.EventData);
-
 			if (e == null) return;
 			if (e.EventObject == null) return;
+
+			WSMessageData wSMessageData = JsonUtility.FromJson<WSMessageData> (e.EventData);
 
 			//Events aren't firing coroutines directly, so using boolean value to trigger firing in update
 			messageReceived = true;
 			messageContent = wSMessageData.args.eventType;
+
+			OnWsMessageCheck ();
 		}
 
 		/// <summary>
 		/// 
 		/// </summary>
-		protected virtual void OnWsMessageCheck ()
+		public virtual void OnWsMessageCheck ()
 		{
 			//Events aren't firing coroutines directly, so putting this here in update
 			if (messageReceived)
@@ -127,7 +97,7 @@ namespace SpeckleUnity
 				switch (messageContent)
 				{
 					case "update-global":
-						UpdateGlobal ();
+						controller.StartCoroutine (UpdateGlobal ());
 						break;
 					case "update-meta":
 						//UpdateMeta();
@@ -149,22 +119,14 @@ namespace SpeckleUnity
 		}
 
 		/// <summary>
-		/// Update incoming objects
-		/// </summary>
-		public virtual void UpdateGlobal ()
-		{
-			StartCoroutine (UpdateGlobalAsync ());
-		}
-
-		/// <summary>
 		/// 
 		/// </summary>
 		/// <returns></returns>
-		protected virtual IEnumerator UpdateGlobalAsync ()
+		protected virtual IEnumerator UpdateGlobal ()
 		{
 			//TODO - use LocalContext for caching, etc
 
-			var streamGet = client.StreamGetAsync (streamID, null);
+			Task<ResponseStream> streamGet = client.StreamGetAsync (streamID, null);
 			while (!streamGet.IsCompleted) yield return null;
 
 			if (streamGet.Result == null)
@@ -176,41 +138,41 @@ namespace SpeckleUnity
 				client.Stream = streamGet.Result.Resource;
 
 				Debug.Log ("Getting objects....");
-				var payload = client.Stream.Objects.Where (o => o.Type == "Placeholder").Select (obj => obj._id).ToArray ();
+				string[] payload = client.Stream.Objects.Where (o => o.Type == "Placeholder").Select (obj => obj._id).ToArray ();
 
 				// how many objects to request from the api at a time
 				int maxObjRequestCount = 20;
 
 				// list to hold them into
-				var newObjects = new List<SpeckleObject> ();
+				List<SpeckleObject> newObjects = new List<SpeckleObject> ();
 
 				// jump in `maxObjRequestCount` increments through the payload array
 				for (int i = 0; i < payload.Length; i += maxObjRequestCount)
 				{
 					// create a subset
-					var subPayload = payload.Skip (i).Take (maxObjRequestCount).ToArray ();
+					string[] subPayload = payload.Skip (i).Take (maxObjRequestCount).ToArray ();
 
 					// get it sync as this is always execed out of the main thread
 					//var getTask = Client.ObjectGetBulkAsync(subPayload, "omit=displayValue");
-					var getTask = client.ObjectGetBulkAsync (subPayload, "");
+					Task<ResponseObject> getTask = client.ObjectGetBulkAsync (subPayload, "");
 					while (!getTask.IsCompleted) yield return null;
 
-					var res = getTask.Result;
+					ResponseObject response = getTask.Result;
 
 					// put them in our bucket
-					newObjects.AddRange (res.Resources);
+					newObjects.AddRange (response.Resources);
 				}
 
 				// populate the retrieved objects in the original stream's object list
-				foreach (var obj in newObjects)
+				foreach (SpeckleObject objects in newObjects)
 				{
-					var locationInStream = client.Stream.Objects.FindIndex (o => o._id == obj._id);
-					try { client.Stream.Objects[locationInStream] = obj; } catch { }
+					int indexInStream = client.Stream.Objects.FindIndex (o => o._id == objects._id);
+					try { client.Stream.Objects[indexInStream] = objects; } catch { }
 				}
 
 				Debug.Log ("Found " + newObjects.Count + " objects");
 				DisplayContents ();
-				onUpdateReceived.Invoke ();
+				controller.onUpdateReceived.Invoke (new SpeckleUnityUpdate (streamID, streamRoot, UpdateType.Global));
 			}
 		}
 
@@ -223,33 +185,32 @@ namespace SpeckleUnity
 			//TODO - update existing objects instead of destroying/recreating all of them
 
 			//Clear existing objects
-			foreach (var co in convertedObjects)
+			foreach (object convertedObject in convertedObjects)
 			{
-				var obj = co as SpeckleUnityGeometry;
-				if (obj != null)
+				if (convertedObject is SpeckleUnityGeometry geometry)
 				{
 					//TODO - write destroy method in class?
-					GameObject tempObj = obj.gameObject;
-					Destroy (tempObj);
+					GameObject.Destroy (geometry.gameObject);
 				}
 			}
 			convertedObjects.Clear ();
 
 
-			//Convert speckle objects to native
-			var localCopy = client.Stream.Objects.ToList ();
-			foreach (SpeckleObject myObject in localCopy)
+			foreach (SpeckleObject streamObject in client.Stream.Objects)
 			{
-				var gb = Converter.Deserialise (myObject);
-				convertedObjects.Add (gb);
+				object convertedObject = Converter.Deserialise (streamObject);
+				convertedObjects.Add (convertedObject);
 
-				SpeckleUnityGeometry geo = gb as SpeckleUnityGeometry;
-				if (geo != null)
+				if (convertedObject is SpeckleUnityGeometry geometry)
 				{
-					geo.gameObject.transform.parent = this.transform;
+					geometry.gameObject.transform.parent = streamRoot;
+				}
+
+				if (convertedObject is SpeckleUnityMesh mesh)
+				{
+					mesh.meshRenderer.material = controller.meshMaterial;
 				}
 			}
 		}
 	}
 }
-

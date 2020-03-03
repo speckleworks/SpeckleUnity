@@ -10,6 +10,10 @@ using UnityEngine;
 
 namespace SpeckleUnity
 {
+	/// <summary>
+	/// 
+	/// </summary>
+	/// <param name="source"></param>
 	public delegate void SpeckleUnityValueChange (object source);
 
 
