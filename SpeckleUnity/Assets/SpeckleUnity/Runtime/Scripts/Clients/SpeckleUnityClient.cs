@@ -58,7 +58,7 @@ namespace SpeckleUnity
 		/// <param name="e"></param>
 		protected virtual void ClientOnReady (object source, SpeckleEventArgs e)
 		{
-			Debug.Log ("Client ready");
+
 		}
 
 		/// <summary>
@@ -68,7 +68,7 @@ namespace SpeckleUnity
 		/// <param name="e"></param>
 		protected virtual void ClientOnLogData (object source, SpeckleEventArgs e)
 		{
-			Debug.Log ("Client LogData");
+
 		}
 
 		/// <summary>
@@ -78,7 +78,7 @@ namespace SpeckleUnity
 		/// <param name="e"></param>
 		protected virtual void ClientOnWsMessage (object source, SpeckleEventArgs e)
 		{
-			Debug.Log ("Client WsMessage");
+
 		}
 
 		/// <summary>

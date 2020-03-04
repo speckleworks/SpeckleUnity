@@ -82,7 +82,7 @@ namespace SpeckleUnity
 			messageReceived = true;
 			messageContent = wSMessageData.args.eventType;
 
-			OnWsMessageCheck ();
+			//OnWsMessageCheck ();
 		}
 
 		/// <summary>
@@ -94,6 +94,8 @@ namespace SpeckleUnity
 			if (messageReceived)
 			{
 				messageReceived = false;
+				Debug.Log (streamID + ": " + messageContent);
+
 				switch (messageContent)
 				{
 					case "update-global":
@@ -111,8 +113,7 @@ namespace SpeckleUnity
 						//UpdateChildren();
 						break;
 					default:
-						Debug.Log ("Client WsMessage");
-						Debug.Log (messageContent);
+						
 						break;
 				}
 			}
@@ -137,7 +138,6 @@ namespace SpeckleUnity
 			{
 				client.Stream = streamGet.Result.Resource;
 
-				Debug.Log ("Getting objects....");
 				string[] payload = client.Stream.Objects.Where (o => o.Type == "Placeholder").Select (obj => obj._id).ToArray ();
 
 				// how many objects to request from the api at a time
@@ -170,7 +170,6 @@ namespace SpeckleUnity
 					try { client.Stream.Objects[indexInStream] = objects; } catch { }
 				}
 
-				Debug.Log ("Found " + newObjects.Count + " objects");
 				DisplayContents ();
 				controller.onUpdateReceived.Invoke (new SpeckleUnityUpdate (streamID, streamRoot, UpdateType.Global));
 			}
@@ -209,6 +208,11 @@ namespace SpeckleUnity
 				if (convertedObject is SpeckleUnityMesh mesh)
 				{
 					mesh.meshRenderer.material = controller.meshMaterial;
+				}
+
+				if (convertedObject is SpeckleUnityPolyline line)
+				{
+					line.lineRenderer.material = controller.meshMaterial;
 				}
 			}
 		}

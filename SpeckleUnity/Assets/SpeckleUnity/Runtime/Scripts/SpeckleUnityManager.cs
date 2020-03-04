@@ -37,6 +37,11 @@ namespace SpeckleUnity
 		/// <summary>
 		/// 
 		/// </summary>
+		public Material lineMaterial;
+
+		/// <summary>
+		/// 
+		/// </summary>
 		public SpeckleUnityUpdateEvent onUpdateReceived;
 
 		/// <summary>
@@ -67,12 +72,12 @@ namespace SpeckleUnity
 		}
 
 		// Update is called once per frame
-		/*protected virtual void Update ()
+		protected virtual void Update ()
 		{
 			for (int i = 0; i < receivers.Length; i++)
 			{
 				receivers[i].OnWsMessageCheck ();
 			}
-		}*/
+		}
 	}
 }

@@ -91,15 +91,17 @@ namespace SpeckleUnity
 	/// </summary>
 	public class SpeckleUnityPolyline : SpeckleUnityGeometry
 	{
+		public LineRenderer lineRenderer;
+
 		public SpeckleUnityPolyline (Vector3[] points) : base ()
 		{
 			//create line renderer       
-			LineRenderer lr = gameObject.AddComponent<LineRenderer> ();
-			lr.positionCount = points.Length;
-			lr.SetPositions (points);
-			lr.numCapVertices = 1;
-			lr.startWidth = 0.01f;
-			lr.endWidth = 0.01f;
+			lineRenderer = gameObject.AddComponent<LineRenderer> ();
+			lineRenderer.positionCount = points.Length;
+			lineRenderer.SetPositions (points);
+			lineRenderer.numCapVertices = 1;
+			lineRenderer.startWidth = 0.01f;
+			lineRenderer.endWidth = 0.01f;
 		}
 	}
 

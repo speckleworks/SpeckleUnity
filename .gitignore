@@ -17,3 +17,4 @@ SpeckleUnity/*
 !SpeckleUnity/Assets/
 !SpeckleUnity/ProjectSettings/
 !SpeckleUnity/Packages/
+*.unity
