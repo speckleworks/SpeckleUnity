@@ -219,7 +219,14 @@ namespace SpeckleUnity
 				}
 			}
 
-			SpeckleUnityMesh result = new SpeckleUnityMesh (speckleMesh.Type, speckleMesh.Vertices.ToPoints (), tris.ToArray ());
+			string layerName = "Default Generated Speckle Layer";
+
+			if (speckleMesh.Properties.TryGetValue ("layer_name", out object layerNameObject))
+			{
+				layerName = layerNameObject.ToString ();
+			}
+
+			SpeckleUnityMesh result = new SpeckleUnityMesh (speckleMesh.Type, layerName, speckleMesh.Vertices.ToPoints (), tris.ToArray ());
 
 			return result;
 		}

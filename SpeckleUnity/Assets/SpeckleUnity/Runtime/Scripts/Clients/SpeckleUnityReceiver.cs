@@ -208,10 +208,12 @@ namespace SpeckleUnity
 		{
 			for (int i = 0; i < client.Stream.Objects.Count; i++)
 			{
+				
+
 				object convertedObject = Converter.Deserialise (client.Stream.Objects[i]);
 				convertedObjects.Add (convertedObject);
 
-				AssignObjectMaterial (convertedObject);
+				PostProcessObject (convertedObject);
 
 				if (i % (int)controller.streamSpeed == 0) yield return null;
 			}
@@ -221,11 +223,29 @@ namespace SpeckleUnity
 		/// 
 		/// </summary>
 		/// <param name="convertedObject"></param>
-		public virtual void AssignObjectMaterial (object convertedObject)
+		public virtual void PostProcessObject (object convertedObject)
 		{
 			if (convertedObject is SpeckleUnityGeometry geometry)
 			{
-				geometry.gameObject.transform.parent = streamRoot;
+				bool foundLayer = false;
+
+				for (int i = 0; i < streamRoot.childCount; i++)
+				{
+					if (streamRoot.GetChild (i).name == geometry.layerName)
+					{
+						geometry.gameObject.transform.parent = streamRoot.GetChild (i);
+						foundLayer = true;
+					}
+				}
+
+				if (!foundLayer)
+				{
+					Transform newLayer = new GameObject ().transform;
+					newLayer.name = geometry.layerName;
+
+					newLayer.parent = streamRoot;
+					geometry.gameObject.transform.parent = newLayer;
+				}
 			}
 
 			if (convertedObject is SpeckleUnityMesh mesh)

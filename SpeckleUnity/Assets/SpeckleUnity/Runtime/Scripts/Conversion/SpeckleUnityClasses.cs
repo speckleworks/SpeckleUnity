@@ -38,6 +38,7 @@ namespace SpeckleUnity
 	{
 		//Display object
 		public GameObject gameObject;
+		public string layerName;
 
 		public SpeckleUnityGeometry ()
 		{
@@ -69,9 +70,10 @@ namespace SpeckleUnity
 	{
 		public MeshRenderer meshRenderer;
 		
-		public SpeckleUnityMesh (string type, Vector3[] verts, int[] tris) : base ()
+		public SpeckleUnityMesh (string type, string streamLayerName, Vector3[] verts, int[] tris) : base ()
 		{
 			gameObject.name = type;
+			layerName = streamLayerName;
 
 			meshRenderer = gameObject.AddComponent<MeshRenderer> ();
 			Mesh mesh = gameObject.AddComponent<MeshFilter> ().mesh;
