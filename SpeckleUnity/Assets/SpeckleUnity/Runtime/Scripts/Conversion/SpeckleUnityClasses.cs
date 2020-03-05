@@ -71,6 +71,8 @@ namespace SpeckleUnity
 		
 		public SpeckleUnityMesh (Vector3[] verts, int[] tris) : base ()
 		{
+			gameObject.name = "Mesh";
+
 			meshRenderer = gameObject.AddComponent<MeshRenderer> ();
 			Mesh mesh = gameObject.AddComponent<MeshFilter> ().mesh;
 
@@ -95,13 +97,15 @@ namespace SpeckleUnity
 
 		public SpeckleUnityPolyline (Vector3[] points) : base ()
 		{
+			gameObject.name = "Polyline";
+
 			//create line renderer       
 			lineRenderer = gameObject.AddComponent<LineRenderer> ();
 			lineRenderer.positionCount = points.Length;
 			lineRenderer.SetPositions (points);
 			lineRenderer.numCapVertices = 1;
-			lineRenderer.startWidth = 0.01f;
-			lineRenderer.endWidth = 0.01f;
+			lineRenderer.startWidth = 1;
+			lineRenderer.endWidth = 1;
 		}
 	}
 
@@ -113,17 +117,20 @@ namespace SpeckleUnity
 	public class SpeckleUnityPoint : SpeckleUnityGeometry
 	{
 		public Vector3 point;
+		public LineRenderer lineRenderer;
 
 		public SpeckleUnityPoint (Vector3 point) : base ()
 		{
+			gameObject.name = "Point";
+
 			this.point = point;
 
 			//create line renderer       
-			LineRenderer lr = gameObject.AddComponent<LineRenderer> ();
-			lr.SetPositions (new Vector3[2] { point, point });
-			lr.numCapVertices = 1;
-			lr.startWidth = 0.01f;
-			lr.endWidth = 0.01f;
+			lineRenderer = gameObject.AddComponent<LineRenderer> ();
+			lineRenderer.SetPositions (new Vector3[2] { point, point });
+			lineRenderer.numCapVertices = 1;
+			lineRenderer.startWidth = 1;
+			lineRenderer.endWidth = 1;
 		}
 
 	}

@@ -35,6 +35,17 @@ namespace SpeckleUnity
 		/// <summary>
 		/// 
 		/// </summary>
+		/// <param name="streamID"></param>
+		/// <param name="streamRoot"></param>
+		public SpeckleUnityReceiver (string streamID, Transform streamRoot = null)
+		{
+			this.streamID = streamID;
+			this.streamRoot = streamRoot;
+		}
+
+		/// <summary>
+		/// 
+		/// </summary>
 		/// <param name="controller"></param>
 		/// <param name="url"></param>
 		/// <param name="authToken"></param>
@@ -60,7 +71,7 @@ namespace SpeckleUnity
 			//wait for receiver to be connected
 			while (!client.IsConnected) yield return null;
 
-			//speckleObjects = new List<SpeckleObject> ();
+			convertedObjects = new List<object> ();
 
 			//after connected, call update global to get geometry
 			yield return controller.StartCoroutine (UpdateGlobal ());
@@ -113,7 +124,6 @@ namespace SpeckleUnity
 						//UpdateChildren();
 						break;
 					default:
-						
 						break;
 				}
 			}
@@ -132,7 +142,7 @@ namespace SpeckleUnity
 
 			if (streamGet.Result == null)
 			{
-				Debug.Log ("error");
+				Debug.LogError ("Stream '" + streamID + "' Result was null");
 			}
 			else
 			{
@@ -183,6 +193,57 @@ namespace SpeckleUnity
 		{
 			//TODO - update existing objects instead of destroying/recreating all of them
 
+			RemoveContents ();
+
+			CreateContents ();
+		}
+
+		/// <summary>
+		/// 
+		/// </summary>
+		public virtual void CreateContents ()
+		{
+			foreach (SpeckleObject streamObject in client.Stream.Objects)
+			{
+				object convertedObject = Converter.Deserialise (streamObject);
+				convertedObjects.Add (convertedObject);
+
+				AssignObjectMaterial (convertedObject);
+			}
+		}
+
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="convertedObject"></param>
+		public virtual void AssignObjectMaterial (object convertedObject)
+		{
+			if (convertedObject is SpeckleUnityGeometry geometry)
+			{
+				geometry.gameObject.transform.parent = streamRoot;
+			}
+
+			if (convertedObject is SpeckleUnityMesh mesh)
+			{
+				mesh.meshRenderer.material = controller.meshMaterial;
+			}
+
+			if (convertedObject is SpeckleUnityPolyline line)
+			{
+				line.lineRenderer.material = controller.polylineMaterial;
+			}
+
+			if (convertedObject is SpeckleUnityPoint point)
+			{
+				point.lineRenderer.material = controller.pointMaterial;
+			}
+		}
+
+		/// <summary>
+		/// 
+		/// </summary>
+		public virtual void RemoveContents ()
+		{
 			//Clear existing objects
 			foreach (object convertedObject in convertedObjects)
 			{
@@ -193,28 +254,6 @@ namespace SpeckleUnity
 				}
 			}
 			convertedObjects.Clear ();
-
-
-			foreach (SpeckleObject streamObject in client.Stream.Objects)
-			{
-				object convertedObject = Converter.Deserialise (streamObject);
-				convertedObjects.Add (convertedObject);
-
-				if (convertedObject is SpeckleUnityGeometry geometry)
-				{
-					geometry.gameObject.transform.parent = streamRoot;
-				}
-
-				if (convertedObject is SpeckleUnityMesh mesh)
-				{
-					mesh.meshRenderer.material = controller.meshMaterial;
-				}
-
-				if (convertedObject is SpeckleUnityPolyline line)
-				{
-					line.lineRenderer.material = controller.meshMaterial;
-				}
-			}
 		}
 	}
 }

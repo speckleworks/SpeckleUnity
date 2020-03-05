@@ -37,7 +37,12 @@ namespace SpeckleUnity
 		/// <summary>
 		/// 
 		/// </summary>
-		public Material lineMaterial;
+		public Material polylineMaterial;
+
+		/// <summary>
+		/// 
+		/// </summary>
+		public Material pointMaterial;
 
 		/// <summary>
 		/// 
@@ -47,7 +52,7 @@ namespace SpeckleUnity
 		/// <summary>
 		/// 
 		/// </summary>
-		public SpeckleUnityReceiver[] receivers = Array.Empty<SpeckleUnityReceiver> ();
+		[SerializeField] protected List<SpeckleUnityReceiver> receivers = new List<SpeckleUnityReceiver> ();
 
 		/// <summary>
 		/// 
@@ -65,19 +70,88 @@ namespace SpeckleUnity
 			SpeckleInitializer.Initialize ();
 			LocalContext.Init ();
 
-			for (int i = 0; i < receivers.Length; i++)
+			for (int i = 0; i < receivers.Count; i++)
 			{
 				StartCoroutine (receivers[i].InitializeClient (this, serverUrl, authToken));
 			}
 		}
 
-		// Update is called once per frame
+		/// <summary>
+		/// 
+		/// </summary>
 		protected virtual void Update ()
 		{
-			for (int i = 0; i < receivers.Length; i++)
+			for (int i = 0; i < receivers.Count; i++)
 			{
 				receivers[i].OnWsMessageCheck ();
 			}
+		}
+
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="streamID"></param>
+		/// <param name="streamRoot"></param>
+		/// <param name="initialiseOnCreation"></param>
+		public virtual void AddReceiver (string streamID, Transform streamRoot = null, bool initialiseOnCreation = false)
+		{
+			SpeckleUnityReceiver newReceiver = new SpeckleUnityReceiver (streamID, streamRoot);
+			receivers.Add (newReceiver);
+
+			if (initialiseOnCreation)
+				StartCoroutine (newReceiver.InitializeClient (this, serverUrl, authToken));
+		}
+
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="streamID"></param>
+		public virtual void RemoveReceiver (string streamID)
+		{
+			for (int i = 0; i < receivers.Count; i++)
+			{
+				if (receivers[i].streamID == streamID)
+				{
+					RemoveReceiver (i);
+					return;
+				}
+			}
+
+			RemoveReceiver (-1);
+		}
+
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="streamRoot"></param>
+		public virtual void RemoveReceiver (Transform streamRoot)
+		{
+			for (int i = 0; i < receivers.Count; i++)
+			{
+				if (receivers[i].streamRoot == streamRoot)
+				{
+					RemoveReceiver (i);
+					return;
+				}
+			}
+
+			RemoveReceiver (-1);
+		}
+
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="receiverIndex"></param>
+		public virtual void RemoveReceiver (int receiverIndex)
+		{
+			if (receiverIndex < 0 || receiverIndex >= receivers.Count)
+				throw new Exception ("Receiver could not be removed because it does not exist");
+
+			SpeckleUnityReceiver receiver = receivers[receiverIndex];
+			receivers.RemoveAt (receiverIndex);
+
+			receiver.RemoveContents ();
+			receiver.client.Dispose (true);
 		}
 	}
 }
