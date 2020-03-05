@@ -146,7 +146,7 @@ namespace SpeckleUnity
 		public static SpeckleUnityPoint ToNative (this SpecklePoint point)
 		{
 			Vector3 newPt = ToPoint (point.Value.ToArray ());
-			SpeckleUnityPoint result = new SpeckleUnityPoint (newPt);
+			SpeckleUnityPoint result = new SpeckleUnityPoint (point.Type, newPt);
 			return result;
 		}
 
@@ -157,7 +157,7 @@ namespace SpeckleUnity
 		/// <returns></returns>
 		public static SpeckleUnityPolyline ToNative (this SpeckleLine line)
 		{
-			var result = new SpeckleUnityPolyline (line.Value.ToPoints ());
+			var result = new SpeckleUnityPolyline (line.Type, line.Value.ToPoints ());
 			return result;
 		}
 
@@ -168,7 +168,7 @@ namespace SpeckleUnity
 		/// <returns></returns>
 		public static SpeckleUnityPolyline ToNative (this SpecklePolyline polyline)
 		{
-			var result = new SpeckleUnityPolyline (polyline.Value.ToPoints ());
+			var result = new SpeckleUnityPolyline (polyline.Type, polyline.Value.ToPoints ());
 			return result;
 		}
 
@@ -179,7 +179,7 @@ namespace SpeckleUnity
 		/// <returns></returns>
 		public static SpeckleUnityPolyline ToNative (this SpeckleCurve curve)
 		{
-			var result = new SpeckleUnityPolyline (curve.DisplayValue.Value.ToPoints ());
+			var result = new SpeckleUnityPolyline (curve.Type, curve.DisplayValue.Value.ToPoints ());
 			return result;
 		}
 
@@ -218,7 +218,9 @@ namespace SpeckleUnity
 					i += 5;
 				}
 			}
-			SpeckleUnityMesh result = new SpeckleUnityMesh (speckleMesh.Vertices.ToPoints (), tris.ToArray ());
+
+			SpeckleUnityMesh result = new SpeckleUnityMesh (speckleMesh.Type, speckleMesh.Vertices.ToPoints (), tris.ToArray ());
+
 			return result;
 		}
 

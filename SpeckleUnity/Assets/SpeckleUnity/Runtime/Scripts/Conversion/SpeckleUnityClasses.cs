@@ -69,9 +69,9 @@ namespace SpeckleUnity
 	{
 		public MeshRenderer meshRenderer;
 		
-		public SpeckleUnityMesh (Vector3[] verts, int[] tris) : base ()
+		public SpeckleUnityMesh (string type, Vector3[] verts, int[] tris) : base ()
 		{
-			gameObject.name = "Mesh";
+			gameObject.name = type;
 
 			meshRenderer = gameObject.AddComponent<MeshRenderer> ();
 			Mesh mesh = gameObject.AddComponent<MeshFilter> ().mesh;
@@ -95,9 +95,9 @@ namespace SpeckleUnity
 	{
 		public LineRenderer lineRenderer;
 
-		public SpeckleUnityPolyline (Vector3[] points) : base ()
+		public SpeckleUnityPolyline (string type, Vector3[] points) : base ()
 		{
-			gameObject.name = "Polyline";
+			gameObject.name = type;
 
 			//create line renderer       
 			lineRenderer = gameObject.AddComponent<LineRenderer> ();
@@ -119,9 +119,9 @@ namespace SpeckleUnity
 		public Vector3 point;
 		public LineRenderer lineRenderer;
 
-		public SpeckleUnityPoint (Vector3 point) : base ()
+		public SpeckleUnityPoint (string type, Vector3 point) : base ()
 		{
-			gameObject.name = "Point";
+			gameObject.name = type;
 
 			this.point = point;
 

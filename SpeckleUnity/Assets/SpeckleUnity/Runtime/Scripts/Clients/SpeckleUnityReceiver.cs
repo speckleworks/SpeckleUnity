@@ -68,6 +68,8 @@ namespace SpeckleUnity
 			//Initialize receiver
 			client.IntializeReceiver (streamID, "SpeckleUnity", "Unity", Guid.NewGuid ().ToString (), authToken);
 
+			Debug.Log ("Initializing stream: " + streamID);
+
 			//wait for receiver to be connected
 			while (!client.IsConnected) yield return null;
 
@@ -180,7 +182,8 @@ namespace SpeckleUnity
 					try { client.Stream.Objects[indexInStream] = objects; } catch { }
 				}
 
-				DisplayContents ();
+				yield return controller.StartCoroutine (DisplayContents ());
+
 				controller.onUpdateReceived.Invoke (new SpeckleUnityUpdate (streamID, streamRoot, UpdateType.Global));
 			}
 		}
@@ -189,26 +192,28 @@ namespace SpeckleUnity
 		/// <summary>
 		/// Create native gameobjects and deal with Unity specific things
 		/// </summary>
-		protected virtual void DisplayContents ()
+		protected virtual IEnumerator DisplayContents ()
 		{
 			//TODO - update existing objects instead of destroying/recreating all of them
 
 			RemoveContents ();
 
-			CreateContents ();
+			yield return controller.StartCoroutine (CreateContents ());
 		}
 
 		/// <summary>
 		/// 
 		/// </summary>
-		public virtual void CreateContents ()
+		protected virtual IEnumerator CreateContents ()
 		{
-			foreach (SpeckleObject streamObject in client.Stream.Objects)
+			for (int i = 0; i < client.Stream.Objects.Count; i++)
 			{
-				object convertedObject = Converter.Deserialise (streamObject);
+				object convertedObject = Converter.Deserialise (client.Stream.Objects[i]);
 				convertedObjects.Add (convertedObject);
 
 				AssignObjectMaterial (convertedObject);
+
+				if (i % (int)controller.streamSpeed == 0) yield return null;
 			}
 		}
 

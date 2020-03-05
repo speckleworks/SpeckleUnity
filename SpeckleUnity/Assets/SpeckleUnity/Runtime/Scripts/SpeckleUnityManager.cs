@@ -13,16 +13,25 @@ namespace SpeckleUnity
 	/// </summary>
 	public class SpeckleUnityManager : MonoBehaviour, ISpeckleInitializer
 	{
+		public enum StreamSpeed
+		{
+			Instant = int.MaxValue,
+			ThousandPerFrame = 1000,
+			HundredPerFrame = 100,
+			TenPerFrame = 10
+		}
+
 		/// <summary>
 		/// 
 		/// </summary>
 		public bool initializeOnStart = true;
 
+		public StreamSpeed streamSpeed = StreamSpeed.Instant;
+
 		/// <summary>
 		/// 
 		/// </summary>
-		[Tooltip ("URL for the Speckle Server you want to use. eg: https://hestia.speckle.works/api/v1")]
-		public string serverUrl = "";
+		public string serverUrl = "https://hestia.speckle.works/api/v1";
 
 		/// <summary>
 		/// 
