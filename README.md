@@ -2,7 +2,7 @@
 
 In this repository you will find the source code, assets and project settings of the SpeckleUnity package for Unity app development (Unity 2019.3 or newer recommended).
 
-Developed for Unity 2019.3.xx for Windows (not yet tested for mobile or other platforms)
+Developed in Unity 2019.3.x for Windows (not yet tested for mobile or other platforms)
 
 ## NOTICE
 
@@ -41,24 +41,15 @@ If you can't see the latest version of SpeckleUnity in the package manager UI, i
 
 ## Roadmap
 
-> Roadmap is subject to change. Last reviewed 10th of December 2019.
+> Roadmap is subject to change. Last reviewed 6th of March 2020.
 
 | Version | Defining Feature                  						  				    |
 | ------- | --------------------------------------------------------------------------- |
-| 0.2     | Restructure and release as UPM package									    |
-| 0.3     | User login and stream selection UI prefabs								    |
-| 0.4     | Custom materials assigned via inspector									    |
+| ~0.1~   | ~First prototype release~   								 			    |
+| ~0.2~   | ~Restructure and release as UPM package~								    |
+| ~0.3~   | ~Custom materials assigned via inspector~								    |
+| 0.4     | Spawn geometry in a transform heirarchy based on the layer data			    |
 | 0.5     | Docfx generated documentation 												|
-| 0.6     | Spawn geometry in correct transform heirarchy							    |
+| 0.6     | User login and stream selection UI prefabs		        				    |
 | 0.7     | Local caching of Speckle stream				                                |
 | 0.8     | Send back all updates to Speckle Stream			                            |
-
----
-
-## History
-
-| Version | Defining Feature                  						  				    |
-| ------- | --------------------------------------------------------------------------- |
-| 0.1     | First prototype release										 			    |
-
----
