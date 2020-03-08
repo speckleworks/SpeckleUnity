@@ -39,7 +39,7 @@ namespace SpeckleUnity
 		/// <summary>
 		/// 
 		/// </summary>
-		public string serverUrl = "https://hestia.speckle.works/api/v1";
+		public string serverUrl = "https://hestia.speckle.works/api/v1/";
 
 		/// <summary>
 		/// 

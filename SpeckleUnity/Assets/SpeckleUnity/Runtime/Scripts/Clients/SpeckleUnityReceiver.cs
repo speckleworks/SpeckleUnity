@@ -247,8 +247,6 @@ namespace SpeckleUnity
 
 					newUnityLayer.name = layerNames[layerNames.Length - 1];
 
-
-
 					newUnityLayer.parent = FindParentInHierarchy (layerNames.Take (layerNames.Length - 1).ToArray ());
 				}
 
