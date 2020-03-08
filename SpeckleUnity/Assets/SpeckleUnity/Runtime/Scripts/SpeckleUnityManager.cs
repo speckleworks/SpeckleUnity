@@ -13,7 +13,7 @@ namespace SpeckleUnity
 	/// </summary>
 	public class SpeckleUnityManager : MonoBehaviour, ISpeckleInitializer
 	{
-		public enum StreamSpeed
+		public enum SpawnSpeed
 		{
 			Instant = int.MaxValue,
 			ThousandPerFrame = 1000,
@@ -26,7 +26,15 @@ namespace SpeckleUnity
 		/// </summary>
 		public bool initializeOnStart = true;
 
-		public StreamSpeed streamSpeed = StreamSpeed.Instant;
+		/// <summary>
+		/// 
+		/// </summary>
+		public SpawnSpeed spawnSpeed = SpawnSpeed.Instant;
+
+		/// <summary>
+		/// 
+		/// </summary>
+		[SerializeField] protected double scaleFactor = 0.001;
 
 		/// <summary>
 		/// 
@@ -68,6 +76,8 @@ namespace SpeckleUnity
 		/// </summary>
 		protected virtual void Start ()
 		{
+			Conversions.scaleFactor = scaleFactor;
+
 			if (initializeOnStart) Initialize ();
 		}
 

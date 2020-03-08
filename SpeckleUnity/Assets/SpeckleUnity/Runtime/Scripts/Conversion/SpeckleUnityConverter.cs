@@ -75,6 +75,11 @@ namespace SpeckleUnity
 		/// <summary>
 		/// 
 		/// </summary>
+		public static double scaleFactor = 1;
+
+		/// <summary>
+		/// 
+		/// </summary>
 		/// <param name="obj"></param>
 		/// <returns></returns>
 		public static SpeckleNumber ToSpeckle (this SpeckleUnityNumber obj)
@@ -134,8 +139,7 @@ namespace SpeckleUnity
 			Vector3 p = obj.point;
 
 			//switch y and z
-			var result = new SpecklePoint (p.x, p.z, p.y);
-			return result;
+			return new SpecklePoint (p.x, p.z, p.y);
 		}
 
 		/// <summary>
@@ -145,9 +149,10 @@ namespace SpeckleUnity
 		/// <returns></returns>
 		public static SpeckleUnityPoint ToNative (this SpecklePoint point)
 		{
+			point.Scale (scaleFactor);
+
 			Vector3 newPt = ToPoint (point.Value.ToArray ());
-			SpeckleUnityPoint result = new SpeckleUnityPoint (point.Type, newPt);
-			return result;
+			return new SpeckleUnityPoint (point.Type, newPt);
 		}
 
 		/// <summary>
@@ -157,8 +162,9 @@ namespace SpeckleUnity
 		/// <returns></returns>
 		public static SpeckleUnityPolyline ToNative (this SpeckleLine line)
 		{
-			var result = new SpeckleUnityPolyline (line.Type, line.Value.ToPoints ());
-			return result;
+			line.Scale (scaleFactor);
+
+			return new SpeckleUnityPolyline (line.Type, line.Value.ToPoints ());
 		}
 
 		/// <summary>
@@ -168,8 +174,9 @@ namespace SpeckleUnity
 		/// <returns></returns>
 		public static SpeckleUnityPolyline ToNative (this SpecklePolyline polyline)
 		{
-			var result = new SpeckleUnityPolyline (polyline.Type, polyline.Value.ToPoints ());
-			return result;
+			polyline.Scale (scaleFactor);
+
+			return new SpeckleUnityPolyline (polyline.Type, polyline.Value.ToPoints ());
 		}
 
 		/// <summary>
@@ -179,8 +186,9 @@ namespace SpeckleUnity
 		/// <returns></returns>
 		public static SpeckleUnityPolyline ToNative (this SpeckleCurve curve)
 		{
-			var result = new SpeckleUnityPolyline (curve.Type, curve.DisplayValue.Value.ToPoints ());
-			return result;
+			curve.Scale (scaleFactor);
+
+			return new SpeckleUnityPolyline (curve.Type, curve.DisplayValue.Value.ToPoints ());
 		}
 
 
@@ -191,6 +199,8 @@ namespace SpeckleUnity
 		/// <returns></returns>
 		public static SpeckleUnityMesh ToNative (this SpeckleMesh speckleMesh)
 		{
+			speckleMesh.Scale (scaleFactor);
+
 			//convert speckleMesh.Faces into triangle array           
 			List<int> tris = new List<int> ();
 			int i = 0;
@@ -219,14 +229,7 @@ namespace SpeckleUnity
 				}
 			}
 
-			string layerName = "Default Generated Speckle Layer";
-
-			if (speckleMesh.Properties.TryGetValue ("layer_name", out object layerNameObject))
-			{
-				layerName = layerNameObject.ToString ();
-			}
-
-			SpeckleUnityMesh result = new SpeckleUnityMesh (speckleMesh.Type, layerName, speckleMesh.Vertices.ToPoints (), tris.ToArray ());
+			SpeckleUnityMesh result = new SpeckleUnityMesh (speckleMesh.Type, speckleMesh.Vertices.ToPoints (), tris.ToArray ());
 
 			return result;
 		}
@@ -238,7 +241,7 @@ namespace SpeckleUnity
 		/// <returns></returns>
 		public static SpeckleUnityMesh ToNative (this SpeckleBrep brep)
 		{
-			var speckleMesh = brep.DisplayValue;
+			SpeckleMesh speckleMesh = brep.DisplayValue;
 			return speckleMesh.ToNative ();
 		}
 	}

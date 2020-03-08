@@ -35,6 +35,11 @@ namespace SpeckleUnity
 		/// <summary>
 		/// 
 		/// </summary>
+		protected Dictionary<Layer, Transform> layerLookup = new Dictionary<Layer, Transform> ();
+
+		/// <summary>
+		/// 
+		/// </summary>
 		/// <param name="streamID"></param>
 		/// <param name="streamRoot"></param>
 		public SpeckleUnityReceiver (string streamID, Transform streamRoot = null)
@@ -74,6 +79,7 @@ namespace SpeckleUnity
 			while (!client.IsConnected) yield return null;
 
 			convertedObjects = new List<object> ();
+			layerLookup = new Dictionary<Layer, Transform> ();
 
 			//after connected, call update global to get geometry
 			yield return controller.StartCoroutine (UpdateGlobal ());
@@ -206,46 +212,94 @@ namespace SpeckleUnity
 		/// </summary>
 		protected virtual IEnumerator CreateContents ()
 		{
+			ConstructLayers ();
+
 			for (int i = 0; i < client.Stream.Objects.Count; i++)
 			{
-				
-
 				object convertedObject = Converter.Deserialise (client.Stream.Objects[i]);
 				convertedObjects.Add (convertedObject);
 
-				PostProcessObject (convertedObject);
+				PostProcessObject (convertedObject, i);
 
-				if (i % (int)controller.streamSpeed == 0) yield return null;
+				if (i % (int)controller.spawnSpeed == 0) yield return null;
 			}
 		}
 
 		/// <summary>
 		/// 
 		/// </summary>
+		protected virtual void ConstructLayers ()
+		{
+			List<Layer> layers = client.Stream.Layers;
+
+			for (int i = 0; i < layers.Count; i++)
+			{
+				Transform newUnityLayer = new GameObject ().transform;
+
+				if (!layers[i].Name.Contains ("::"))
+				{
+					newUnityLayer.name = layers[i].Name;
+					newUnityLayer.parent = streamRoot;
+				}
+				else
+				{
+					string[] layerNames = layers[i].Name.Split (new string[] { "::" }, StringSplitOptions.RemoveEmptyEntries);
+
+					newUnityLayer.name = layerNames[layerNames.Length - 1];
+
+
+
+					newUnityLayer.parent = FindParentInHierarchy (layerNames.Take (layerNames.Length - 1).ToArray ());
+				}
+
+				layerLookup.Add (layers[i], newUnityLayer);
+			}
+		}
+
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="parents"></param>
+		/// <returns></returns>
+		protected Transform FindParentInHierarchy (string[] parents)
+		{
+			int layerDepth = 0;
+			Transform layerToSearchIn = streamRoot;
+			while (layerDepth < parents.Length)
+			{
+				for (int i = 0; i < layerToSearchIn.childCount; i++)
+				{
+					if (layerToSearchIn.GetChild (i).name == parents[layerDepth])
+					{
+						layerToSearchIn = layerToSearchIn.GetChild (i);
+						layerDepth++;
+						break;
+					}
+				}
+			}
+
+			return layerToSearchIn;
+		}
+
+		/// <summary>
+		/// 
+		/// </summary>
 		/// <param name="convertedObject"></param>
-		public virtual void PostProcessObject (object convertedObject)
+		public virtual void PostProcessObject (object convertedObject, int objectIndex)
 		{
 			if (convertedObject is SpeckleUnityGeometry geometry)
 			{
-				bool foundLayer = false;
+				List<Layer> layers = client.Stream.Layers;
 
-				for (int i = 0; i < streamRoot.childCount; i++)
+				for (int i = 0; i < layers.Count; i++)
 				{
-					if (streamRoot.GetChild (i).name == geometry.layerName)
+					if (objectIndex >= layers[i].StartIndex && objectIndex < (layers[i].StartIndex + layers[i].ObjectCount))
 					{
-						geometry.gameObject.transform.parent = streamRoot.GetChild (i);
-						foundLayer = true;
+						geometry.gameObject.transform.parent = layerLookup[layers[i]];
+						break;
 					}
 				}
-
-				if (!foundLayer)
-				{
-					Transform newLayer = new GameObject ().transform;
-					newLayer.name = geometry.layerName;
-
-					newLayer.parent = streamRoot;
-					geometry.gameObject.transform.parent = newLayer;
-				}
+				
 			}
 
 			if (convertedObject is SpeckleUnityMesh mesh)
