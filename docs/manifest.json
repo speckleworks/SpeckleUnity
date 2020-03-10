@@ -1,0 +1,354 @@
+{
+  "homepages": [],
+  "source_base_path": "H:/Git/SpeckleUnity/docfx",
+  "xrefmap": "xrefmap.yml",
+  "files": [
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/SpeckleUnity.Conversions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/SpeckleUnity.Conversions.html",
+          "hash": "UBcK2Wfrt+hr1wfXuo16gA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/SpeckleUnity.CustomEditors.SpeckleUnityMenus.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/SpeckleUnity.CustomEditors.SpeckleUnityMenus.html",
+          "hash": "QVLPwUf9yF6wPill1r5DWg=="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/SpeckleUnity.CustomEditors.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/SpeckleUnity.CustomEditors.html",
+          "hash": "9VptJ3+r3F+GPJGY4mnEfw=="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/SpeckleUnity.SpawnSpeed.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/SpeckleUnity.SpawnSpeed.html",
+          "hash": "n03FeGweg2mj4JQ17jwtUg=="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/SpeckleUnity.SpeckleUnityClient.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/SpeckleUnity.SpeckleUnityClient.html",
+          "hash": "TE/KEysc4HHmT4GmGOKKHg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/SpeckleUnity.SpeckleUnityGeometry.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/SpeckleUnity.SpeckleUnityGeometry.html",
+          "hash": "EGolEAxQL7K6MPaceYqyZg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/SpeckleUnity.SpeckleUnityManager.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/SpeckleUnity.SpeckleUnityManager.html",
+          "hash": "R6stG9DBMO4GC95wDrOHag=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/SpeckleUnity.SpeckleUnityMesh.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/SpeckleUnity.SpeckleUnityMesh.html",
+          "hash": "FMrKBDQE98L883qmiQdzGQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/SpeckleUnity.SpeckleUnityNumber.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/SpeckleUnity.SpeckleUnityNumber.html",
+          "hash": "/IF6Rffqr5tKv6QYa+RU/g=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/SpeckleUnity.SpeckleUnityObject.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/SpeckleUnity.SpeckleUnityObject.html",
+          "hash": "kpz1w0pz+WsQQFAtnLYd3A=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/SpeckleUnity.SpeckleUnityPoint.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/SpeckleUnity.SpeckleUnityPoint.html",
+          "hash": "aeJPLLJ1wSX+dWKgl2kbpw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/SpeckleUnity.SpeckleUnityPolyline.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/SpeckleUnity.SpeckleUnityPolyline.html",
+          "hash": "2SBjHlssjI8+KjLFB3SvvA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/SpeckleUnity.SpeckleUnityReceiver.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/SpeckleUnity.SpeckleUnityReceiver.html",
+          "hash": "y4dmWkyCyphENLv5DUtrPQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/SpeckleUnity.SpeckleUnitySender.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/SpeckleUnity.SpeckleUnitySender.html",
+          "hash": "pxsT22N0K4qME23ss97zEQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/SpeckleUnity.SpeckleUnityTransform.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/SpeckleUnity.SpeckleUnityTransform.html",
+          "hash": "C1MDVQorgwof6afi7Edh1g=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/SpeckleUnity.SpeckleUnityUpdate.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/SpeckleUnity.SpeckleUnityUpdate.html",
+          "hash": "hfEZLf24R6VHjC0nG32bdg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/SpeckleUnity.SpeckleUnityUpdateEvent.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/SpeckleUnity.SpeckleUnityUpdateEvent.html",
+          "hash": "bEz37esjtIHAQ2q29VqgHQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/SpeckleUnity.SpeckleUnityValueChange.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/SpeckleUnity.SpeckleUnityValueChange.html",
+          "hash": "MwuK+rP2dEZM0y04PTpN5A=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/SpeckleUnity.UpdateType.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/SpeckleUnity.UpdateType.html",
+          "hash": "EJBs5fvOwN1EpNdvumvw4Q=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/SpeckleUnity.WSMessageData.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/SpeckleUnity.WSMessageData.html",
+          "hash": "dCtRQjj3w/Ev9Bjz9cELpQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/SpeckleUnity.WSMessageDataArgs.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/SpeckleUnity.WSMessageDataArgs.html",
+          "hash": "S+Fycj3X6tQKXNgovQLnow=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/SpeckleUnity.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/SpeckleUnity.html",
+          "hash": "3MPZysig02rSN5qf5XW0gQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "api/index.md",
+      "output": {
+        ".html": {
+          "relative_path": "api/index.html",
+          "hash": "PDJy6Ook8QUfmx2SYqJzow=="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "articles/introduction.md",
+      "output": {
+        ".html": {
+          "relative_path": "articles/introduction.html",
+          "hash": "FjLNqjNOSKStBbwLaB/2Eg=="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "index.md",
+      "output": {
+        ".html": {
+          "relative_path": "index.html",
+          "hash": "Sdb1C83I4QXYnoHz6tZYaQ=="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    }
+  ],
+  "incremental_info": [
+    {
+      "status": {
+        "can_incremental": true,
+        "incrementalPhase": "build",
+        "total_file_count": 0,
+        "skipped_file_count": 0
+      },
+      "processors": {
+        "ConceptualDocumentProcessor": {
+          "can_incremental": true,
+          "incrementalPhase": "build",
+          "total_file_count": 3,
+          "skipped_file_count": 3
+        },
+        "ManagedReferenceDocumentProcessor": {
+          "can_incremental": true,
+          "incrementalPhase": "build",
+          "total_file_count": 22,
+          "skipped_file_count": 7
+        },
+        "TocDocumentProcessor": {
+          "can_incremental": false,
+          "details": "Processor TocDocumentProcessor cannot support incremental build because the processor doesn't implement ISupportIncrementalDocumentProcessor interface.",
+          "incrementalPhase": "build",
+          "total_file_count": 0,
+          "skipped_file_count": 0
+        }
+      }
+    },
+    {
+      "status": {
+        "can_incremental": true,
+        "details": "Can support incremental post processing.",
+        "incrementalPhase": "postProcessing",
+        "total_file_count": 0,
+        "skipped_file_count": 0
+      },
+      "processors": {}
+    }
+  ],
+  "version_info": {},
+  "groups": [
+    {
+      "xrefmap": "xrefmap.yml"
+    }
+  ]
+}

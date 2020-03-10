@@ -3,7 +3,7 @@
     {
       "src": [
         {
-          "src": "../SpeckleUnity/Assets/SpeckleUnityork",
+          "src": "../SpeckleUnity/Assets/SpeckleUnity",
           "files": [
             "**.cs"
           ]

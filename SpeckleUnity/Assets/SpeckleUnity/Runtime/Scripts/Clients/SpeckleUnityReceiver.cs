@@ -30,25 +30,28 @@ namespace SpeckleUnity
 		protected string messageContent;
 
 		/// <summary>
-		/// A <c>Transform</c> that can be optionally set in the inspector
+		/// An optional <c>Transform</c> that can be optionally set in the inspector for the received stream
+		/// to be spawned under. If left null, a new one will be created and named after the stream ID.
 		/// </summary>
 		public Transform streamRoot;
 
 		/// <summary>
-		/// 
+		/// A list containing all the Speckle objects from the stream AFTER they had been converted into native
+		/// Unity objects.
 		/// </summary>
-		protected List<object> convertedObjects = new List<object> ();
+		protected List<object> deserializedStreamObjects = new List<object> ();
 
 		/// <summary>
-		/// 
+		/// Key value pairs of Speckle <c>Layer</c>s and Unity <c>Transform</c>s to help with reconstructing
+		/// the Stream layer heirarchy within the scene heirarchy.
 		/// </summary>
 		protected Dictionary<Layer, Transform> layerLookup = new Dictionary<Layer, Transform> ();
 
 		/// <summary>
-		/// 
+		/// Creates an uninitialized instance of a <c>SpeckleUnityReceiver</c>.
 		/// </summary>
-		/// <param name="streamID"></param>
-		/// <param name="streamRoot"></param>
+		/// <param name="streamID">The stream ID to be received.</param>
+		/// <param name="streamRoot">An optional root object for the stream to be spawnted under.</param>
 		public SpeckleUnityReceiver (string streamID, Transform streamRoot = null)
 		{
 			this.streamID = streamID;
@@ -56,12 +59,13 @@ namespace SpeckleUnity
 		}
 
 		/// <summary>
-		/// 
+		/// All clients need to be initialized which creates an instance of an internal speckle client object,
+		/// authenticates against the server and provides a manager object to receive inspector arguments from.
 		/// </summary>
-		/// <param name="manager"></param>
-		/// <param name="url"></param>
-		/// <param name="authToken"></param>
-		/// <returns></returns>
+		/// <param name="manager">The manager instance that provides inspector values for this client.</param>
+		/// <param name="url">The url of the speckle server to connect to.</param>
+		/// <param name="authToken">The authentication token of the user to connect as.</param>
+		/// <returns>An IEnumerator to yield or start as a new coroutine.</returns>
 		public override IEnumerator InitializeClient (SpeckleUnityManager manager, string url, string authToken)
 		{
 			if (streamRoot == null)
@@ -85,7 +89,7 @@ namespace SpeckleUnity
 			//wait for receiver to be connected
 			while (!client.IsConnected) yield return null;
 
-			convertedObjects = new List<object> ();
+			deserializedStreamObjects = new List<object> ();
 			layerLookup = new Dictionary<Layer, Transform> ();
 
 			//after connected, call update global to get geometry
@@ -93,10 +97,15 @@ namespace SpeckleUnity
 		}
 
 		/// <summary>
-		/// 
+		/// Invoked whenever this client is notified of updates to the stream from the server.
 		/// </summary>
 		/// <param name="source"></param>
 		/// <param name="e"></param>
+		/// <remarks>NOTE: At the time of writing, coroutines can't be invoked via event 
+		/// callbacks for some reason. Until this is resolved, the <c>OnWsMessageCheck ()</c>
+		/// method can't be called directly and instead, the manager instance will 
+		/// check on each frame whether the method needs to be called in response
+		/// to this method being invoked.</remarks>
 		protected override void ClientOnWsMessage (object source, SpeckleEventArgs e)
 		{
 			if (e == null) return;
@@ -112,7 +121,9 @@ namespace SpeckleUnity
 		}
 
 		/// <summary>
-		/// 
+		/// Checks the content of the web socket message received from the server and invokes the 
+		/// appropriate coroutine for updating the scene locally to represent the latest state of the
+		/// stream being received.
 		/// </summary>
 		public virtual void OnWsMessageCheck ()
 		{
@@ -145,9 +156,10 @@ namespace SpeckleUnity
 		}
 
 		/// <summary>
-		/// 
+		/// Coroutine for the global update message for the stream. Simply put, it redownloads the stream data,
+		/// cleans up everything locally and respawns the whole stream.
 		/// </summary>
-		/// <returns></returns>
+		/// <returns>An IEnumerator to yield or start as a new coroutine.</returns>
 		protected virtual IEnumerator UpdateGlobal ()
 		{
 			//TODO - use LocalContext for caching, etc
@@ -177,7 +189,7 @@ namespace SpeckleUnity
 					string[] subPayload = payload.Skip (i).Take (maxObjRequestCount).ToArray ();
 
 					// get it sync as this is always execed out of the main thread
-					//var getTask = Client.ObjectGetBulkAsync(subPayload, "omit=displayValue");
+					//Task<ResponseObject> getTask = Client.ObjectGetBulkAsync(subPayload, "omit=displayValue");
 					Task<ResponseObject> getTask = client.ObjectGetBulkAsync (subPayload, "");
 					while (!getTask.IsCompleted) yield return null;
 
@@ -196,14 +208,18 @@ namespace SpeckleUnity
 
 				yield return manager.StartCoroutine (DisplayContents ());
 
+				// notify all user code that subsribed to this even in the manager inspector so that their code
+				// can respond to the global update of this stream.
 				manager.onUpdateReceived.Invoke (new SpeckleUnityUpdate (streamID, streamRoot, UpdateType.Global));
 			}
 		}
 
 
 		/// <summary>
-		/// Create native gameobjects and deal with Unity specific things
+		/// Assuming the stream is already downloaded, clean up all local gameobjects for it and 
+		/// Reconstruct them for the stream in its current state.
 		/// </summary>
+		/// <returns>An IEnumerator to yield or start as a new coroutine.</returns>
 		protected virtual IEnumerator DisplayContents ()
 		{
 			//TODO - update existing objects instead of destroying/recreating all of them
@@ -214,25 +230,29 @@ namespace SpeckleUnity
 		}
 
 		/// <summary>
-		/// 
+		/// First constructs the layers for the stream then deserializes the json of all the stream's
+		/// objects into Unity gameobjects. The speed of this process is determined by
+		/// <c>SpeckleUnityManager.spawnSpeed</c>.
 		/// </summary>
+		/// <returns>An IEnumerator to yield or start as a new coroutine.</returns>
 		protected virtual IEnumerator CreateContents ()
 		{
 			ConstructLayers ();
 
 			for (int i = 0; i < client.Stream.Objects.Count; i++)
 			{
-				object convertedObject = Converter.Deserialise (client.Stream.Objects[i]);
-				convertedObjects.Add (convertedObject);
+				object deserializedStreamObject = Converter.Deserialise (client.Stream.Objects[i]);
+				deserializedStreamObjects.Add (deserializedStreamObject);
 
-				PostProcessObject (convertedObject, i);
+				PostProcessObject (deserializedStreamObject, i);
 
 				if (i % (int)manager.spawnSpeed == 0) yield return null;
 			}
 		}
 
 		/// <summary>
-		/// 
+		/// According to the available layers found in the stream, create a heirarchy of transforms with the same names as those
+		/// layers and map them against their original layer objects in a dictionary.
 		/// </summary>
 		protected virtual void ConstructLayers ()
 		{
@@ -242,6 +262,8 @@ namespace SpeckleUnity
 			{
 				Transform newUnityLayer = new GameObject ().transform;
 
+				// Nested layers in rhino are delimited with double colons and revit doesn't have layers so this code may not work
+				// for streams originating from other clients.
 				if (!layers[i].Name.Contains ("::"))
 				{
 					newUnityLayer.name = layers[i].Name;
@@ -249,6 +271,7 @@ namespace SpeckleUnity
 				}
 				else
 				{
+					
 					string[] layerNames = layers[i].Name.Split (new string[] { "::" }, StringSplitOptions.RemoveEmptyEntries);
 
 					newUnityLayer.name = layerNames[layerNames.Length - 1];
@@ -261,10 +284,13 @@ namespace SpeckleUnity
 		}
 
 		/// <summary>
-		/// 
+		/// An algorithm which looks up the layer heirarchy already created in the scene to find the 
+		/// parent <c>Transform</c> of the next layer to create.
 		/// </summary>
-		/// <param name="parents"></param>
-		/// <returns></returns>
+		/// <param name="parents">An array of strings which contains the names of the parent layers leading up to
+		/// and including the direct parent of the next layer to create.</param>
+		/// <returns>The <c>Transform</c> of the direct parent of the next layer to create a new <c>Transform</c>
+		/// for.</returns>
 		protected Transform FindParentInHierarchy (string[] parents)
 		{
 			int layerDepth = 0;
@@ -286,12 +312,16 @@ namespace SpeckleUnity
 		}
 
 		/// <summary>
-		/// 
-		/// </summary>
-		/// <param name="convertedObject"></param>
-		public virtual void PostProcessObject (object convertedObject, int objectIndex)
+		/// Called on each stream object after it's been deserialized. Checks against what <c>Type</c> the
+		/// object ended up as and assigns some additional stuff to it including setting geometry objects under
+		/// the correct layer.</summary>
+		/// <param name="deserializedStreamObject">The stream object after it had been converted from json into
+		/// a native object.</param>
+		/// <param name="objectIndex">The indext of this stream object to help with placing it in the layer
+		/// hierarchy.</param>
+		public virtual void PostProcessObject (object deserializedStreamObject, int objectIndex)
 		{
-			if (convertedObject is SpeckleUnityGeometry geometry)
+			if (deserializedStreamObject is SpeckleUnityGeometry geometry)
 			{
 				List<Layer> layers = client.Stream.Layers;
 
@@ -303,40 +333,36 @@ namespace SpeckleUnity
 						break;
 					}
 				}
-				
 			}
 
-			if (convertedObject is SpeckleUnityMesh mesh)
+			if (deserializedStreamObject is SpeckleUnityMesh mesh)
 			{
 				mesh.meshRenderer.material = manager.meshMaterial;
 			}
 
-			if (convertedObject is SpeckleUnityPolyline line)
+			if (deserializedStreamObject is SpeckleUnityPolyline line)
 			{
 				line.lineRenderer.material = manager.polylineMaterial;
 			}
 
-			if (convertedObject is SpeckleUnityPoint point)
+			if (deserializedStreamObject is SpeckleUnityPoint point)
 			{
 				point.lineRenderer.material = manager.pointMaterial;
 			}
 		}
 
 		/// <summary>
-		/// 
+		/// Clean up all gameobjects for the geometry spawned in from the stream including layer objects.
 		/// </summary>
 		public virtual void RemoveContents ()
 		{
-			//Clear existing objects
-			foreach (object convertedObject in convertedObjects)
+			//Clear existing objects including layer objects
+			for (int i = 0; i < streamRoot.childCount; i++)
 			{
-				if (convertedObject is SpeckleUnityGeometry geometry)
-				{
-					//TODO - write destroy method in class?
-					GameObject.Destroy (geometry.gameObject);
-				}
+				GameObject.Destroy (streamRoot.GetChild (i));
 			}
-			convertedObjects.Clear ();
+
+			deserializedStreamObjects.Clear ();
 		}
 	}
 }

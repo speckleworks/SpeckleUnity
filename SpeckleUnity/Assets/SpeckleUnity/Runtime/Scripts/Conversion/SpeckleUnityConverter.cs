@@ -11,18 +11,8 @@ using SpeckleCoreGeometryClasses;
 namespace SpeckleUnity
 {
 	/// <summary>
-	/// 
-	/// </summary>
-	public class Initialiser : ISpeckleInitializer
-	{
-		/// <summary>
-		/// 
-		/// </summary>
-		public Initialiser () { }
-	}
-
-	/// <summary>
-	/// 
+	/// Contains all extension method definitions for converting Speckle stream object types into
+	/// native Unity types and vice versa. 
 	/// </summary>
 	public static partial class Conversions
 	{
@@ -73,7 +63,7 @@ namespace SpeckleUnity
 		#endregion
 
 		/// <summary>
-		/// 
+		/// The scale factor for each geometry object to be spawned in to.
 		/// </summary>
 		public static double scaleFactor = 1;
 

@@ -15,19 +15,6 @@ namespace SpeckleUnity
 	public class SpeckleUnityManager : MonoBehaviour, ISpeckleInitializer
 	{
 		/// <summary>
-		/// An enum for controlling how quickly geometry objects get isntantiated into the scene.
-		/// The Instant value simply means all objects will be spawned in the same frame. (Technically,
-		/// it caps out at 2 billion, but who in the world is making streams bigger than 2 billion...)
-		/// </summary>
-		public enum SpawnSpeed
-		{
-			Instant = int.MaxValue,
-			ThousandPerFrame = 1000,
-			HundredPerFrame = 100,
-			TenPerFrame = 10
-		}
-
-		/// <summary>
 		/// If set to false, you need to reference this class and call the <c>InitializeAllClients ()</c> method
 		/// yourself.
 		/// </summary>
@@ -194,5 +181,18 @@ namespace SpeckleUnity
 			receiver.RemoveContents ();
 			receiver.client.Dispose (true);
 		}
+	}
+
+	/// <summary>
+	/// An enum for controlling how quickly geometry objects get isntantiated into the scene.
+	/// The Instant value simply means all objects will be spawned in the same frame. (Technically,
+	/// it caps out at 2 billion, but who in the world is making streams bigger than 2 billion...)
+	/// </summary>
+	public enum SpawnSpeed
+	{
+		Instant = int.MaxValue,
+		ThousandPerFrame = 1000,
+		HundredPerFrame = 100,
+		TenPerFrame = 10
 	}
 }
