@@ -9,21 +9,28 @@ using System.Threading.Tasks;
 
 namespace SpeckleUnity
 {
+	/// <summary>
+	/// A <c>SpeckleUnityClient</c> specialised in receiving streams and updating the scene to reflect
+	/// any updates made to the stream. Made serializable so that it would render in the inspector along
+	/// with its exposed fields.
+	/// </summary>
 	[Serializable]
 	public class SpeckleUnityReceiver : SpeckleUnityClient
 	{
 		/// <summary>
-		/// 
+		/// Boolean used to help with the coroutine workaround. Is set to true when the web socket event
+		/// is fired for the manager to respond against and then immediately set back to false.
 		/// </summary>
 		protected bool messageReceived = false;
 
 		/// <summary>
-		/// 
+		/// String used to help with the coroutine workaround. Is set to the conent of the web socket event
+		/// when it is fired for the manager to respond against.
 		/// </summary>
 		protected string messageContent;
 
 		/// <summary>
-		/// 
+		/// A <c>Transform</c> that can be optionally set in the inspector
 		/// </summary>
 		public Transform streamRoot;
 
@@ -51,11 +58,11 @@ namespace SpeckleUnity
 		/// <summary>
 		/// 
 		/// </summary>
-		/// <param name="controller"></param>
+		/// <param name="manager"></param>
 		/// <param name="url"></param>
 		/// <param name="authToken"></param>
 		/// <returns></returns>
-		public override IEnumerator InitializeClient (SpeckleUnityManager controller, string url, string authToken)
+		public override IEnumerator InitializeClient (SpeckleUnityManager manager, string url, string authToken)
 		{
 			if (streamRoot == null)
 			{
@@ -63,7 +70,7 @@ namespace SpeckleUnity
 				streamRoot.name = "Default Stream Root: " + streamID;
 			}
 
-			this.controller = controller;
+			this.manager = manager;
 
 			client = new SpeckleApiClient (url, true);
 			client.BaseUrl = url;
@@ -82,7 +89,7 @@ namespace SpeckleUnity
 			layerLookup = new Dictionary<Layer, Transform> ();
 
 			//after connected, call update global to get geometry
-			yield return controller.StartCoroutine (UpdateGlobal ());
+			yield return manager.StartCoroutine (UpdateGlobal ());
 		}
 
 		/// <summary>
@@ -118,7 +125,7 @@ namespace SpeckleUnity
 				switch (messageContent)
 				{
 					case "update-global":
-						controller.StartCoroutine (UpdateGlobal ());
+						manager.StartCoroutine (UpdateGlobal ());
 						break;
 					case "update-meta":
 						//UpdateMeta();
@@ -144,7 +151,6 @@ namespace SpeckleUnity
 		protected virtual IEnumerator UpdateGlobal ()
 		{
 			//TODO - use LocalContext for caching, etc
-
 			Task<ResponseStream> streamGet = client.StreamGetAsync (streamID, null);
 			while (!streamGet.IsCompleted) yield return null;
 
@@ -188,9 +194,9 @@ namespace SpeckleUnity
 					try { client.Stream.Objects[indexInStream] = objects; } catch { }
 				}
 
-				yield return controller.StartCoroutine (DisplayContents ());
+				yield return manager.StartCoroutine (DisplayContents ());
 
-				controller.onUpdateReceived.Invoke (new SpeckleUnityUpdate (streamID, streamRoot, UpdateType.Global));
+				manager.onUpdateReceived.Invoke (new SpeckleUnityUpdate (streamID, streamRoot, UpdateType.Global));
 			}
 		}
 
@@ -204,7 +210,7 @@ namespace SpeckleUnity
 
 			RemoveContents ();
 
-			yield return controller.StartCoroutine (CreateContents ());
+			yield return manager.StartCoroutine (CreateContents ());
 		}
 
 		/// <summary>
@@ -221,7 +227,7 @@ namespace SpeckleUnity
 
 				PostProcessObject (convertedObject, i);
 
-				if (i % (int)controller.spawnSpeed == 0) yield return null;
+				if (i % (int)manager.spawnSpeed == 0) yield return null;
 			}
 		}
 
@@ -302,17 +308,17 @@ namespace SpeckleUnity
 
 			if (convertedObject is SpeckleUnityMesh mesh)
 			{
-				mesh.meshRenderer.material = controller.meshMaterial;
+				mesh.meshRenderer.material = manager.meshMaterial;
 			}
 
 			if (convertedObject is SpeckleUnityPolyline line)
 			{
-				line.lineRenderer.material = controller.polylineMaterial;
+				line.lineRenderer.material = manager.polylineMaterial;
 			}
 
 			if (convertedObject is SpeckleUnityPoint point)
 			{
-				point.lineRenderer.material = controller.pointMaterial;
+				point.lineRenderer.material = manager.pointMaterial;
 			}
 		}
 

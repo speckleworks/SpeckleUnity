@@ -5,8 +5,15 @@ using UnityEditor;
 
 namespace SpeckleUnity.CustomEditors
 {
+	/// <summary>
+	/// 
+	/// </summary>
 	public class SpeckleUnityMenus
 	{
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="command"></param>
 		[MenuItem ("GameObject/SpeckleUnityManager", priority = 10)]
 		public static void CreateManager (MenuCommand command)
 		{
