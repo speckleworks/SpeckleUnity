@@ -12,7 +12,7 @@
           "hash": "UBcK2Wfrt+hr1wfXuo16gA=="
         }
       },
-      "is_incremental": false,
+      "is_incremental": true,
       "version": ""
     },
     {
@@ -60,7 +60,7 @@
           "hash": "TE/KEysc4HHmT4GmGOKKHg=="
         }
       },
-      "is_incremental": false,
+      "is_incremental": true,
       "version": ""
     },
     {
@@ -72,7 +72,7 @@
           "hash": "EGolEAxQL7K6MPaceYqyZg=="
         }
       },
-      "is_incremental": false,
+      "is_incremental": true,
       "version": ""
     },
     {
@@ -84,7 +84,7 @@
           "hash": "R6stG9DBMO4GC95wDrOHag=="
         }
       },
-      "is_incremental": false,
+      "is_incremental": true,
       "version": ""
     },
     {
@@ -96,7 +96,7 @@
           "hash": "FMrKBDQE98L883qmiQdzGQ=="
         }
       },
-      "is_incremental": false,
+      "is_incremental": true,
       "version": ""
     },
     {
@@ -108,7 +108,7 @@
           "hash": "/IF6Rffqr5tKv6QYa+RU/g=="
         }
       },
-      "is_incremental": false,
+      "is_incremental": true,
       "version": ""
     },
     {
@@ -120,7 +120,7 @@
           "hash": "kpz1w0pz+WsQQFAtnLYd3A=="
         }
       },
-      "is_incremental": false,
+      "is_incremental": true,
       "version": ""
     },
     {
@@ -132,7 +132,7 @@
           "hash": "aeJPLLJ1wSX+dWKgl2kbpw=="
         }
       },
-      "is_incremental": false,
+      "is_incremental": true,
       "version": ""
     },
     {
@@ -144,7 +144,7 @@
           "hash": "2SBjHlssjI8+KjLFB3SvvA=="
         }
       },
-      "is_incremental": false,
+      "is_incremental": true,
       "version": ""
     },
     {
@@ -156,7 +156,7 @@
           "hash": "y4dmWkyCyphENLv5DUtrPQ=="
         }
       },
-      "is_incremental": false,
+      "is_incremental": true,
       "version": ""
     },
     {
@@ -168,7 +168,7 @@
           "hash": "pxsT22N0K4qME23ss97zEQ=="
         }
       },
-      "is_incremental": false,
+      "is_incremental": true,
       "version": ""
     },
     {
@@ -180,7 +180,7 @@
           "hash": "C1MDVQorgwof6afi7Edh1g=="
         }
       },
-      "is_incremental": false,
+      "is_incremental": true,
       "version": ""
     },
     {
@@ -192,7 +192,7 @@
           "hash": "hfEZLf24R6VHjC0nG32bdg=="
         }
       },
-      "is_incremental": false,
+      "is_incremental": true,
       "version": ""
     },
     {
@@ -204,7 +204,7 @@
           "hash": "bEz37esjtIHAQ2q29VqgHQ=="
         }
       },
-      "is_incremental": false,
+      "is_incremental": true,
       "version": ""
     },
     {
@@ -216,7 +216,7 @@
           "hash": "MwuK+rP2dEZM0y04PTpN5A=="
         }
       },
-      "is_incremental": false,
+      "is_incremental": true,
       "version": ""
     },
     {
@@ -228,7 +228,7 @@
           "hash": "EJBs5fvOwN1EpNdvumvw4Q=="
         }
       },
-      "is_incremental": false,
+      "is_incremental": true,
       "version": ""
     },
     {
@@ -240,7 +240,7 @@
           "hash": "dCtRQjj3w/Ev9Bjz9cELpQ=="
         }
       },
-      "is_incremental": false,
+      "is_incremental": true,
       "version": ""
     },
     {
@@ -252,7 +252,7 @@
           "hash": "S+Fycj3X6tQKXNgovQLnow=="
         }
       },
-      "is_incremental": false,
+      "is_incremental": true,
       "version": ""
     },
     {
@@ -264,7 +264,7 @@
           "hash": "3MPZysig02rSN5qf5XW0gQ=="
         }
       },
-      "is_incremental": false,
+      "is_incremental": true,
       "version": ""
     },
     {
@@ -281,11 +281,35 @@
     },
     {
       "type": "Conceptual",
+      "source_relative_path": "articles/howToInstall.md",
+      "output": {
+        ".html": {
+          "relative_path": "articles/howToInstall.html",
+          "hash": "zimsxpjZKsJ3XjrR15rk4A=="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
       "source_relative_path": "articles/introduction.md",
       "output": {
         ".html": {
           "relative_path": "articles/introduction.html",
-          "hash": "FjLNqjNOSKStBbwLaB/2Eg=="
+          "hash": "2uWqIesJAFQrUd/+Eh/EXw=="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "articles/license.md",
+      "output": {
+        ".html": {
+          "relative_path": "articles/license.html",
+          "hash": "W6Mv5wJDDBIREG3UsQ743Q=="
         }
       },
       "is_incremental": true,
@@ -316,14 +340,14 @@
         "ConceptualDocumentProcessor": {
           "can_incremental": true,
           "incrementalPhase": "build",
-          "total_file_count": 3,
-          "skipped_file_count": 3
+          "total_file_count": 5,
+          "skipped_file_count": 5
         },
         "ManagedReferenceDocumentProcessor": {
           "can_incremental": true,
           "incrementalPhase": "build",
           "total_file_count": 22,
-          "skipped_file_count": 7
+          "skipped_file_count": 22
         },
         "TocDocumentProcessor": {
           "can_incremental": false,

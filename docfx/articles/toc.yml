@@ -1,2 +1,8 @@
 - name: Introduction
   href: introduction.md
+
+- name: How To Install
+  href: howToInstall.md
+
+- name: License
+  href: license.md

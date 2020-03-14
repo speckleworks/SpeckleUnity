@@ -5,9 +5,9 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>SpeckleUnity - Manual </title>
+    <title>How To Install </title>
     <meta name="viewport" content="width=device-width">
-    <meta name="title" content="SpeckleUnity - Manual ">
+    <meta name="title" content="How To Install ">
     <meta name="generator" content="docfx 2.50.0.0">
     
     <link rel="shortcut icon" href="../favicon.ico">
@@ -79,11 +79,11 @@
                 <div class="toc" id="toc">
                   
                   <ul class="nav level1">
-                    <li class="active">
-                      <a href="introduction.html" title="Introduction" class="active">Introduction</a>
-                    </li>
                     <li class="">
-                      <a href="howToInstall.html" title="How To Install" class="">How To Install</a>
+                      <a href="introduction.html" title="Introduction" class="">Introduction</a>
+                    </li>
+                    <li class="active">
+                      <a href="howToInstall.html" title="How To Install" class="active">How To Install</a>
                     </li>
                     <li class="">
                       <a href="license.html" title="License" class="">License</a>
@@ -96,10 +96,31 @@
         <div class="article row grid-right">
           <div class="col-md-10">
             <article class="content wrap" id="_content" data-uid="">
-<h1 id="speckleunity---manual">SpeckleUnity - Manual</h1>
+<h1 id="how-to-install">How To Install</h1>
 
-<p><strong>SpeckleUnity</strong> is a package used to allow applications build with Unity3D to act as a client to a given Speckle Server.</p>
-<p>These manuals asume you already have a base understanding of what Speckle is, what the general workflow is and what the core terminology is so explanations on these topics won't be too in depth. The aim of these articles is to shed light on how the Unity client specifically works, how to use it and what makes it different to the other Speckle clients.</p>
+<p>In order to install SpeckleUnity in your project, add the following to the top of your manifest.json file right before the dependencies object. Next, save the file and restart the editor. You should then find the package in the package manager UI which can be installed like any other Unity package. You can even view a list of all previous versions of the package that are available in our registry.</p>
+<pre><code class="lang-js">&quot;scopedRegistries&quot;: [
+    {
+        &quot;name&quot;: &quot;Open Source Packages&quot;,
+        &quot;url&quot;: &quot;http://35.227.114.200:8080&quot;,
+        &quot;scopes&quot;: [
+            &quot;com.open&quot;
+        ]
+    }
+],
+</code></pre>
+<p>The manifest.json file can be found under:</p>
+<p>&quot;YOUR-PROJECT-FOLDER&quot; &gt; Packages &gt; manifest.json</p>
+<p>This needs to be done once for each Unity project you intend to use SpeckleUnity with because new Unity projects are always created with the default manifest.json file for that editor version.</p>
+<p>If you can't see the latest version of SpeckleUnity in the package manager UI, it's likely because it supports only a later version of Unity than you are currently using.</p>
+<hr>
+<p><strong>Note:</strong> In some versions of Unity there is a bug with the package manager in how it communicates with scoped registries. If you don't see any new packages appear, you must also update your list of dependencies to include SpeckleUnity. For example...</p>
+<pre><code class="lang-js">&quot;dependencies&quot;: {
+    &quot;com.open.speckleunity&quot;: &quot;0.4.0-preview&quot;,
+    &quot;com.unity.ads&quot;: &quot;2.0.8&quot;
+ }
+</code></pre>
+<p>Keep in mind that you will most likely have a larger list of dependencies than what is depicted in the example above. The line beginning with &quot;com.unity.ads&quot; merely serves as a placeholder to show that the necessary entry of &quot;com.open.speckleunity&quot; is inserted into the dependencies list.</p>
 </article>
           </div>
           
@@ -108,7 +129,7 @@
               <div class="contribution">
                 <ul class="nav">
                   <li>
-                    <a href="https://github.com/speckleworks/SpeckleUnity/blob/master/docfx/articles/introduction.md/#L1" class="contribution-link">Improve this Doc</a>
+                    <a href="https://github.com/speckleworks/SpeckleUnity/blob/master/docfx/articles/howToInstall.md/#L1" class="contribution-link">Improve this Doc</a>
                   </li>
                 </ul>
               </div>
