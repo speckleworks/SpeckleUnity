@@ -18,3 +18,4 @@ SpeckleUnity/*
 !SpeckleUnity/ProjectSettings/
 !SpeckleUnity/Packages/
 *.unity
+.unity.meta

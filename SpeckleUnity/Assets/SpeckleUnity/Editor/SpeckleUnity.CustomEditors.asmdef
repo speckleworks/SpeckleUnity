@@ -1,0 +1,17 @@
+{
+    "name": "SpeckleUnity.CustomEditors",
+    "references": [
+        "GUID:1addbf6a3a1a3c945b76908800b32b02"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

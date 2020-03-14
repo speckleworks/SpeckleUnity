@@ -3,7 +3,7 @@
 namespace SpeckleUnity
 {
 	/// <summary>
-	/// 
+	/// Concrete type for the json structure of the web socket message data to deserialize into.
 	/// </summary>
 	[Serializable]
 	public class WSMessageData
