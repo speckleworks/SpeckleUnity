@@ -36,7 +36,7 @@ namespace SpeckleUnity
 		/// The server to send / receive streams from and authenticate against. Changing this value during
 		/// runtime requires calling <c>InitializeAllClients ()</c> again.
 		/// </summary>
-		public string serverUrl = "https://hestia.speckle.works/api/v1/";
+		public string serverUrl = "https://hestia.speckle.works/api/";
 
 		/// <summary>
 		/// Authentication token used in interacting with the speckle API for streams that require authenticated access.

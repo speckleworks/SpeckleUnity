@@ -5,9 +5,9 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>SpeckleUnity - Manual </title>
+    <title>Getting Started </title>
     <meta name="viewport" content="width=device-width">
-    <meta name="title" content="SpeckleUnity - Manual ">
+    <meta name="title" content="Getting Started ">
     <meta name="generator" content="docfx 2.50.0.0">
     
     <link rel="shortcut icon" href="../favicon.ico">
@@ -79,14 +79,14 @@
                 <div class="toc" id="toc">
                   
                   <ul class="nav level1">
-                    <li class="active">
-                      <a href="introduction.html" title="Introduction" class="active">Introduction</a>
+                    <li class="">
+                      <a href="introduction.html" title="Introduction" class="">Introduction</a>
                     </li>
                     <li class="">
                       <a href="howToInstall.html" title="How To Install" class="">How To Install</a>
                     </li>
-                    <li class="">
-                      <a href="gettingStarted.html" title="Getting Started" class="">Getting Started</a>
+                    <li class="active">
+                      <a href="gettingStarted.html" title="Getting Started" class="active">Getting Started</a>
                     </li>
                     <li class="">
                       <a href="license.html" title="License" class="">License</a>
@@ -99,10 +99,36 @@
         <div class="article row grid-right">
           <div class="col-md-10">
             <article class="content wrap" id="_content" data-uid="">
-<h1 id="speckleunity---manual">SpeckleUnity - Manual</h1>
+<h1 id="getting-started">Getting Started</h1>
 
-<p><strong>SpeckleUnity</strong> is a package used to allow applications build with Unity3D to act as a client to a given Speckle Server.</p>
-<p>These manuals asume you already have a base understanding of what Speckle is, what the general workflow is and what the core terminology is so explanations on these topics won't be too in depth. The aim of these articles is to shed light on how the Unity client specifically works, how to use it and what makes it different to the other Speckle clients.</p>
+<p>This article describes how to connect to your first stream with SpeckleUnity</p>
+<h2 id="step-0-satisfy-dependencies">Step 0: Satisfy Dependencies</h2>
+<p>Once SpeckleUnity is installed in your Unity project, there is just <strong>one more dependency</strong> you need to satisfy. Currently, SpeckleCore still makes some assumptions about &quot;Speckle&quot; being installed on your Windows computer even though the libraries are also present in the package. So for the time being, any use of SpeckleUnity, either in editor or in a Windows build, needs to have the following installed on the same computer in order to run.</p>
+<p><img src="../images/gettingStarted1.PNG" alt="Figure1"></p>
+<p>With Speckle now installed, you should be able to enter play mode and run builds without concern.</p>
+<p>We plan to remove this dependency in a future update.</p>
+<h2 id="step-1-create-a-speckleunitymanager">Step 1: Create a SpeckleUnityManager</h2>
+<p>In your scene's hierarchy view, right click and select &quot;SpeckleUnityManager&quot;:</p>
+<p><img src="../images/gettingStarted2.png" alt="Figure2"></p>
+<p>This will add a new GameObject to your scene which only has the <code>SpeckleUnityManager</code> component attached to it:</p>
+<p><img src="../images/gettingStarted3.png" alt="Figure3"></p>
+<p>A single instance of a manager is designed to connect to a single speckle server and authenticate as a single user for all interactions it makes. This means that multiple managers will allow you to connect to multiple servers or connect as multiple users at the same time.</p>
+<h2 id="step-2-configure-your-speckleunitymanager">Step 2: Configure your SpeckleUnityManager</h2>
+<p>In the inspector of our manager object, there are a number of fields exposed to us but for this quick start guide we will be focussing only on the following fields:</p>
+<ul>
+<li>Server Url</li>
+<li>Auth Token</li>
+<li>Mesh Material</li>
+<li>Receivers</li>
+</ul>
+<p>Your server URL is the root URL to the Speckle server you wish to connect to, followed by &quot;/api/&quot;. By default, this field is set to the public hestia server that is available to all users. If you require to connect to a different server, like a privately hosted company server, just change this default value to the URL of your new server.</p>
+<p>Your authentication token can be found after logging in to your server, viewing your profile and clicking &quot;Show API Token&quot;. Paste this value into the Auth Token field of the inspector to authenticate this manager as yourself.</p>
+<p>The Mesh Material field allows you to assign what material all meshe objects in your received streams are rendered with. By default this field is left null because your Unity project may be using the built in renderer, the Universal Render Pipeline or the HD Render Pipeline, all of which require their own materials that are incompatible with one another. So you can either assign an existing material from your assets folder, or simply create a new material and assign that in. Leaving this field empty will cause all objects to be rendered with a bright magenta color.</p>
+<p>Finally, the receivers field expands to reveal a list of receivers. By default it doesn't have any, so set the length of your receivers list to be 1 as shown below:</p>
+<p><img src="../images/gettingStarted4.png" alt="Figure4"></p>
+<p>This will add a new receiver instance which you can further configure with the ID of the stream it needs to receive as well as an <strong>optional</strong> field of type <code>Transform</code> called Stream Root. This Stream Root field specifies what object in the scene the stream objects will spawn under. If no value is set, a new object will be created by default. For now, just paste in the ID of your stream and then enter play mode.</p>
+<h2 id="step-3-receive-a-stream">Step 3: Receive a Stream</h2>
+<p>If you enter play mode now, assuming you configured your manager correctly, you should be able to see your stream appear after a moment, rendered with the material you assigned!</p>
 </article>
           </div>
           
@@ -111,7 +137,7 @@
               <div class="contribution">
                 <ul class="nav">
                   <li>
-                    <a href="https://github.com/speckleworks/SpeckleUnity/blob/master/docfx/articles/introduction.md/#L1" class="contribution-link">Improve this Doc</a>
+                    <a href="https://github.com/speckleworks/SpeckleUnity/blob/master/docfx/articles/gettingStarted.md/#L1" class="contribution-link">Improve this Doc</a>
                   </li>
                 </ul>
               </div>
