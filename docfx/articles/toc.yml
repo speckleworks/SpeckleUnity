@@ -4,5 +4,8 @@
 - name: How To Install
   href: howToInstall.md
 
+- name: Getting Started
+  href: gettingStarted.md
+
 - name: License
   href: license.md
