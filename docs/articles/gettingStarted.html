@@ -104,6 +104,7 @@
 <p>This article describes how to connect to your first stream with SpeckleUnity</p>
 <h2 id="step-0-satisfy-dependencies">Step 0: Satisfy Dependencies</h2>
 <p>Once SpeckleUnity is installed in your Unity project, there is just <strong>one more dependency</strong> you need to satisfy. Currently, SpeckleCore still makes some assumptions about &quot;Speckle&quot; being installed on your Windows computer even though the libraries are also present in the package. So for the time being, any use of SpeckleUnity, either in editor or in a Windows build, needs to have the following installed on the same computer in order to run.</p>
+<p><a href="https://github.com/speckleworks/SpeckleInstaller/releases"><strong>Download Here:</strong> https://github.com/speckleworks/SpeckleInstaller/releases</a></p>
 <p><img src="../images/gettingStarted1.PNG" alt="Figure1"></p>
 <p>With Speckle now installed, you should be able to enter play mode and run builds without concern.</p>
 <p>We plan to remove this dependency in a future update.</p>
@@ -126,9 +127,9 @@
 <p>The Mesh Material field allows you to assign what material all meshe objects in your received streams are rendered with. By default this field is left null because your Unity project may be using the built in renderer, the Universal Render Pipeline or the HD Render Pipeline, all of which require their own materials that are incompatible with one another. So you can either assign an existing material from your assets folder, or simply create a new material and assign that in. Leaving this field empty will cause all objects to be rendered with a bright magenta color.</p>
 <p>Finally, the receivers field expands to reveal a list of receivers. By default it doesn't have any, so set the length of your receivers list to be 1 as shown below:</p>
 <p><img src="../images/gettingStarted4.png" alt="Figure4"></p>
-<p>This will add a new receiver instance which you can further configure with the ID of the stream it needs to receive as well as an <strong>optional</strong> field of type <code>Transform</code> called Stream Root. This Stream Root field specifies what object in the scene the stream objects will spawn under. If no value is set, a new object will be created by default. For now, just paste in the ID of your stream and then enter play mode.</p>
+<p>This will add a new receiver instance which you can further configure with the ID of the stream it needs to receive as well as an <strong>optional</strong> field of type <code>Transform</code> called Stream Root. This Stream Root field specifies what object in the scene the stream objects will spawn under. If no value is set, a new object will be created by default. For now, just paste in the ID of your stream.</p>
 <h2 id="step-3-receive-a-stream">Step 3: Receive a Stream</h2>
-<p>If you enter play mode now, assuming you configured your manager correctly, you should be able to see your stream appear after a moment, rendered with the material you assigned!</p>
+<p>If you enter play mode now, assuming you configured your manager correctly, you should be able to see your stream appear after a moment, rendered with the material you assigned! The waiting time is proportional to the size of the stream. At the time of writing, there is currently no feedback on how far along the download is but this will be added in a future release.</p>
 </article>
           </div>
           

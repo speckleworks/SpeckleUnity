@@ -4,7 +4,9 @@ This article describes how to connect to your first stream with SpeckleUnity
 
 ## Step 0: Satisfy Dependencies
 
-Once SpeckleUnity is installed in your Unity project, there is just **one more dependency** you need to satisfy. Currently, SpeckleCore still makes some assumptions about "Speckle" being installed on your Windows computer even though the libraries are also present in the package. So for the time being, any use of SpeckleUnity, either in editor or in a Windows build, needs to have the following installed on the same computer in order to run.
+Once SpeckleUnity is installed in your Unity project, there is just **one more dependency** you need to satisfy. Currently, SpeckleCore still makes some assumptions about "Speckle" being installed on your Windows computer even though the libraries are also present in the package. So for the time being, any use of SpeckleUnity, either in editor or in a Windows build, needs to have the following installed on the same computer in order to run. 
+
+[**Download Here:** https://github.com/speckleworks/SpeckleInstaller/releases](https://github.com/speckleworks/SpeckleInstaller/releases)
 
 ![Figure1](~/images/gettingStarted1.png)
 
@@ -43,8 +45,8 @@ Finally, the receivers field expands to reveal a list of receivers. By default i
 
 ![Figure4](~/images/gettingStarted4.png)
 
-This will add a new receiver instance which you can further configure with the ID of the stream it needs to receive as well as an **optional** field of type `Transform` called Stream Root. This Stream Root field specifies what object in the scene the stream objects will spawn under. If no value is set, a new object will be created by default. For now, just paste in the ID of your stream and then enter play mode.
+This will add a new receiver instance which you can further configure with the ID of the stream it needs to receive as well as an **optional** field of type `Transform` called Stream Root. This Stream Root field specifies what object in the scene the stream objects will spawn under. If no value is set, a new object will be created by default. For now, just paste in the ID of your stream.
 
 ## Step 3: Receive a Stream
 
-If you enter play mode now, assuming you configured your manager correctly, you should be able to see your stream appear after a moment, rendered with the material you assigned!
+If you enter play mode now, assuming you configured your manager correctly, you should be able to see your stream appear after a moment, rendered with the material you assigned! The waiting time is proportional to the size of the stream. At the time of writing, there is currently no feedback on how far along the download is but this will be added in a future release.
