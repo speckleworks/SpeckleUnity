@@ -88,8 +88,8 @@ namespace SpeckleUnity
 		/// </summary>
 		public virtual void InitializeAllClients ()
 		{
-			SpeckleInitializer.Initialize ();
-			LocalContext.Init ();
+			SpeckleInitializer.Initialize (false, true);
+			//LocalContext.Init ();
 
 			for (int i = 0; i < receivers.Count; i++)
 			{
