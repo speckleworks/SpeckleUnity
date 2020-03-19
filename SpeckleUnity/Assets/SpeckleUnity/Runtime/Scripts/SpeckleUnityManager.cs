@@ -15,11 +15,42 @@ namespace SpeckleUnity
 	public class SpeckleUnityManager : MonoBehaviour, ISpeckleInitializer
 	{
 		/// <summary>
+		/// The server to send / receive streams from and authenticate against. Changing this value during
+		/// runtime requires calling <c>InitializeAllClients ()</c> again.
+		/// </summary>
+		[Header ("Server Settings")]
+		public string serverUrl = "https://hestia.speckle.works/api/";
+
+		/// <summary>
+		/// Authentication token used in interacting with the speckle API for streams that require authenticated access.
+		/// Designed to be set in the inspector or assigned to after user credentials are authenticated via the login API which
+		/// returns the auth token for that user.
+		/// </summary>
+		[TextArea (5, 5)]
+		public string authToken = "";
+
+		/// <summary>
+		/// Assigns to the <c>MeshRenderer</c>s of every brep or mesh object for every stream handled by this manager.
+		/// </summary>
+		[Header ("Renderer Settings")]
+		public Material meshMaterial;
+
+		/// <summary>
+		/// Assigns to the <c>LineRenderer</c>s of every line, curve or polyline object for every stream handled by this manager.
+		/// </summary>
+		public Material polylineMaterial;
+
+		/// <summary>
+		/// Assigns to the <c>LineRenderer</c>s of every point object for every stream handled by this manager.
+		/// </summary>
+		public Material pointMaterial;
+
+		/// <summary>
 		/// If set to false, you need to reference this class and call the <c>InitializeAllClients ()</c> method
 		/// yourself.
 		/// </summary>
 		[Header ("Receiver Settings")]
-		public bool initializeOnStart = true;
+		public bool receiveStreamsOnStart = true;
 
 		/// <summary>
 		/// Speed value to allow for instantiation to happen gradually over many frames in case of 
@@ -34,40 +65,9 @@ namespace SpeckleUnity
 		[SerializeField] protected double scaleFactor = 0.001;
 
 		/// <summary>
-		/// The server to send / receive streams from and authenticate against. Changing this value during
-		/// runtime requires calling <c>InitializeAllClients ()</c> again.
-		/// </summary>
-		[Header ("Server Settings")]
-		public string serverUrl = "https://hestia.speckle.works/api/";
-
-		/// <summary>
-		/// Authentication token used in interacting with the speckle API for streams that require authenticated access.
-		/// Designed to be set in the inspector or assigned to after user credentials are authenticated via the login API which
-		/// returns the auth token for that user.
-		/// </summary>
-		public string authToken = "";
-
-		/// <summary>
-		/// Assigns to the <c>MeshRenderer</c>s of every brep or mesh object for every stream handled by this manager.
-		/// </summary>
-		[Header ("Material Settings")]
-		public Material meshMaterial;
-
-		/// <summary>
-		/// Assigns to the <c>LineRenderer</c>s of every line, curve or polyline object for every stream handled by this manager.
-		/// </summary>
-		public Material polylineMaterial;
-
-		/// <summary>
-		/// Assigns to the <c>LineRenderer</c>s of every point object for every stream handled by this manager.
-		/// </summary>
-		public Material pointMaterial;
-
-		/// <summary>
 		/// A <c>UnityEvent</c> that is invoked each time a stream is updated, including when it's initialised, for user code to 
 		/// respond to that event. Passes some helpful data to inform that custom response.
 		/// </summary>
-		[Space, Space]
 		public SpeckleUnityUpdateEvent onUpdateReceived;
 
 		/// <summary>
@@ -77,24 +77,22 @@ namespace SpeckleUnity
 		[SerializeField] protected List<SpeckleUnityReceiver> receivers = new List<SpeckleUnityReceiver> ();
 
 		/// <summary>
-		/// Assigns the scale factor of all geometry and, if <c>initializeOnStart</c> is set to true, calls <c>InitializeAllClients ()</c>.
+		/// Initializes Speckle and assigns the scale factor of all geometry. If <c>receiveStreamsOnStart</c> is set
+		/// to true, calls <c>InitializeAllClients ()</c>.
 		/// </summary>
 		protected virtual void Start ()
 		{
+			SpeckleInitializer.Initialize (false, true);
 			Conversions.scaleFactor = scaleFactor;
 
-			if (initializeOnStart) InitializeAllClients ();
+			if (receiveStreamsOnStart) InitializeAllClients ();
 		}
 
 		/// <summary>
-		/// Initializes Speckle and the <c>LocalContext</c> for Speckle, then loops through each receiver and starts each of their 
-		/// initialization coroutines.
+		/// Loops through each receiver and starts each of their initialization coroutines.
 		/// </summary>
 		public virtual void InitializeAllClients ()
 		{
-			SpeckleInitializer.Initialize (false, true);
-			//LocalContext.Init ();
-
 			for (int i = 0; i < receivers.Count; i++)
 			{
 				StartCoroutine (receivers[i].InitializeClient (this, serverUrl, authToken));
