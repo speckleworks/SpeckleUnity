@@ -18,6 +18,7 @@ namespace SpeckleUnity
 		/// If set to false, you need to reference this class and call the <c>InitializeAllClients ()</c> method
 		/// yourself.
 		/// </summary>
+		[Header ("Receiver Settings")]
 		public bool initializeOnStart = true;
 
 		/// <summary>
@@ -36,6 +37,7 @@ namespace SpeckleUnity
 		/// The server to send / receive streams from and authenticate against. Changing this value during
 		/// runtime requires calling <c>InitializeAllClients ()</c> again.
 		/// </summary>
+		[Header ("Server Settings")]
 		public string serverUrl = "https://hestia.speckle.works/api/";
 
 		/// <summary>
@@ -48,6 +50,7 @@ namespace SpeckleUnity
 		/// <summary>
 		/// Assigns to the <c>MeshRenderer</c>s of every brep or mesh object for every stream handled by this manager.
 		/// </summary>
+		[Header ("Material Settings")]
 		public Material meshMaterial;
 
 		/// <summary>
@@ -64,6 +67,7 @@ namespace SpeckleUnity
 		/// A <c>UnityEvent</c> that is invoked each time a stream is updated, including when it's initialised, for user code to 
 		/// respond to that event. Passes some helpful data to inform that custom response.
 		/// </summary>
+		[Space, Space]
 		public SpeckleUnityUpdateEvent onUpdateReceived;
 
 		/// <summary>
