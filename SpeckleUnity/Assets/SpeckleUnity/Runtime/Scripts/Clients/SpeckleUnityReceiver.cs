@@ -64,9 +64,9 @@ namespace SpeckleUnity
 		/// </summary>
 		/// <param name="manager">The manager instance that provides inspector values for this client.</param>
 		/// <param name="url">The url of the speckle server to connect to.</param>
-		/// <param name="authToken">The authentication token of the user to connect as.</param>
+		/// <param name="apiToken">The authentication token of the user to connect as.</param>
 		/// <returns>An IEnumerator to yield or start as a new coroutine.</returns>
-		public override IEnumerator InitializeClient (SpeckleUnityManager manager, string url, string authToken)
+		public override IEnumerator InitializeClient (SpeckleUnityManager manager, string url, string apiToken)
 		{
 			if (streamRoot == null)
 			{
@@ -81,7 +81,7 @@ namespace SpeckleUnity
 			RegisterClient ();
 
 			//Initialize receiver
-			client.IntializeReceiver (streamID, "SpeckleUnity", "Unity", Guid.NewGuid ().ToString (), authToken);
+			client.IntializeReceiver (streamID, "SpeckleUnity", "Unity", Guid.NewGuid ().ToString (), apiToken);
 
 			Debug.Log ("Initialized stream: " + streamID);
 
@@ -164,6 +164,10 @@ namespace SpeckleUnity
 		{
 			Debug.Log ("Getting Stream");
 
+			// notify all user code that subsribed to this event in the manager inspector so that their code
+			// can respond to the global update of this stream.
+			manager.onUpdateStarted.Invoke (new SpeckleUnityUpdate (streamID, streamRoot, UpdateType.Global));
+
 			//TODO - use LocalContext for caching, etc
 			Task<ResponseStream> streamGet = client.StreamGetAsync (streamID, null);
 			while (!streamGet.IsCompleted) yield return null;
@@ -175,6 +179,7 @@ namespace SpeckleUnity
 			}
 			else
 			{
+
 				client.Stream = streamGet.Result.Resource;
 
 				string[] payload = client.Stream.Objects.Where (o => o.Type == "Placeholder").Select (obj => obj._id).ToArray ();
@@ -213,7 +218,7 @@ namespace SpeckleUnity
 				Debug.Log (streamID + " download: 100%");
 				yield return manager.StartCoroutine (DisplayContents ());
 
-				// notify all user code that subsribed to this even in the manager inspector so that their code
+				// notify all user code that subsribed to this event in the manager inspector so that their code
 				// can respond to the global update of this stream.
 				manager.onUpdateReceived.Invoke (new SpeckleUnityUpdate (streamID, streamRoot, UpdateType.Global));
 				Debug.Log (streamID + " Complete");
@@ -348,7 +353,7 @@ namespace SpeckleUnity
 
 			if (deserializedStreamObject is SpeckleUnityPolyline line)
 			{
-				line.lineRenderer.material = manager.polylineMaterial;
+				line.lineRenderer.material = manager.lineMaterial;
 			}
 
 			if (deserializedStreamObject is SpeckleUnityPoint point)

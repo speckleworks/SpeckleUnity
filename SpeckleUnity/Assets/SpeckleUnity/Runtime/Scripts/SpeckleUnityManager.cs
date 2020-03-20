@@ -1,9 +1,12 @@
 ﻿using System;
+using System.Linq;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using SpeckleCore;
 using System.IO;
+using System.Threading.Tasks;
 using System.Runtime.Serialization.Formatters.Binary;
 
 namespace SpeckleUnity
@@ -15,6 +18,11 @@ namespace SpeckleUnity
 	public class SpeckleUnityManager : MonoBehaviour, ISpeckleInitializer
 	{
 		/// <summary>
+		/// 
+		/// </summary>
+		public StartMode onStartBehaviour = StartMode.LoginAndReceiveStreams;
+
+		/// <summary>
 		/// The server to send / receive streams from and authenticate against. Changing this value during
 		/// runtime requires calling <c>InitializeAllClients ()</c> again.
 		/// </summary>
@@ -22,23 +30,30 @@ namespace SpeckleUnity
 		public string serverUrl = "https://hestia.speckle.works/api/";
 
 		/// <summary>
-		/// Authentication token used in interacting with the speckle API for streams that require authenticated access.
-		/// Designed to be set in the inspector or assigned to after user credentials are authenticated via the login API which
-		/// returns the auth token for that user.
+		/// 
 		/// </summary>
-		[TextArea (5, 5)]
-		public string authToken = "";
+		[SerializeField] protected string loginEmail = "";
+
+		/// <summary>
+		/// 
+		/// </summary>
+		[SerializeField] protected string loginPassword = "";
+
+		/// <summary>
+		/// 
+		/// </summary>
+		protected User loggedInUser;
 
 		/// <summary>
 		/// Assigns to the <c>MeshRenderer</c>s of every brep or mesh object for every stream handled by this manager.
 		/// </summary>
-		[Header ("Renderer Settings")]
+		[Header ("Rendering Settings")]
 		public Material meshMaterial;
 
 		/// <summary>
 		/// Assigns to the <c>LineRenderer</c>s of every line, curve or polyline object for every stream handled by this manager.
 		/// </summary>
-		public Material polylineMaterial;
+		public Material lineMaterial;
 
 		/// <summary>
 		/// Assigns to the <c>LineRenderer</c>s of every point object for every stream handled by this manager.
@@ -46,32 +61,33 @@ namespace SpeckleUnity
 		public Material pointMaterial;
 
 		/// <summary>
-		/// If set to false, you need to reference this class and call the <c>InitializeAllClients ()</c> method
-		/// yourself.
+		/// A value for easily setting the static <c>Conversions.scaleFactor</c> value via the inspector.
+		/// This class assigs the value once on <c>Start ()</c>. Default value is 0.001 because it's assuming
+		/// that the stream was modelled in milimeters and needs to be scaled to 
 		/// </summary>
-		[Header ("Receiver Settings")]
-		public bool receiveStreamsOnStart = true;
+		[SerializeField] protected double scaleFactor = 0.001;
 
 		/// <summary>
 		/// Speed value to allow for instantiation to happen gradually over many frames in case of 
 		/// performance issues with large streams that get initialized / updated.
 		/// </summary>
-		public SpawnSpeed spawnSpeed = SpawnSpeed.Instant;
+		[Header ("Receiver Settings")]
+		public SpawnSpeed spawnSpeed = SpawnSpeed.TenPerFrame;
 
 		/// <summary>
-		/// A value for easily setting the static <c>Conversions.scaleFactor</c> value via the inspector.
-		/// This class assigs the value once on <c>Start ()</c>.
+		/// A <c>UnityEvent</c> that is invoked each time a stream update is started, including when it's initialised, for user code to 
+		/// respond to that event. Passes some helpful data to inform that custom response.
 		/// </summary>
-		[SerializeField] protected double scaleFactor = 0.001;
+		public SpeckleUnityUpdateEvent onUpdateStarted;
 
 		/// <summary>
-		/// A <c>UnityEvent</c> that is invoked each time a stream is updated, including when it's initialised, for user code to 
+		/// A <c>UnityEvent</c> that is invoked each time a stream update is finished, including when it's initialised, for user code to 
 		/// respond to that event. Passes some helpful data to inform that custom response.
 		/// </summary>
 		public SpeckleUnityUpdateEvent onUpdateReceived;
 
 		/// <summary>
-		/// An exposed list of all the <c>SpeckleUnityReceivers</c> this manager controls. Intended to only be directly editable via
+		/// A list of all the <c>SpeckleUnityReceivers</c> this manager controls. Intended to only be directly editable via
 		/// the inspector. During runtime you should make use of the <c>RemoveReceiver ()</c> or <c>AddReceiver ()</c> methods.
 		/// </summary>
 		[SerializeField] protected List<SpeckleUnityReceiver> receivers = new List<SpeckleUnityReceiver> ();
@@ -82,10 +98,120 @@ namespace SpeckleUnity
 		/// </summary>
 		protected virtual void Start ()
 		{
-			SpeckleInitializer.Initialize (false, true);
+			SpeckleInitializer.Initialize (false);
 			Conversions.scaleFactor = scaleFactor;
 
-			if (receiveStreamsOnStart) InitializeAllClients ();
+			StartCoroutine (RunStartBehaviour ());
+		}
+
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <returns></returns>
+		protected virtual IEnumerator RunStartBehaviour ()
+		{
+			if (onStartBehaviour > StartMode.DoNothing)
+			{
+				if (!string.IsNullOrWhiteSpace (loginEmail) && !string.IsNullOrWhiteSpace (loginPassword))
+				{
+					yield return StartCoroutine (AttemptLogin (loginEmail, loginPassword));
+				}
+			}
+
+			if (onStartBehaviour > StartMode.JustLogin)
+			{
+				if (!string.IsNullOrWhiteSpace (loggedInUser?.Apitoken))
+				{
+					InitializeAllClients ();
+				}
+				else
+				{
+					Debug.LogError ("User has no API token.");
+				}
+			}
+		}
+
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="email"></param>
+		/// <param name="password"></param>
+		/// <param name="callBack"></param>
+		public virtual void Login (string email, string password, Action<User> callBack = null)
+		{
+			StartCoroutine (AttemptLogin (email, password, callBack));
+		}
+
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="email"></param>
+		/// <param name="password"></param>
+		/// <param name="callBack"></param>
+		/// <returns></returns>
+		protected virtual IEnumerator AttemptLogin (string email, string password, Action<User> callBack = null)
+		{
+			SpeckleApiClient loginClient = new SpeckleApiClient (serverUrl);
+
+			User user = new User { Email = email, Password = password };
+
+			Task<ResponseUser> userGet = loginClient.UserLoginAsync (user);
+			Debug.Log ("Atempting login");
+			while (!userGet.IsCompleted) yield return null;
+
+			if (userGet.Result == null)
+			{
+				Debug.LogError ("Could not login");
+
+				callBack?.Invoke (null);
+			}
+			else
+			{
+				loggedInUser = userGet.Result.Resource;
+				Debug.Log ("Logged in as " + loggedInUser.Name + " " + loggedInUser.Surname);
+
+				loginClient?.Dispose (true);
+
+				callBack?.Invoke (loggedInUser);
+			}
+		}
+
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="callBack"></param>
+		public virtual void GetAllStreamsForUser (Action<SpeckleStream[]> callBack)
+		{
+			StartCoroutine (AttemptGetAllStreamsForUser (callBack));
+		}
+
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="callBack"></param>
+		/// <returns></returns>
+		protected virtual IEnumerator AttemptGetAllStreamsForUser (Action<SpeckleStream[]> callBack)
+		{
+			SpeckleApiClient userStreamsClient = new SpeckleApiClient (serverUrl);
+			userStreamsClient.AuthToken = loggedInUser.Apitoken;
+
+			Task<ResponseStream> streamsGet = userStreamsClient.StreamsGetAllAsync (null);
+			while (!streamsGet.IsCompleted) yield return null;
+
+			if (streamsGet.Result == null)
+			{
+				Debug.LogError ("Could not get streams for user");
+				
+				callBack?.Invoke (null);
+			}
+			else
+			{
+				List<SpeckleStream> streams = streamsGet.Result.Resources;
+				
+				Debug.Log ("Got " + streams.Count + " streams for user");
+
+				callBack?.Invoke (streams.ToArray ());
+			}
 		}
 
 		/// <summary>
@@ -95,7 +221,7 @@ namespace SpeckleUnity
 		{
 			for (int i = 0; i < receivers.Count; i++)
 			{
-				StartCoroutine (receivers[i].InitializeClient (this, serverUrl, authToken));
+				StartCoroutine (receivers[i].InitializeClient (this, serverUrl, loggedInUser.Apitoken));
 			}
 		}
 
@@ -126,7 +252,7 @@ namespace SpeckleUnity
 			receivers.Add (newReceiver);
 
 			if (initialiseOnCreation)
-				StartCoroutine (newReceiver.InitializeClient (this, serverUrl, authToken));
+				StartCoroutine (newReceiver.InitializeClient (this, serverUrl, loggedInUser.Apitoken));
 		}
 
 		/// <summary>
@@ -183,6 +309,17 @@ namespace SpeckleUnity
 			receiver.RemoveContents ();
 			receiver.client.Dispose (true);
 		}
+
+		/// <summary>
+		/// 
+		/// </summary>
+		public virtual void ClearReceivers ()
+		{
+			for (int i = 0; i < receivers.Count; i++)
+			{
+				RemoveReceiver (i);
+			}
+		}
 	}
 
 	/// <summary>
@@ -190,11 +327,21 @@ namespace SpeckleUnity
 	/// The Instant value simply means all objects will be spawned in the same frame. (Technically,
 	/// it caps out at 2 billion, but who in the world is making streams bigger than 2 billion...)
 	/// </summary>
-	public enum SpawnSpeed
+	public enum SpawnSpeed : int
 	{
 		Instant = int.MaxValue,
 		ThousandPerFrame = 1000,
 		HundredPerFrame = 100,
 		TenPerFrame = 10
+	}
+
+	/// <summary>
+	/// 
+	/// </summary>
+	public enum StartMode : int
+	{ 
+		DoNothing = 0,
+		JustLogin = 1,
+		LoginAndReceiveStreams = 2
 	}
 }
