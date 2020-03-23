@@ -28,7 +28,7 @@ If you can't see the latest version of SpeckleUnity in the package manager UI, i
 
 ``` js
 "dependencies": {
-    "com.open.speckleunity": "0.4.0-preview",
+    "com.open.speckleunity": "0.5.0-preview",
     "com.unity.ads": "2.0.8"
  }
 ```

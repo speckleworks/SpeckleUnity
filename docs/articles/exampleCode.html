@@ -1,0 +1,283 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Example Code </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Example Code ">
+    <meta name="generator" content="docfx 2.50.0.0">
+    
+    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="stylesheet" href="../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <meta property="docfx:navrel" content="../toc">
+    <meta property="docfx:tocrel" content="toc">
+    
+    
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+                
+                <ul class="nav level1 navbar-nav">
+                      <li>
+                          <a href="../articles/introduction.html" title="Manual">Manual</a>
+                      </li>
+                      <li>
+                          <a href="../api/index.html" title="Scripting API">Scripting API</a>
+                      </li>
+                </ul>    </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div role="main" class="container body-content hide-when-search">
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div>
+              <div class="sidefilter">
+                <form class="toc-filter">
+                  <span class="glyphicon glyphicon-filter filter-icon"></span>
+                  <input type="text" id="toc_filter_input" placeholder="Enter here to filter..." onkeypress="if(event.keyCode==13) {return false;}">
+                </form>
+              </div>
+              <div class="sidetoc">
+                <div class="toc" id="toc">
+                  
+                  <ul class="nav level1">
+                    <li class="">
+                      <a href="introduction.html" title="Introduction" class="">Introduction</a>
+                    </li>
+                    <li class="">
+                      <a href="howToInstall.html" title="How To Install" class="">How To Install</a>
+                    </li>
+                    <li class="">
+                      <a href="gettingStarted.html" title="Getting Started" class="">Getting Started</a>
+                    </li>
+                    <li class="">
+                      <a href="supportedPlatforms.html" title="Supported Platforms" class="">Supported Platforms</a>
+                    </li>
+                    <li class="active">
+                      <a href="exampleCode.html" title="Example Code" class="active">Example Code</a>
+                    </li>
+                    <li class="">
+                      <a href="license.html" title="License" class="">License</a>
+                    </li>
+                  </ul>        </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="example-code">Example Code</h1>
+
+<p>Here's some example code demonstrating some common operations you may want to do when using SpeckleUnity in your software development projects.</p>
+<h2 id="logging-in">Logging In</h2>
+<p>Logging in can happen by default if you set the <code>onStartBehaviour</code> property in the manager for it to do so. In the event that you don't want to log in as anyone on start, here's how you do it:</p>
+<pre><code class="lang-cs">using UnityEngine;
+using SpeckleUnity;
+using SpeckleCore; // needed for referencing the User object
+
+public class Example : MonoBehaviour
+{
+    // hold a reference to the manager you want to login with
+    public SpeckleUnityManager manager;
+
+    // call the login method on the manager and pass in the values you want to use
+    public void Login (string email, string password)
+    {
+        // a callback is needed to handle the result of the login
+        manager.Login (email, password, HandleLoginResult); 
+    }
+
+    // your callback needs to be a void method that only takes a User.
+    // called after the async operation is finished.
+    private void HandleLoginResult (User resultUser)
+    {
+        // if the user is not null, that means the login was successful
+    }
+
+    // if you want to change users in your code, just logout and log back in
+    public void Logout ()
+    {
+        manager.Logout ();
+    }
+}
+</code></pre>
+<h2 id="getting-stream-data">Getting Stream Data</h2>
+<p>Once logged in as a user, either by the default behaviour or with your own code, you may want to get an array of the streams that are available to said user so that one of them can be picked to be added to the scene. Here's how you do that:</p>
+<pre><code class="lang-cs">using UnityEngine;
+using SpeckleUnity;
+using SpeckleCore; // needed for referencing the Streams array
+
+public class Example : MonoBehaviour
+{
+    // hold a reference to the manager. Needs to be logged in as a user before getting streams
+    public SpeckleUnityManager manager;
+
+    // call the get streams method on the manager
+    public void GetStreams ()
+    {
+        // a callback is needed to handle the result of the download
+        manager.GetAllStreamsForUser (HandleStreamResultForUser); 
+    }
+
+    // your callback needs to be a void method that only takes a SpeckleStream array.
+    // called after the async operation is finished.
+    private void HandleStreamResultForUser (SpeckleStream[] streams)
+    {
+        // if the array is not null, that means the download was successful
+    }
+}
+</code></pre>
+<h2 id="controlling-receivers">Controlling Receivers</h2>
+<p>There's a number of things involved with managing streams that are received in Unity. To that end, some methods have been exposed that allow you to easily make these interactions without needing to worry about all of those nuances:</p>
+<pre><code class="lang-cs">using UnityEngine;
+using SpeckleUnity;
+
+public class Example : MonoBehaviour
+{
+    // hold a reference to the manager. Need to be logged before adding receivers
+    public SpeckleUnityManager manager;
+
+    public void ExampleMethod ()
+    {
+        // The arguments are the ID of the stream to receive, the transform
+        // for it to spawn under and whether or not the stream should start being 
+        // streamed when calling this line of code.
+        manager.AddReceiver (&quot;some stream ID&quot;, null, true);
+
+        // cleans up everything the AddReceiver method created except for the root transform
+        // there are overloads for removing by stream ID or by root transform reference
+        manager.RemoveReceiver (0);
+
+        // calls the remove method on all receivers.
+        manager.ClearReceivers ();
+    }
+}
+</code></pre>
+<h2 id="putting-it-all-together">Putting It All Together</h2>
+<p>Here's an example of all 3 usecases being used together in some theoretical Unity app that allows its users to provide an email and password, login as themself, get the data of the streams they have access to and pick a stream to start receiving:</p>
+<pre><code class="lang-cs">using UnityEngine;
+using SpeckleUnity;
+using SpeckleCore; // needed for referencing streams and users
+
+public class Example : MonoBehaviour
+{
+    public SpeckleUnityManager manager;
+
+    private User loggedInUser; // you can display user properties in the UI
+    private SpeckleStream[] userStreams; // you can display stream options in the UI
+
+    public void Login (string email, string password)
+    {
+        manager.Login (email, password, HandleLoginResult);
+    }
+
+    private void HandleLoginResult (User resultUser)
+    {
+        if (resultUser != null) 
+        {
+            loggedInUser = resultUser; // cache the user for later use
+            manager.GetAllStreamsForUser (HandleStreamResultForUser);
+        }
+        else
+        {
+            Debug.LogError (&quot;Could not log in to the server&quot;);
+        }
+    }
+
+    private void HandleStreamResultForUser (SpeckleStream[] streams)
+    {
+        if (streams != null)
+        {
+            userStreams = streams; // cache the array for later use
+        }
+        else
+        {
+            Debug.LogError (&quot;Could not get streams for user&quot;);
+        }
+    }
+
+    // This method could be called from a dropdown UI or button or whatever else
+    public void SelectStream (int index)
+    {
+        manager.AddReceiver (userStreams[index].StreamId, null, true);
+    }
+}
+</code></pre>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/speckleworks/SpeckleUnity/blob/master/docfx/articles/exampleCode.md/#L1" class="contribution-link">Improve this Doc</a>
+                  </li>
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

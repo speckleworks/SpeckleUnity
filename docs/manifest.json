@@ -9,7 +9,7 @@
       "output": {
         ".html": {
           "relative_path": "api/SpeckleUnity.Conversions.html",
-          "hash": "UBcK2Wfrt+hr1wfXuo16gA=="
+          "hash": "2A9KreNhPw48ZVskxl/OXg=="
         }
       },
       "is_incremental": true,
@@ -21,7 +21,7 @@
       "output": {
         ".html": {
           "relative_path": "api/SpeckleUnity.CustomEditors.SpeckleUnityMenus.html",
-          "hash": "QVLPwUf9yF6wPill1r5DWg=="
+          "hash": "tddHedMUNF4GHrh0RgZCYg=="
         }
       },
       "is_incremental": true,
@@ -33,7 +33,7 @@
       "output": {
         ".html": {
           "relative_path": "api/SpeckleUnity.CustomEditors.html",
-          "hash": "9VptJ3+r3F+GPJGY4mnEfw=="
+          "hash": "JsH1BPvdCi3FcMEzk6Qi6Q=="
         }
       },
       "is_incremental": true,
@@ -45,7 +45,7 @@
       "output": {
         ".html": {
           "relative_path": "api/SpeckleUnity.SpawnSpeed.html",
-          "hash": "n03FeGweg2mj4JQ17jwtUg=="
+          "hash": "q3RjWUIn1dwjv1OVsIrLbQ=="
         }
       },
       "is_incremental": true,
@@ -57,10 +57,10 @@
       "output": {
         ".html": {
           "relative_path": "api/SpeckleUnity.SpeckleUnityClient.html",
-          "hash": "TE/KEysc4HHmT4GmGOKKHg=="
+          "hash": "I38Wz9wjlY0c+9/Raspw4g=="
         }
       },
-      "is_incremental": true,
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -69,7 +69,7 @@
       "output": {
         ".html": {
           "relative_path": "api/SpeckleUnity.SpeckleUnityGeometry.html",
-          "hash": "EGolEAxQL7K6MPaceYqyZg=="
+          "hash": "fHIQMKDX1HZj191ZVpAW1Q=="
         }
       },
       "is_incremental": true,
@@ -81,10 +81,10 @@
       "output": {
         ".html": {
           "relative_path": "api/SpeckleUnity.SpeckleUnityManager.html",
-          "hash": "R6stG9DBMO4GC95wDrOHag=="
+          "hash": "HLgfwqgIGpq2ol8bwzXvkA=="
         }
       },
-      "is_incremental": true,
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -93,7 +93,7 @@
       "output": {
         ".html": {
           "relative_path": "api/SpeckleUnity.SpeckleUnityMesh.html",
-          "hash": "FMrKBDQE98L883qmiQdzGQ=="
+          "hash": "OPT1vJmYGkrnYgTiD3h43Q=="
         }
       },
       "is_incremental": true,
@@ -105,7 +105,7 @@
       "output": {
         ".html": {
           "relative_path": "api/SpeckleUnity.SpeckleUnityNumber.html",
-          "hash": "/IF6Rffqr5tKv6QYa+RU/g=="
+          "hash": "e/wVbWFtw6A5hHSmhzKrWQ=="
         }
       },
       "is_incremental": true,
@@ -117,7 +117,7 @@
       "output": {
         ".html": {
           "relative_path": "api/SpeckleUnity.SpeckleUnityObject.html",
-          "hash": "kpz1w0pz+WsQQFAtnLYd3A=="
+          "hash": "0/FPCsENXP7/y8nA5b3Hog=="
         }
       },
       "is_incremental": true,
@@ -129,7 +129,7 @@
       "output": {
         ".html": {
           "relative_path": "api/SpeckleUnity.SpeckleUnityPoint.html",
-          "hash": "aeJPLLJ1wSX+dWKgl2kbpw=="
+          "hash": "HCKV0njNhXZBXIguXX/rzA=="
         }
       },
       "is_incremental": true,
@@ -141,7 +141,7 @@
       "output": {
         ".html": {
           "relative_path": "api/SpeckleUnity.SpeckleUnityPolyline.html",
-          "hash": "2SBjHlssjI8+KjLFB3SvvA=="
+          "hash": "+IPsOiRp2VR8AU+bKNJglQ=="
         }
       },
       "is_incremental": true,
@@ -153,10 +153,10 @@
       "output": {
         ".html": {
           "relative_path": "api/SpeckleUnity.SpeckleUnityReceiver.html",
-          "hash": "y4dmWkyCyphENLv5DUtrPQ=="
+          "hash": "C5/1lfTbmK78kpwbRMWCNA=="
         }
       },
-      "is_incremental": true,
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -165,10 +165,10 @@
       "output": {
         ".html": {
           "relative_path": "api/SpeckleUnity.SpeckleUnitySender.html",
-          "hash": "pxsT22N0K4qME23ss97zEQ=="
+          "hash": "n2Y+P5gaH03t4EL3pOiGxQ=="
         }
       },
-      "is_incremental": true,
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -177,7 +177,7 @@
       "output": {
         ".html": {
           "relative_path": "api/SpeckleUnity.SpeckleUnityTransform.html",
-          "hash": "C1MDVQorgwof6afi7Edh1g=="
+          "hash": "KLcpG4Y6AQjC5wH6ZglXkQ=="
         }
       },
       "is_incremental": true,
@@ -189,7 +189,7 @@
       "output": {
         ".html": {
           "relative_path": "api/SpeckleUnity.SpeckleUnityUpdate.html",
-          "hash": "hfEZLf24R6VHjC0nG32bdg=="
+          "hash": "2iMX+R/zh8OjR3fFGg5QIQ=="
         }
       },
       "is_incremental": true,
@@ -201,7 +201,7 @@
       "output": {
         ".html": {
           "relative_path": "api/SpeckleUnity.SpeckleUnityUpdateEvent.html",
-          "hash": "bEz37esjtIHAQ2q29VqgHQ=="
+          "hash": "t8SSdjYPC6HBsscp79rwQA=="
         }
       },
       "is_incremental": true,
@@ -213,7 +213,19 @@
       "output": {
         ".html": {
           "relative_path": "api/SpeckleUnity.SpeckleUnityValueChange.html",
-          "hash": "MwuK+rP2dEZM0y04PTpN5A=="
+          "hash": "LkXnSRKnxlUfQNN/yHGgCA=="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/SpeckleUnity.StartMode.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/SpeckleUnity.StartMode.html",
+          "hash": "yKWfzaE3Enb2TA3O79PNsQ=="
         }
       },
       "is_incremental": true,
@@ -225,7 +237,7 @@
       "output": {
         ".html": {
           "relative_path": "api/SpeckleUnity.UpdateType.html",
-          "hash": "EJBs5fvOwN1EpNdvumvw4Q=="
+          "hash": "ZkwnawBUeXhNY1yOFrXF/Q=="
         }
       },
       "is_incremental": true,
@@ -237,7 +249,7 @@
       "output": {
         ".html": {
           "relative_path": "api/SpeckleUnity.WSMessageData.html",
-          "hash": "dCtRQjj3w/Ev9Bjz9cELpQ=="
+          "hash": "YkKI68dnrkTu3Gc8u2tDtw=="
         }
       },
       "is_incremental": true,
@@ -249,7 +261,7 @@
       "output": {
         ".html": {
           "relative_path": "api/SpeckleUnity.WSMessageDataArgs.html",
-          "hash": "S+Fycj3X6tQKXNgovQLnow=="
+          "hash": "bmi9Q/lMZUBoZjLfDg2/2A=="
         }
       },
       "is_incremental": true,
@@ -261,10 +273,10 @@
       "output": {
         ".html": {
           "relative_path": "api/SpeckleUnity.html",
-          "hash": "3MPZysig02rSN5qf5XW0gQ=="
+          "hash": "GrEJgG7HF+vZRCX13zpyaw=="
         }
       },
-      "is_incremental": true,
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -273,10 +285,22 @@
       "output": {
         ".html": {
           "relative_path": "api/index.html",
-          "hash": "PDJy6Ook8QUfmx2SYqJzow=="
+          "hash": "6Z42xVUBBB2+NC11ixWcJA=="
         }
       },
       "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "articles/exampleCode.md",
+      "output": {
+        ".html": {
+          "relative_path": "articles/exampleCode.html",
+          "hash": "4Mtkjr6N3bXn+p7g/GrZdg=="
+        }
+      },
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -285,10 +309,10 @@
       "output": {
         ".html": {
           "relative_path": "articles/gettingStarted.html",
-          "hash": "PMmvsP7UB7xVi55onS6G5A=="
+          "hash": "v01/lB1synHTnRDCuRpmtw=="
         }
       },
-      "is_incremental": false,
+      "is_incremental": true,
       "version": ""
     },
     {
@@ -297,10 +321,10 @@
       "output": {
         ".html": {
           "relative_path": "articles/howToInstall.html",
-          "hash": "fLFYmzaM1gTVFaiqyTEPcQ=="
+          "hash": "B6qz+GZPii/uCz7s6/KNdQ=="
         }
       },
-      "is_incremental": true,
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -309,7 +333,7 @@
       "output": {
         ".html": {
           "relative_path": "articles/introduction.html",
-          "hash": "raXtbI1LgZ0YJN3bKl+bPA=="
+          "hash": "hlDalwoFoiTRIbaqkNgqUA=="
         }
       },
       "is_incremental": true,
@@ -321,7 +345,19 @@
       "output": {
         ".html": {
           "relative_path": "articles/license.html",
-          "hash": "tZc6VNDBhJc4DWzBGwUCgg=="
+          "hash": "wKm74MUwNybmJUDAxRi37A=="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "articles/supportedPlatforms.md",
+      "output": {
+        ".html": {
+          "relative_path": "articles/supportedPlatforms.html",
+          "hash": "NvK33owlEoFP4mti6ztYBQ=="
         }
       },
       "is_incremental": true,
@@ -329,10 +365,10 @@
     },
     {
       "type": "Resource",
-      "source_relative_path": "images/gettingStarted1.PNG",
+      "source_relative_path": "images/gettingStarted1.png",
       "output": {
         "resource": {
-          "relative_path": "images/gettingStarted1.PNG"
+          "relative_path": "images/gettingStarted1.png"
         }
       },
       "is_incremental": false,
@@ -396,13 +432,13 @@
         "ConceptualDocumentProcessor": {
           "can_incremental": true,
           "incrementalPhase": "build",
-          "total_file_count": 6,
-          "skipped_file_count": 5
+          "total_file_count": 8,
+          "skipped_file_count": 6
         },
         "ManagedReferenceDocumentProcessor": {
           "can_incremental": true,
           "incrementalPhase": "build",
-          "total_file_count": 22,
+          "total_file_count": 23,
           "skipped_file_count": 22
         },
         "ResourceDocumentProcessor": {

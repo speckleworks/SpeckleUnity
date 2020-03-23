@@ -20,27 +20,27 @@ namespace SpeckleUnity
 		/// <summary>
 		/// 
 		/// </summary>
-		public StartMode onStartBehaviour = StartMode.LoginAndReceiveStreams;
+		[SerializeField] protected StartMode onStartBehaviour = StartMode.LoginAndReceiveStreams;
 
 		/// <summary>
 		/// The server to send / receive streams from and authenticate against. Changing this value during
 		/// runtime requires calling <c>InitializeAllClients ()</c> again.
 		/// </summary>
 		[Header ("Server Settings")]
-		public string serverUrl = "https://hestia.speckle.works/api/";
+		[SerializeField] protected string serverUrl = "https://hestia.speckle.works/api/";
 
 		/// <summary>
-		/// 
+		/// The email to login with on start if <c>onStartBehaviour</c> is set to at least <c>JustLogin</c>.
 		/// </summary>
 		[SerializeField] protected string loginEmail = "";
 
 		/// <summary>
-		/// 
+		/// The password to login with on start if <c>onStartBehaviour</c> is set to at least <c>JustLogin</c>.
 		/// </summary>
 		[SerializeField] protected string loginPassword = "";
 
 		/// <summary>
-		/// 
+		/// A cached reference to the current logged in user.
 		/// </summary>
 		protected User loggedInUser;
 
@@ -72,19 +72,19 @@ namespace SpeckleUnity
 		/// performance issues with large streams that get initialized / updated.
 		/// </summary>
 		[Header ("Receiver Settings")]
-		public SpawnSpeed spawnSpeed = SpawnSpeed.TenPerFrame;
+		[SerializeField] protected internal SpawnSpeed spawnSpeed = SpawnSpeed.TenPerFrame;
 
 		/// <summary>
 		/// A <c>UnityEvent</c> that is invoked each time a stream update is started, including when it's initialised, for user code to 
 		/// respond to that event. Passes some helpful data to inform that custom response.
 		/// </summary>
-		public SpeckleUnityUpdateEvent onUpdateStarted;
+		[SerializeField] protected internal SpeckleUnityUpdateEvent onUpdateStarted;
 
 		/// <summary>
 		/// A <c>UnityEvent</c> that is invoked each time a stream update is finished, including when it's initialised, for user code to 
 		/// respond to that event. Passes some helpful data to inform that custom response.
 		/// </summary>
-		public SpeckleUnityUpdateEvent onUpdateReceived;
+		[SerializeField] protected internal SpeckleUnityUpdateEvent onUpdateReceived;
 
 		/// <summary>
 		/// A list of all the <c>SpeckleUnityReceivers</c> this manager controls. Intended to only be directly editable via
@@ -93,8 +93,8 @@ namespace SpeckleUnity
 		[SerializeField] protected List<SpeckleUnityReceiver> receivers = new List<SpeckleUnityReceiver> ();
 
 		/// <summary>
-		/// Initializes Speckle and assigns the scale factor of all geometry. If <c>receiveStreamsOnStart</c> is set
-		/// to true, calls <c>InitializeAllClients ()</c>.
+		/// Initializes Speckle and assigns the scale factor of all geometry. Invokes the <c>RunStartBehaviour ()</c>
+		/// coroutine.
 		/// </summary>
 		protected virtual void Start ()
 		{
@@ -105,7 +105,7 @@ namespace SpeckleUnity
 		}
 
 		/// <summary>
-		/// 
+		/// Intended for running additional actions on start depending on the value of the <c>onStartBehaviour</c> enum.
 		/// </summary>
 		/// <returns></returns>
 		protected virtual IEnumerator RunStartBehaviour ()
@@ -115,6 +115,10 @@ namespace SpeckleUnity
 				if (!string.IsNullOrWhiteSpace (loginEmail) && !string.IsNullOrWhiteSpace (loginPassword))
 				{
 					yield return StartCoroutine (AttemptLogin (loginEmail, loginPassword));
+				}
+				else
+				{
+					Debug.LogError ("The Email and Password fields need to be filled in if you wish to login on start.");
 				}
 			}
 
@@ -132,23 +136,27 @@ namespace SpeckleUnity
 		}
 
 		/// <summary>
-		/// 
+		/// Exposed method for users to call when trying to login to a Speckle server via code.
 		/// </summary>
-		/// <param name="email"></param>
-		/// <param name="password"></param>
-		/// <param name="callBack"></param>
+		/// <param name="email">The email of the account you wish to login with.</param>
+		/// <param name="password">The corresponding password for the account.</param>
+		/// <param name="callBack">An optional method callback which takes a <c>User</c>.</param>
+		/// <remarks>If login was successful, the resulting user object is passed back. If failed, null
+		/// is passed. Need to be using the <c>SpeckleCore</c> namespace to access this type.</remarks>
 		public virtual void Login (string email, string password, Action<User> callBack = null)
 		{
 			StartCoroutine (AttemptLogin (email, password, callBack));
 		}
 
 		/// <summary>
-		/// 
+		/// Coroutine for running the asyncronous login process.
 		/// </summary>
-		/// <param name="email"></param>
-		/// <param name="password"></param>
-		/// <param name="callBack"></param>
-		/// <returns></returns>
+		/// <param name="email">The email of the account you wish to login with.</param>
+		/// <param name="password">The corresponding password for the account.</param>
+		/// <param name="callBack">An optional method callback which takes a <c>User</c>.</param>
+		/// <returns>An IEnumerator to yield or start as a new coroutine.</returns>
+		/// <remarks>If login was successful, the resulting user object is passed back. If failed, null
+		/// is passed. Need to be using the <c>SpeckleCore</c> namespace to access this type.</remarks>
 		protected virtual IEnumerator AttemptLogin (string email, string password, Action<User> callBack = null)
 		{
 			SpeckleApiClient loginClient = new SpeckleApiClient (serverUrl);
@@ -158,11 +166,9 @@ namespace SpeckleUnity
 			Task<ResponseUser> userGet = loginClient.UserLoginAsync (user);
 			Debug.Log ("Atempting login");
 			while (!userGet.IsCompleted) yield return null;
-
 			if (userGet.Result == null)
 			{
 				Debug.LogError ("Could not login");
-
 				callBack?.Invoke (null);
 			}
 			else
@@ -177,19 +183,35 @@ namespace SpeckleUnity
 		}
 
 		/// <summary>
-		/// 
+		/// Sets the <c>loggedInUser</c> to null and clears all the current receivers.
 		/// </summary>
-		/// <param name="callBack"></param>
+		public virtual void Logout ()
+		{
+			loggedInUser = null;
+			ClearReceivers ();
+		}
+
+		/// <summary>
+		/// Exposed method for users to call when trying to download the meta data of the Streams the current
+		/// logged in user is able to access. Use this to get the IDs of the streams you would later want to start
+		/// receiving or use the rest of the data to populate your UI with data describing the Streams that are
+		/// available.
+		/// </summary>
+		/// <param name="callBack">An optional method callback which takes a <c>SpeckleStream</c> array.</param>
+		/// <remarks>If download was successful, the resulting array is passed back. If failed, null
+		/// is passed. Need to be using the <c>SpeckleCore</c> namespace to access this type.</remarks>
 		public virtual void GetAllStreamsForUser (Action<SpeckleStream[]> callBack)
 		{
 			StartCoroutine (AttemptGetAllStreamsForUser (callBack));
 		}
 
 		/// <summary>
-		/// 
+		/// Coroutine for running the asyncronous Stream download process.
 		/// </summary>
-		/// <param name="callBack"></param>
-		/// <returns></returns>
+		/// <param name="callBack">An optional method callback which takes a <c>SpeckleStream</c> array.</param>
+		/// <returns>An IEnumerator to yield or start as a new coroutine.</returns>
+		/// <remarks>If download was successful, the resulting array is passed back. If failed, null
+		/// is passed. Need to be using the <c>SpeckleCore</c> namespace to access this type.</remarks>
 		protected virtual IEnumerator AttemptGetAllStreamsForUser (Action<SpeckleStream[]> callBack)
 		{
 			SpeckleApiClient userStreamsClient = new SpeckleApiClient (serverUrl);
@@ -259,7 +281,8 @@ namespace SpeckleUnity
 		/// Remove the first receiver with a matching stream ID on this manager instance. Cleans up all GameObjects
 		/// associated to that stream as well.
 		/// </summary>
-		/// <param name="streamID">The ID of the stream to be removed.</param>
+		/// <param name="streamID">The ID of the stream to be removed. If no matching ID is found, nothing will
+		/// happen.</param>
 		public virtual void RemoveReceiver (string streamID)
 		{
 			for (int i = 0; i < receivers.Count; i++)
@@ -278,7 +301,8 @@ namespace SpeckleUnity
 		/// Remove the first receiver with a matching root <c>Transform</c> on this manager instance. Cleans
 		/// up all GameObjects associated to that stream as well.
 		/// </summary>
-		/// <param name="streamRoot">The root object of the stream to be removed.</param>
+		/// <param name="streamRoot">The root object of the stream to be removed. If no matching root is 
+		/// found, nothing will happen.</param>
 		public virtual void RemoveReceiver (Transform streamRoot)
 		{
 			for (int i = 0; i < receivers.Count; i++)
@@ -311,7 +335,7 @@ namespace SpeckleUnity
 		}
 
 		/// <summary>
-		/// 
+		/// Calls <c>RemoveReceiver (int)</c> on all receivers on this manager instance.
 		/// </summary>
 		public virtual void ClearReceivers ()
 		{
@@ -336,7 +360,8 @@ namespace SpeckleUnity
 	}
 
 	/// <summary>
-	/// 
+	/// An enum for controlling what the default start behaviour of a <c>SpeckleUnityManager</c>
+	/// would be. 
 	/// </summary>
 	public enum StartMode : int
 	{ 

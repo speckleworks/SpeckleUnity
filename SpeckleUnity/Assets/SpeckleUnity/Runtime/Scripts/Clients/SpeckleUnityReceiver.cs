@@ -193,7 +193,7 @@ namespace SpeckleUnity
 				// jump in `maxObjRequestCount` increments through the payload array
 				for (int i = 0; i < payload.Length; i += maxObjRequestCount)
 				{
-					Debug.Log (streamID + " download: " + (float)i / payload.Length * 100 + "%");
+					Debug.Log (streamID + " Download: " + (float)i / payload.Length * 100 + "%");
 
 					// create a subset
 					string[] subPayload = payload.Skip (i).Take (maxObjRequestCount).ToArray ();
@@ -215,13 +215,13 @@ namespace SpeckleUnity
 					int indexInStream = client.Stream.Objects.FindIndex (o => o._id == objects._id);
 					try { client.Stream.Objects[indexInStream] = objects; } catch { }
 				}
-				Debug.Log (streamID + " download: 100%");
+				Debug.Log (streamID + " Download: 100%");
 				yield return manager.StartCoroutine (DisplayContents ());
 
 				// notify all user code that subsribed to this event in the manager inspector so that their code
 				// can respond to the global update of this stream.
 				manager.onUpdateReceived.Invoke (new SpeckleUnityUpdate (streamID, streamRoot, UpdateType.Global));
-				Debug.Log (streamID + " Complete");
+				Debug.Log (streamID + " Download Complete");
 			}
 		}
 
