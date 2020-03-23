@@ -47,12 +47,18 @@ namespace SpeckleUnity
 		/// </summary>
 		protected Dictionary<Layer, Transform> layerLookup = new Dictionary<Layer, Transform> ();
 
-		/// <summary>
-		/// Creates an uninitialized instance of a <c>SpeckleUnityReceiver</c>.
-		/// </summary>
-		/// <param name="streamID">The stream ID to be received.</param>
-		/// <param name="streamRoot">An optional root object for the stream to be spawnted under.</param>
-		public SpeckleUnityReceiver (string streamID, Transform streamRoot = null)
+
+        /// <summary>
+        ///  Dictionary of Gameobject, SpeckleObject lookup
+        /// </summary>
+        [HideInInspector] public Dictionary<GameObject, SpeckleObject> speckleObjectLookup;
+
+        /// <summary>
+        /// Creates an uninitialized instance of a <c>SpeckleUnityReceiver</c>.
+        /// </summary>
+        /// <param name="streamID">The stream ID to be received.</param>
+        /// <param name="streamRoot">An optional root object for the stream to be spawnted under.</param>
+        public SpeckleUnityReceiver (string streamID, Transform streamRoot = null)
 		{
 			this.streamID = streamID;
 			this.streamRoot = streamRoot;
@@ -90,7 +96,9 @@ namespace SpeckleUnity
 
 			deserializedStreamObjects = new List<object> ();
 			layerLookup = new Dictionary<Layer, Transform> ();
-			Debug.Log ("Connected");
+            speckleObjectLookup = new Dictionary<GameObject, SpeckleObject> ();
+
+            Debug.Log ("Connected");
 
 			//after connected, call update global to get geometry
 			yield return manager.StartCoroutine (UpdateGlobal ());
@@ -255,7 +263,17 @@ namespace SpeckleUnity
 				object deserializedStreamObject = Converter.Deserialise (client.Stream.Objects[i]);
 				deserializedStreamObjects.Add (deserializedStreamObject);
 
-				PostProcessObject (deserializedStreamObject, i);
+                //get speckle object
+                SpeckleObject speckleObject = client.Stream.Objects[i];
+
+                //check if its speckle unity geometry
+                if (deserializedStreamObject is SpeckleUnityGeometry geometry)
+                {
+                    //add object to lookup 
+                    speckleObjectLookup.Add(geometry.gameObject, speckleObject);
+                }
+
+                PostProcessObject (deserializedStreamObject, i);
 
 				if (i % (int)manager.spawnSpeed == 0 && i != 0) yield return null;
 			}
@@ -334,7 +352,7 @@ namespace SpeckleUnity
 		{
 			if (deserializedStreamObject is SpeckleUnityGeometry geometry)
 			{
-				List<Layer> layers = client.Stream.Layers;
+                List<Layer> layers = client.Stream.Layers;
 
 				for (int i = 0; i < layers.Count; i++)
 				{

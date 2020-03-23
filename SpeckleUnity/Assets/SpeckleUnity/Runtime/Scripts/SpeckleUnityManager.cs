@@ -344,6 +344,36 @@ namespace SpeckleUnity
 				RemoveReceiver (i);
 			}
 		}
+
+        /// <summary>
+        ///  Checks through all receivers and looks up their gameobject, speckle object dictionaries and returns back SpeckleObject value
+        ///  for a given gameobject key 
+        /// </summary>
+        /// <param name="gameObjectReference"></param>
+        public virtual void GetSpeckleObjectForGameobject (GameObject gameObjectReference)
+        {
+            for (int i = 0; i < receivers.Count; i++)
+            {
+                SpeckleObject speckleObject;
+                bool gotValue = receivers[i].speckleObjectLookup.TryGetValue(gameObjectReference, out speckleObject);
+
+                if (gotValue)
+                {
+                    object output;
+                    bool gotParams = speckleObject.Properties.TryGetValue("parameters", out output);
+
+                    if (gotParams)
+                    {
+                        Dictionary<string, object> objectParams = (Dictionary<string, object>)output;
+
+                        foreach (KeyValuePair<string, object> item in objectParams)
+                        {
+                            Debug.Log(string.Format("Key: {0}, Value: {1}", item.Key, item.Value));
+                        }
+                    }
+                }
+            }
+        }
 	}
 
 	/// <summary>
@@ -369,4 +399,11 @@ namespace SpeckleUnity
 		JustLogin = 1,
 		LoginAndReceiveStreams = 2
 	}
+}
+
+[System.Serializable]
+public class SpeckleParameters
+{
+    public string key;
+    public object value;
 }
