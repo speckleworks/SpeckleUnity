@@ -7,5 +7,11 @@
 - name: Getting Started
   href: gettingStarted.md
 
+- name: Supported Platforms
+  href: supportedPlatforms.md
+
+- name: Example Code
+  href: exampleCode.md
+
 - name: License
   href: license.md

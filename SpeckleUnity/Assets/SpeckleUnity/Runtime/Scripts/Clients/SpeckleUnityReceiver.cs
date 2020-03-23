@@ -64,9 +64,9 @@ namespace SpeckleUnity
 		/// </summary>
 		/// <param name="manager">The manager instance that provides inspector values for this client.</param>
 		/// <param name="url">The url of the speckle server to connect to.</param>
-		/// <param name="authToken">The authentication token of the user to connect as.</param>
+		/// <param name="apiToken">The authentication token of the user to connect as.</param>
 		/// <returns>An IEnumerator to yield or start as a new coroutine.</returns>
-		public override IEnumerator InitializeClient (SpeckleUnityManager manager, string url, string authToken)
+		public override IEnumerator InitializeClient (SpeckleUnityManager manager, string url, string apiToken)
 		{
 			if (streamRoot == null)
 			{
@@ -78,19 +78,19 @@ namespace SpeckleUnity
 
 			client = new SpeckleApiClient (url, true);
 			client.BaseUrl = url;
-
 			RegisterClient ();
 
 			//Initialize receiver
-			client.IntializeReceiver (streamID, "SpeckleUnity", "Unity", Guid.NewGuid ().ToString (), authToken);
+			client.IntializeReceiver (streamID, "SpeckleUnity", "Unity", Guid.NewGuid ().ToString (), apiToken);
 
-			Debug.Log ("Initializing stream: " + streamID);
+			Debug.Log ("Initialized stream: " + streamID);
 
 			//wait for receiver to be connected
 			while (!client.IsConnected) yield return null;
 
 			deserializedStreamObjects = new List<object> ();
 			layerLookup = new Dictionary<Layer, Transform> ();
+			Debug.Log ("Connected");
 
 			//after connected, call update global to get geometry
 			yield return manager.StartCoroutine (UpdateGlobal ());
@@ -109,7 +109,7 @@ namespace SpeckleUnity
 		protected override void ClientOnWsMessage (object source, SpeckleEventArgs e)
 		{
 			if (e == null) return;
-			if (e.EventObject == null) return;
+			//if (e.EventObject == null) return;
 
 			WSMessageData wSMessageData = JsonUtility.FromJson<WSMessageData> (e.EventData);
 
@@ -162,9 +162,16 @@ namespace SpeckleUnity
 		/// <returns>An IEnumerator to yield or start as a new coroutine.</returns>
 		protected virtual IEnumerator UpdateGlobal ()
 		{
+			Debug.Log ("Getting Stream");
+
+			// notify all user code that subsribed to this event in the manager inspector so that their code
+			// can respond to the global update of this stream.
+			manager.onUpdateStarted.Invoke (new SpeckleUnityUpdate (streamID, streamRoot, UpdateType.Global));
+
 			//TODO - use LocalContext for caching, etc
 			Task<ResponseStream> streamGet = client.StreamGetAsync (streamID, null);
 			while (!streamGet.IsCompleted) yield return null;
+			Debug.Log ("Got Stream");
 
 			if (streamGet.Result == null)
 			{
@@ -172,6 +179,7 @@ namespace SpeckleUnity
 			}
 			else
 			{
+
 				client.Stream = streamGet.Result.Resource;
 
 				string[] payload = client.Stream.Objects.Where (o => o.Type == "Placeholder").Select (obj => obj._id).ToArray ();
@@ -181,10 +189,12 @@ namespace SpeckleUnity
 
 				// list to hold them into
 				List<SpeckleObject> newObjects = new List<SpeckleObject> ();
-
+				
 				// jump in `maxObjRequestCount` increments through the payload array
 				for (int i = 0; i < payload.Length; i += maxObjRequestCount)
 				{
+					Debug.Log (streamID + " Download: " + (float)i / payload.Length * 100 + "%");
+
 					// create a subset
 					string[] subPayload = payload.Skip (i).Take (maxObjRequestCount).ToArray ();
 
@@ -205,12 +215,13 @@ namespace SpeckleUnity
 					int indexInStream = client.Stream.Objects.FindIndex (o => o._id == objects._id);
 					try { client.Stream.Objects[indexInStream] = objects; } catch { }
 				}
-
+				Debug.Log (streamID + " Download: 100%");
 				yield return manager.StartCoroutine (DisplayContents ());
 
-				// notify all user code that subsribed to this even in the manager inspector so that their code
+				// notify all user code that subsribed to this event in the manager inspector so that their code
 				// can respond to the global update of this stream.
 				manager.onUpdateReceived.Invoke (new SpeckleUnityUpdate (streamID, streamRoot, UpdateType.Global));
+				Debug.Log (streamID + " Download Complete");
 			}
 		}
 
@@ -246,7 +257,7 @@ namespace SpeckleUnity
 
 				PostProcessObject (deserializedStreamObject, i);
 
-				if (i % (int)manager.spawnSpeed == 0) yield return null;
+				if (i % (int)manager.spawnSpeed == 0 && i != 0) yield return null;
 			}
 		}
 
@@ -342,7 +353,7 @@ namespace SpeckleUnity
 
 			if (deserializedStreamObject is SpeckleUnityPolyline line)
 			{
-				line.lineRenderer.material = manager.polylineMaterial;
+				line.lineRenderer.material = manager.lineMaterial;
 			}
 
 			if (deserializedStreamObject is SpeckleUnityPoint point)

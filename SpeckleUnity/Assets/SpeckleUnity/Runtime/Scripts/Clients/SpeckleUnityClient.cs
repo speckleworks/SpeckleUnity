@@ -77,6 +77,7 @@ namespace SpeckleUnity
 		/// <param name="e">Arguments passed from the event.</param>
 		protected virtual void ClientOnReady (object source, SpeckleEventArgs e)
 		{
+			//Debug.Log ("INTERNAL READY EVENT: " + e.EventData);
 
 		}
 
@@ -88,7 +89,7 @@ namespace SpeckleUnity
 		/// <param name="e">Arguments passed from the event.</param>
 		protected virtual void ClientOnLogData (object source, SpeckleEventArgs e)
 		{
-
+			//Debug.Log ("INTERNAL LOG: " + e.EventData);
 		}
 
 		/// <summary>
@@ -110,7 +111,7 @@ namespace SpeckleUnity
 		/// <param name="e">Arguments passed from the event.</param>
 		protected virtual void ClientOnError (object source, SpeckleEventArgs e)
 		{
-			Debug.LogError ("Client Error: " + e.EventData);
+			Debug.LogError ("INTERNAL ERROR: " + e.EventData);
 		}
 	}
 }
