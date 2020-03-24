@@ -564,14 +564,14 @@ coroutine started after being created.</p>
   </table>
   
   
-  <a id="SpeckleUnity_SpeckleUnityManager_AttemptGetAllStreamsForUser_" data-uid="SpeckleUnity.SpeckleUnityManager.AttemptGetAllStreamsForUser*"></a>
-  <h4 id="SpeckleUnity_SpeckleUnityManager_AttemptGetAllStreamsForUser_Action_SpeckleStream____" data-uid="SpeckleUnity.SpeckleUnityManager.AttemptGetAllStreamsForUser(Action{SpeckleStream[]})">AttemptGetAllStreamsForUser(Action&lt;SpeckleStream[]&gt;)</h4>
-  <div class="markdown level1 summary"><p>Coroutine for running the asyncronous Stream download process.</p>
+  <a id="SpeckleUnity_SpeckleUnityManager_AttemptGetAllProjectMetaDataForUser_" data-uid="SpeckleUnity.SpeckleUnityManager.AttemptGetAllProjectMetaDataForUser*"></a>
+  <h4 id="SpeckleUnity_SpeckleUnityManager_AttemptGetAllProjectMetaDataForUser_Action_Project____" data-uid="SpeckleUnity.SpeckleUnityManager.AttemptGetAllProjectMetaDataForUser(Action{Project[]})">AttemptGetAllProjectMetaDataForUser(Action&lt;Project[]&gt;)</h4>
+  <div class="markdown level1 summary"><p>Coroutine for running the asyncronous Project download process.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">protected virtual IEnumerator AttemptGetAllStreamsForUser(Action&lt;SpeckleStream[]&gt; callBack)</code></pre>
+    <pre><code class="lang-csharp hljs">protected virtual IEnumerator AttemptGetAllProjectMetaDataForUser(Action&lt;Project[]&gt; callBack)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -584,9 +584,9 @@ coroutine started after being created.</p>
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">Action</span>&lt;<span class="xref">SpeckleStream</span>[]&gt;</td>
+        <td><span class="xref">Action</span>&lt;<span class="xref">Project</span>[]&gt;</td>
         <td><span class="parametername">callBack</span></td>
-        <td><p>An optional method callback which takes a <code>SpeckleStream</code> array.</p>
+        <td><p>A method callback which takes a <code>Project</code> array.</p>
 </td>
       </tr>
     </tbody>
@@ -607,7 +607,56 @@ coroutine started after being created.</p>
       </tr>
     </tbody>
   </table>
-  <h5 id="SpeckleUnity_SpeckleUnityManager_AttemptGetAllStreamsForUser_Action_SpeckleStream_____remarks">Remarks</h5>
+  <h5 id="SpeckleUnity_SpeckleUnityManager_AttemptGetAllProjectMetaDataForUser_Action_Project_____remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>If download was successful, the resulting array is passed back. If failed, null
+is passed. Need to be using the <code>SpeckleCore</code> namespace to access this type.</p>
+</div>
+  
+  
+  <a id="SpeckleUnity_SpeckleUnityManager_AttemptGetAllStreamMetaDataForUser_" data-uid="SpeckleUnity.SpeckleUnityManager.AttemptGetAllStreamMetaDataForUser*"></a>
+  <h4 id="SpeckleUnity_SpeckleUnityManager_AttemptGetAllStreamMetaDataForUser_Action_SpeckleStream____" data-uid="SpeckleUnity.SpeckleUnityManager.AttemptGetAllStreamMetaDataForUser(Action{SpeckleStream[]})">AttemptGetAllStreamMetaDataForUser(Action&lt;SpeckleStream[]&gt;)</h4>
+  <div class="markdown level1 summary"><p>Coroutine for running the asyncronous Stream download process.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected virtual IEnumerator AttemptGetAllStreamMetaDataForUser(Action&lt;SpeckleStream[]&gt; callBack)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Action</span>&lt;<span class="xref">SpeckleStream</span>[]&gt;</td>
+        <td><span class="parametername">callBack</span></td>
+        <td><p>A method callback which takes a <code>SpeckleStream</code> array.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Collections.IEnumerator</span></td>
+        <td><p>An IEnumerator to yield or start as a new coroutine.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="SpeckleUnity_SpeckleUnityManager_AttemptGetAllStreamMetaDataForUser_Action_SpeckleStream_____remarks">Remarks</h5>
   <div class="markdown level1 remarks"><p>If download was successful, the resulting array is passed back. If failed, null
 is passed. Need to be using the <code>SpeckleCore</code> namespace to access this type.</p>
 </div>
@@ -620,7 +669,7 @@ is passed. Need to be using the <code>SpeckleCore</code> namespace to access thi
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">protected virtual IEnumerator AttemptLogin(string email, string password, Action&lt;User&gt; callBack = null)</code></pre>
+    <pre><code class="lang-csharp hljs">protected virtual IEnumerator AttemptLogin(string email, string password, Action&lt;User&gt; callBack)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -647,7 +696,7 @@ is passed. Need to be using the <code>SpeckleCore</code> namespace to access thi
       <tr>
         <td><span class="xref">Action</span>&lt;<span class="xref">User</span>&gt;</td>
         <td><span class="parametername">callBack</span></td>
-        <td><p>An optional method callback which takes a <code>User</code>.</p>
+        <td><p>A method callback which takes a <code>User</code>.</p>
 </td>
       </tr>
     </tbody>
@@ -685,8 +734,38 @@ is passed. Need to be using the <code>SpeckleCore</code> namespace to access thi
   </div>
   
   
-  <a id="SpeckleUnity_SpeckleUnityManager_GetAllStreamsForUser_" data-uid="SpeckleUnity.SpeckleUnityManager.GetAllStreamsForUser*"></a>
-  <h4 id="SpeckleUnity_SpeckleUnityManager_GetAllStreamsForUser_Action_SpeckleStream____" data-uid="SpeckleUnity.SpeckleUnityManager.GetAllStreamsForUser(Action{SpeckleStream[]})">GetAllStreamsForUser(Action&lt;SpeckleStream[]&gt;)</h4>
+  <a id="SpeckleUnity_SpeckleUnityManager_GetAllProjectMetaDataForUser_" data-uid="SpeckleUnity.SpeckleUnityManager.GetAllProjectMetaDataForUser*"></a>
+  <h4 id="SpeckleUnity_SpeckleUnityManager_GetAllProjectMetaDataForUser_Action_Project____" data-uid="SpeckleUnity.SpeckleUnityManager.GetAllProjectMetaDataForUser(Action{Project[]})">GetAllProjectMetaDataForUser(Action&lt;Project[]&gt;)</h4>
+  <div class="markdown level1 summary"><p>Exposed method for users to call when trying to download the meta data of the Projects the current
+logged in user is able to access.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual void GetAllProjectMetaDataForUser(Action&lt;Project[]&gt; callBack)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Action</span>&lt;<span class="xref">Project</span>[]&gt;</td>
+        <td><span class="parametername">callBack</span></td>
+        <td><p>A method callback which takes a <code>Project</code> array.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="SpeckleUnity_SpeckleUnityManager_GetAllStreamMetaDataForUser_" data-uid="SpeckleUnity.SpeckleUnityManager.GetAllStreamMetaDataForUser*"></a>
+  <h4 id="SpeckleUnity_SpeckleUnityManager_GetAllStreamMetaDataForUser_Action_SpeckleStream____" data-uid="SpeckleUnity.SpeckleUnityManager.GetAllStreamMetaDataForUser(Action{SpeckleStream[]})">GetAllStreamMetaDataForUser(Action&lt;SpeckleStream[]&gt;)</h4>
   <div class="markdown level1 summary"><p>Exposed method for users to call when trying to download the meta data of the Streams the current
 logged in user is able to access. Use this to get the IDs of the streams you would later want to start
 receiving or use the rest of the data to populate your UI with data describing the Streams that are
@@ -695,7 +774,7 @@ available.</p>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public virtual void GetAllStreamsForUser(Action&lt;SpeckleStream[]&gt; callBack)</code></pre>
+    <pre><code class="lang-csharp hljs">public virtual void GetAllStreamMetaDataForUser(Action&lt;SpeckleStream[]&gt; callBack)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -710,12 +789,12 @@ available.</p>
       <tr>
         <td><span class="xref">Action</span>&lt;<span class="xref">SpeckleStream</span>[]&gt;</td>
         <td><span class="parametername">callBack</span></td>
-        <td><p>An optional method callback which takes a <code>SpeckleStream</code> array.</p>
+        <td><p>A method callback which takes a <code>SpeckleStream</code> array.</p>
 </td>
       </tr>
     </tbody>
   </table>
-  <h5 id="SpeckleUnity_SpeckleUnityManager_GetAllStreamsForUser_Action_SpeckleStream_____remarks">Remarks</h5>
+  <h5 id="SpeckleUnity_SpeckleUnityManager_GetAllStreamMetaDataForUser_Action_SpeckleStream_____remarks">Remarks</h5>
   <div class="markdown level1 remarks"><p>If download was successful, the resulting array is passed back. If failed, null
 is passed. Need to be using the <code>SpeckleCore</code> namespace to access this type.</p>
 </div>
@@ -739,7 +818,7 @@ is passed. Need to be using the <code>SpeckleCore</code> namespace to access thi
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public virtual void Login(string email, string password, Action&lt;User&gt; callBack = null)</code></pre>
+    <pre><code class="lang-csharp hljs">public virtual void Login(string email, string password, Action&lt;User&gt; callBack)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -766,7 +845,7 @@ is passed. Need to be using the <code>SpeckleCore</code> namespace to access thi
       <tr>
         <td><span class="xref">Action</span>&lt;<span class="xref">User</span>&gt;</td>
         <td><span class="parametername">callBack</span></td>
-        <td><p>An optional method callback which takes a <code>User</code>.</p>
+        <td><p>A method callback which takes a <code>User</code>.</p>
 </td>
       </tr>
     </tbody>
@@ -916,6 +995,59 @@ coroutine.</p>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">protected virtual void Start()</code></pre>
   </div>
+  
+  
+  <a id="SpeckleUnity_SpeckleUnityManager_TryGetSpeckleObject_" data-uid="SpeckleUnity.SpeckleUnityManager.TryGetSpeckleObject*"></a>
+  <h4 id="SpeckleUnity_SpeckleUnityManager_TryGetSpeckleObject_GameObject_SpeckleObject__" data-uid="SpeckleUnity.SpeckleUnityManager.TryGetSpeckleObject(GameObject,SpeckleObject@)">TryGetSpeckleObject(GameObject, out SpeckleObject)</h4>
+  <div class="markdown level1 summary"><p>Checks through all receivers and looks up their <code>GameObject</code> to <code>SpeckleObject</code> dictionaries and outputs
+the <code>SpeckleObject</code>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual bool TryGetSpeckleObject(GameObject gameObjectKey, out SpeckleObject speckleObjectData)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">GameObject</span></td>
+        <td><span class="parametername">gameObjectKey</span></td>
+        <td><p>The <code>GameObject</code> in the scene that represents the object to get data for.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">SpeckleObject</span></td>
+        <td><span class="parametername">speckleObjectData</span></td>
+        <td><p>The <code>SpeckleObject</code> that corresponds to the <code>GameObject</code>. Outputs as
+null if the lookup failed.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Boolean</span></td>
+        <td><p>Whether or not the lookup was successful.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
   
   
   <a id="SpeckleUnity_SpeckleUnityManager_Update_" data-uid="SpeckleUnity.SpeckleUnityManager.Update*"></a>

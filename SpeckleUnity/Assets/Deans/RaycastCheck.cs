@@ -29,7 +29,7 @@ public class RaycastCheck : MonoBehaviour
     public void GetCurrentGameobjectsData()
     {
         if (gameobjectReference.reference != null)
-            manager.GetSpeckleObjectForGameobject(gameobjectReference.reference);
+            manager.TryGetSpeckleObject (gameobjectReference.reference, out SpeckleCore.SpeckleObject data);
     }
 
     public static bool IsPointerOverUIElement()

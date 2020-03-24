@@ -42,23 +42,24 @@ namespace SpeckleUnity
 		protected List<object> deserializedStreamObjects = new List<object> ();
 
 		/// <summary>
-		/// Key value pairs of Speckle <c>Layer</c>s and Unity <c>Transform</c>s to help with reconstructing
+		/// Key value pairs of SpeckleCore <c>Layer</c>s and Unity <c>Transform</c>s to help with reconstructing
 		/// the Stream layer heirarchy within the scene heirarchy.
 		/// </summary>
 		protected Dictionary<Layer, Transform> layerLookup = new Dictionary<Layer, Transform> ();
 
 
-        /// <summary>
-        ///  Dictionary of Gameobject, SpeckleObject lookup
-        /// </summary>
-        [HideInInspector] public Dictionary<GameObject, SpeckleObject> speckleObjectLookup;
+		/// <summary>
+		/// Key value pairs of Unity <c>GameObject</c>s and SpeckleCore <c>SpeckleObject</c>s to help with 
+		/// looking up the corresponding object data to the objects rendered in the scene.
+		/// </summary>
+		internal Dictionary<GameObject, SpeckleObject> speckleObjectLookup;
 
-        /// <summary>
-        /// Creates an uninitialized instance of a <c>SpeckleUnityReceiver</c>.
-        /// </summary>
-        /// <param name="streamID">The stream ID to be received.</param>
-        /// <param name="streamRoot">An optional root object for the stream to be spawnted under.</param>
-        public SpeckleUnityReceiver (string streamID, Transform streamRoot = null)
+		/// <summary>
+		/// Creates an uninitialized instance of a <c>SpeckleUnityReceiver</c>.
+		/// </summary>
+		/// <param name="streamID">The stream ID to be received.</param>
+		/// <param name="streamRoot">An optional root object for the stream to be spawnted under.</param>
+		public SpeckleUnityReceiver (string streamID, Transform streamRoot = null)
 		{
 			this.streamID = streamID;
 			this.streamRoot = streamRoot;
@@ -96,9 +97,9 @@ namespace SpeckleUnity
 
 			deserializedStreamObjects = new List<object> ();
 			layerLookup = new Dictionary<Layer, Transform> ();
-            speckleObjectLookup = new Dictionary<GameObject, SpeckleObject> ();
+			speckleObjectLookup = new Dictionary<GameObject, SpeckleObject> ();
 
-            Debug.Log ("Connected");
+			Debug.Log ("Connected");
 
 			//after connected, call update global to get geometry
 			yield return manager.StartCoroutine (UpdateGlobal ());
@@ -197,7 +198,7 @@ namespace SpeckleUnity
 
 				// list to hold them into
 				List<SpeckleObject> newObjects = new List<SpeckleObject> ();
-				
+
 				// jump in `maxObjRequestCount` increments through the payload array
 				for (int i = 0; i < payload.Length; i += maxObjRequestCount)
 				{
@@ -263,17 +264,7 @@ namespace SpeckleUnity
 				object deserializedStreamObject = Converter.Deserialise (client.Stream.Objects[i]);
 				deserializedStreamObjects.Add (deserializedStreamObject);
 
-                //get speckle object
-                SpeckleObject speckleObject = client.Stream.Objects[i];
-
-                //check if its speckle unity geometry
-                if (deserializedStreamObject is SpeckleUnityGeometry geometry)
-                {
-                    //add object to lookup 
-                    speckleObjectLookup.Add(geometry.gameObject, speckleObject);
-                }
-
-                PostProcessObject (deserializedStreamObject, i);
+				PostProcessObject (deserializedStreamObject, i);
 
 				if (i % (int)manager.spawnSpeed == 0 && i != 0) yield return null;
 			}
@@ -292,7 +283,7 @@ namespace SpeckleUnity
 				Transform newUnityLayer = new GameObject ().transform;
 
 				// Nested layers in rhino are delimited with double colons and revit doesn't have layers so this code may not work
-				// for streams originating from other clients.
+				// for streams originating from other clients where the layering is delimited differently.
 				if (!layers[i].Name.Contains ("::"))
 				{
 					newUnityLayer.name = layers[i].Name;
@@ -300,7 +291,6 @@ namespace SpeckleUnity
 				}
 				else
 				{
-					
 					string[] layerNames = layers[i].Name.Split (new string[] { "::" }, StringSplitOptions.RemoveEmptyEntries);
 
 					newUnityLayer.name = layerNames[layerNames.Length - 1];
@@ -352,7 +342,11 @@ namespace SpeckleUnity
 		{
 			if (deserializedStreamObject is SpeckleUnityGeometry geometry)
 			{
-                List<Layer> layers = client.Stream.Layers;
+				// add object to lookup 
+				speckleObjectLookup.Add (geometry.gameObject, client.Stream.Objects[objectIndex]);
+
+				// assign object to layer
+				List<Layer> layers = client.Stream.Layers;
 
 				for (int i = 0; i < layers.Count; i++)
 				{
