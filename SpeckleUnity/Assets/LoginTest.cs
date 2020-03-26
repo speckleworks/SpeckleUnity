@@ -16,11 +16,25 @@ public class LoginTest : MonoBehaviour
 
 	public void HandleLogin (User resultUser)
 	{
-		if (resultUser != null) manager.GetAllStreamsForUser (HandleStreamsForUser);
+		if (resultUser != null) manager.GetAllStreamMetaDataForUser (HandleStreamsForUser);
 	}
 
 	public void HandleStreamsForUser (SpeckleStream[] streamIDs)
 	{
 		if (streamIDs != null) manager.AddReceiver (streamIDs[0].StreamId, null, true);
+	}
+
+	public void PrintObjectData (GameObject gameObjectKey)
+	{
+		if (manager.TryGetSpeckleObject (gameObjectKey, out SpeckleObject speckleObjectData))
+		{
+			Debug.Log (speckleObjectData._id);
+			Debug.Log (speckleObjectData.Type);
+
+			if (speckleObjectData.Properties.TryGetValue ("the key of some property you're looking for", out object property))
+			{
+				Debug.Log (property.ToString ());
+			}
+		}
 	}
 }

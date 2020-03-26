@@ -114,7 +114,7 @@ namespace SpeckleUnity
 			{
 				if (!string.IsNullOrWhiteSpace (loginEmail) && !string.IsNullOrWhiteSpace (loginPassword))
 				{
-					yield return StartCoroutine (AttemptLogin (loginEmail, loginPassword));
+					yield return StartCoroutine (AttemptLogin (loginEmail, loginPassword, null));
 				}
 				else
 				{
@@ -140,10 +140,10 @@ namespace SpeckleUnity
 		/// </summary>
 		/// <param name="email">The email of the account you wish to login with.</param>
 		/// <param name="password">The corresponding password for the account.</param>
-		/// <param name="callBack">An optional method callback which takes a <c>User</c>.</param>
+		/// <param name="callBack">A method callback which takes a <c>User</c>.</param>
 		/// <remarks>If login was successful, the resulting user object is passed back. If failed, null
 		/// is passed. Need to be using the <c>SpeckleCore</c> namespace to access this type.</remarks>
-		public virtual void Login (string email, string password, Action<User> callBack = null)
+		public virtual void Login (string email, string password, Action<User> callBack)
 		{
 			StartCoroutine (AttemptLogin (email, password, callBack));
 		}
@@ -153,11 +153,11 @@ namespace SpeckleUnity
 		/// </summary>
 		/// <param name="email">The email of the account you wish to login with.</param>
 		/// <param name="password">The corresponding password for the account.</param>
-		/// <param name="callBack">An optional method callback which takes a <c>User</c>.</param>
+		/// <param name="callBack">A method callback which takes a <c>User</c>.</param>
 		/// <returns>An IEnumerator to yield or start as a new coroutine.</returns>
 		/// <remarks>If login was successful, the resulting user object is passed back. If failed, null
 		/// is passed. Need to be using the <c>SpeckleCore</c> namespace to access this type.</remarks>
-		protected virtual IEnumerator AttemptLogin (string email, string password, Action<User> callBack = null)
+		protected virtual IEnumerator AttemptLogin (string email, string password, Action<User> callBack)
 		{
 			SpeckleApiClient loginClient = new SpeckleApiClient (serverUrl);
 
@@ -192,27 +192,68 @@ namespace SpeckleUnity
 		}
 
 		/// <summary>
+		/// Exposed method for users to call when trying to download the meta data of the Projects the current
+		/// logged in user is able to access.
+		/// </summary>
+		/// <param name="callBack">A method callback which takes a <c>Project</c> array.</param>
+		public virtual void GetAllProjectMetaDataForUser (Action<Project[]> callBack)
+		{
+			StartCoroutine (AttemptGetAllProjectMetaDataForUser (callBack));
+		}
+
+		/// <summary>
+		/// Coroutine for running the asyncronous Project download process.
+		/// </summary>
+		/// <param name="callBack">A method callback which takes a <c>Project</c> array.</param>
+		/// <returns>An IEnumerator to yield or start as a new coroutine.</returns>
+		/// <remarks>If download was successful, the resulting array is passed back. If failed, null
+		/// is passed. Need to be using the <c>SpeckleCore</c> namespace to access this type.</remarks>
+		protected virtual IEnumerator AttemptGetAllProjectMetaDataForUser (Action<Project[]> callBack)
+		{
+			SpeckleApiClient userProjectsClient = new SpeckleApiClient (serverUrl);
+			userProjectsClient.AuthToken = loggedInUser.Apitoken;
+
+			Task<ResponseProject> projectsGet = userProjectsClient.ProjectGetAllAsync ();
+			while (!projectsGet.IsCompleted) yield return null;
+
+			if (projectsGet.Result == null)
+			{
+				Debug.LogError ("Could not get projects for user");
+
+				callBack?.Invoke (null);
+			}
+			else
+			{
+				List<Project> projects = projectsGet.Result.Resources;
+
+				Debug.Log ("Got " + projects.Count + " projects for user");
+
+				callBack?.Invoke (projects.ToArray ());
+			}
+		}
+
+		/// <summary>
 		/// Exposed method for users to call when trying to download the meta data of the Streams the current
 		/// logged in user is able to access. Use this to get the IDs of the streams you would later want to start
 		/// receiving or use the rest of the data to populate your UI with data describing the Streams that are
 		/// available.
 		/// </summary>
-		/// <param name="callBack">An optional method callback which takes a <c>SpeckleStream</c> array.</param>
+		/// <param name="callBack">A method callback which takes a <c>SpeckleStream</c> array.</param>
 		/// <remarks>If download was successful, the resulting array is passed back. If failed, null
 		/// is passed. Need to be using the <c>SpeckleCore</c> namespace to access this type.</remarks>
-		public virtual void GetAllStreamsForUser (Action<SpeckleStream[]> callBack)
+		public virtual void GetAllStreamMetaDataForUser (Action<SpeckleStream[]> callBack)
 		{
-			StartCoroutine (AttemptGetAllStreamsForUser (callBack));
+			StartCoroutine (AttemptGetAllStreamMetaDataForUser (callBack));
 		}
 
 		/// <summary>
 		/// Coroutine for running the asyncronous Stream download process.
 		/// </summary>
-		/// <param name="callBack">An optional method callback which takes a <c>SpeckleStream</c> array.</param>
+		/// <param name="callBack">A method callback which takes a <c>SpeckleStream</c> array.</param>
 		/// <returns>An IEnumerator to yield or start as a new coroutine.</returns>
 		/// <remarks>If download was successful, the resulting array is passed back. If failed, null
 		/// is passed. Need to be using the <c>SpeckleCore</c> namespace to access this type.</remarks>
-		protected virtual IEnumerator AttemptGetAllStreamsForUser (Action<SpeckleStream[]> callBack)
+		protected virtual IEnumerator AttemptGetAllStreamMetaDataForUser (Action<SpeckleStream[]> callBack)
 		{
 			SpeckleApiClient userStreamsClient = new SpeckleApiClient (serverUrl);
 			userStreamsClient.AuthToken = loggedInUser.Apitoken;
@@ -223,13 +264,13 @@ namespace SpeckleUnity
 			if (streamsGet.Result == null)
 			{
 				Debug.LogError ("Could not get streams for user");
-				
+
 				callBack?.Invoke (null);
 			}
 			else
 			{
 				List<SpeckleStream> streams = streamsGet.Result.Resources;
-				
+
 				Debug.Log ("Got " + streams.Count + " streams for user");
 
 				callBack?.Invoke (streams.ToArray ());
@@ -344,6 +385,35 @@ namespace SpeckleUnity
 				RemoveReceiver (i);
 			}
 		}
+
+
+		/// <summary>
+		/// Checks through all receivers and looks up their <c>GameObject</c> to <c>SpeckleObject</c> dictionaries and outputs 
+		/// the <c>SpeckleObject</c>. 
+		/// </summary>
+		/// <param name="gameObjectKey">The <c>GameObject</c> in the scene that represents the object to get data for.</param>
+		/// <param name="speckleObjectData">The <c>SpeckleObject</c> that corresponds to the <c>GameObject</c>. Outputs as 
+		/// null if the lookup failed.</param>
+		/// <returns>Whether or not the lookup was successful.</returns>
+		public virtual bool TryGetSpeckleObject (GameObject gameObjectKey, out SpeckleObject speckleObjectData)
+		{
+			speckleObjectData = null;
+
+			if (gameObjectKey == null) return false;
+
+			for (int i = 0; i < receivers.Count; i++)
+			{
+				bool gotValue = receivers[i].speckleObjectLookup.TryGetValue (gameObjectKey, out SpeckleObject speckleObject);
+
+				if (gotValue)
+				{
+					speckleObjectData = speckleObject;
+					return true;
+				}
+			}
+
+			return false;
+		}
 	}
 
 	/// <summary>
@@ -364,7 +434,7 @@ namespace SpeckleUnity
 	/// would be. 
 	/// </summary>
 	public enum StartMode : int
-	{ 
+	{
 		DoNothing = 0,
 		JustLogin = 1,
 		LoginAndReceiveStreams = 2

@@ -357,22 +357,38 @@ references:
   isSpec: "True"
   fullName: SpeckleUnity.SpeckleUnityManager.AddReceiver
   nameWithType: SpeckleUnityManager.AddReceiver
-- uid: SpeckleUnity.SpeckleUnityManager.AttemptGetAllStreamsForUser(Action{SpeckleStream[]})
-  name: AttemptGetAllStreamsForUser(Action<SpeckleStream[]>)
-  href: api/SpeckleUnity.SpeckleUnityManager.html#SpeckleUnity_SpeckleUnityManager_AttemptGetAllStreamsForUser_Action_SpeckleStream____
-  commentId: M:SpeckleUnity.SpeckleUnityManager.AttemptGetAllStreamsForUser(Action{SpeckleStream[]})
-  name.vb: AttemptGetAllStreamsForUser(Action(Of SpeckleStream()))
-  fullName: SpeckleUnity.SpeckleUnityManager.AttemptGetAllStreamsForUser(Action<SpeckleStream[]>)
-  fullName.vb: SpeckleUnity.SpeckleUnityManager.AttemptGetAllStreamsForUser(Action(Of SpeckleStream()))
-  nameWithType: SpeckleUnityManager.AttemptGetAllStreamsForUser(Action<SpeckleStream[]>)
-  nameWithType.vb: SpeckleUnityManager.AttemptGetAllStreamsForUser(Action(Of SpeckleStream()))
-- uid: SpeckleUnity.SpeckleUnityManager.AttemptGetAllStreamsForUser*
-  name: AttemptGetAllStreamsForUser
-  href: api/SpeckleUnity.SpeckleUnityManager.html#SpeckleUnity_SpeckleUnityManager_AttemptGetAllStreamsForUser_
-  commentId: Overload:SpeckleUnity.SpeckleUnityManager.AttemptGetAllStreamsForUser
+- uid: SpeckleUnity.SpeckleUnityManager.AttemptGetAllProjectMetaDataForUser(Action{Project[]})
+  name: AttemptGetAllProjectMetaDataForUser(Action<Project[]>)
+  href: api/SpeckleUnity.SpeckleUnityManager.html#SpeckleUnity_SpeckleUnityManager_AttemptGetAllProjectMetaDataForUser_Action_Project____
+  commentId: M:SpeckleUnity.SpeckleUnityManager.AttemptGetAllProjectMetaDataForUser(Action{Project[]})
+  name.vb: AttemptGetAllProjectMetaDataForUser(Action(Of Project()))
+  fullName: SpeckleUnity.SpeckleUnityManager.AttemptGetAllProjectMetaDataForUser(Action<Project[]>)
+  fullName.vb: SpeckleUnity.SpeckleUnityManager.AttemptGetAllProjectMetaDataForUser(Action(Of Project()))
+  nameWithType: SpeckleUnityManager.AttemptGetAllProjectMetaDataForUser(Action<Project[]>)
+  nameWithType.vb: SpeckleUnityManager.AttemptGetAllProjectMetaDataForUser(Action(Of Project()))
+- uid: SpeckleUnity.SpeckleUnityManager.AttemptGetAllProjectMetaDataForUser*
+  name: AttemptGetAllProjectMetaDataForUser
+  href: api/SpeckleUnity.SpeckleUnityManager.html#SpeckleUnity_SpeckleUnityManager_AttemptGetAllProjectMetaDataForUser_
+  commentId: Overload:SpeckleUnity.SpeckleUnityManager.AttemptGetAllProjectMetaDataForUser
   isSpec: "True"
-  fullName: SpeckleUnity.SpeckleUnityManager.AttemptGetAllStreamsForUser
-  nameWithType: SpeckleUnityManager.AttemptGetAllStreamsForUser
+  fullName: SpeckleUnity.SpeckleUnityManager.AttemptGetAllProjectMetaDataForUser
+  nameWithType: SpeckleUnityManager.AttemptGetAllProjectMetaDataForUser
+- uid: SpeckleUnity.SpeckleUnityManager.AttemptGetAllStreamMetaDataForUser(Action{SpeckleStream[]})
+  name: AttemptGetAllStreamMetaDataForUser(Action<SpeckleStream[]>)
+  href: api/SpeckleUnity.SpeckleUnityManager.html#SpeckleUnity_SpeckleUnityManager_AttemptGetAllStreamMetaDataForUser_Action_SpeckleStream____
+  commentId: M:SpeckleUnity.SpeckleUnityManager.AttemptGetAllStreamMetaDataForUser(Action{SpeckleStream[]})
+  name.vb: AttemptGetAllStreamMetaDataForUser(Action(Of SpeckleStream()))
+  fullName: SpeckleUnity.SpeckleUnityManager.AttemptGetAllStreamMetaDataForUser(Action<SpeckleStream[]>)
+  fullName.vb: SpeckleUnity.SpeckleUnityManager.AttemptGetAllStreamMetaDataForUser(Action(Of SpeckleStream()))
+  nameWithType: SpeckleUnityManager.AttemptGetAllStreamMetaDataForUser(Action<SpeckleStream[]>)
+  nameWithType.vb: SpeckleUnityManager.AttemptGetAllStreamMetaDataForUser(Action(Of SpeckleStream()))
+- uid: SpeckleUnity.SpeckleUnityManager.AttemptGetAllStreamMetaDataForUser*
+  name: AttemptGetAllStreamMetaDataForUser
+  href: api/SpeckleUnity.SpeckleUnityManager.html#SpeckleUnity_SpeckleUnityManager_AttemptGetAllStreamMetaDataForUser_
+  commentId: Overload:SpeckleUnity.SpeckleUnityManager.AttemptGetAllStreamMetaDataForUser
+  isSpec: "True"
+  fullName: SpeckleUnity.SpeckleUnityManager.AttemptGetAllStreamMetaDataForUser
+  nameWithType: SpeckleUnityManager.AttemptGetAllStreamMetaDataForUser
 - uid: SpeckleUnity.SpeckleUnityManager.AttemptLogin(System.String,System.String,Action{User})
   name: AttemptLogin(String, String, Action<User>)
   href: api/SpeckleUnity.SpeckleUnityManager.html#SpeckleUnity_SpeckleUnityManager_AttemptLogin_System_String_System_String_Action_User__
@@ -402,22 +418,38 @@ references:
   isSpec: "True"
   fullName: SpeckleUnity.SpeckleUnityManager.ClearReceivers
   nameWithType: SpeckleUnityManager.ClearReceivers
-- uid: SpeckleUnity.SpeckleUnityManager.GetAllStreamsForUser(Action{SpeckleStream[]})
-  name: GetAllStreamsForUser(Action<SpeckleStream[]>)
-  href: api/SpeckleUnity.SpeckleUnityManager.html#SpeckleUnity_SpeckleUnityManager_GetAllStreamsForUser_Action_SpeckleStream____
-  commentId: M:SpeckleUnity.SpeckleUnityManager.GetAllStreamsForUser(Action{SpeckleStream[]})
-  name.vb: GetAllStreamsForUser(Action(Of SpeckleStream()))
-  fullName: SpeckleUnity.SpeckleUnityManager.GetAllStreamsForUser(Action<SpeckleStream[]>)
-  fullName.vb: SpeckleUnity.SpeckleUnityManager.GetAllStreamsForUser(Action(Of SpeckleStream()))
-  nameWithType: SpeckleUnityManager.GetAllStreamsForUser(Action<SpeckleStream[]>)
-  nameWithType.vb: SpeckleUnityManager.GetAllStreamsForUser(Action(Of SpeckleStream()))
-- uid: SpeckleUnity.SpeckleUnityManager.GetAllStreamsForUser*
-  name: GetAllStreamsForUser
-  href: api/SpeckleUnity.SpeckleUnityManager.html#SpeckleUnity_SpeckleUnityManager_GetAllStreamsForUser_
-  commentId: Overload:SpeckleUnity.SpeckleUnityManager.GetAllStreamsForUser
+- uid: SpeckleUnity.SpeckleUnityManager.GetAllProjectMetaDataForUser(Action{Project[]})
+  name: GetAllProjectMetaDataForUser(Action<Project[]>)
+  href: api/SpeckleUnity.SpeckleUnityManager.html#SpeckleUnity_SpeckleUnityManager_GetAllProjectMetaDataForUser_Action_Project____
+  commentId: M:SpeckleUnity.SpeckleUnityManager.GetAllProjectMetaDataForUser(Action{Project[]})
+  name.vb: GetAllProjectMetaDataForUser(Action(Of Project()))
+  fullName: SpeckleUnity.SpeckleUnityManager.GetAllProjectMetaDataForUser(Action<Project[]>)
+  fullName.vb: SpeckleUnity.SpeckleUnityManager.GetAllProjectMetaDataForUser(Action(Of Project()))
+  nameWithType: SpeckleUnityManager.GetAllProjectMetaDataForUser(Action<Project[]>)
+  nameWithType.vb: SpeckleUnityManager.GetAllProjectMetaDataForUser(Action(Of Project()))
+- uid: SpeckleUnity.SpeckleUnityManager.GetAllProjectMetaDataForUser*
+  name: GetAllProjectMetaDataForUser
+  href: api/SpeckleUnity.SpeckleUnityManager.html#SpeckleUnity_SpeckleUnityManager_GetAllProjectMetaDataForUser_
+  commentId: Overload:SpeckleUnity.SpeckleUnityManager.GetAllProjectMetaDataForUser
   isSpec: "True"
-  fullName: SpeckleUnity.SpeckleUnityManager.GetAllStreamsForUser
-  nameWithType: SpeckleUnityManager.GetAllStreamsForUser
+  fullName: SpeckleUnity.SpeckleUnityManager.GetAllProjectMetaDataForUser
+  nameWithType: SpeckleUnityManager.GetAllProjectMetaDataForUser
+- uid: SpeckleUnity.SpeckleUnityManager.GetAllStreamMetaDataForUser(Action{SpeckleStream[]})
+  name: GetAllStreamMetaDataForUser(Action<SpeckleStream[]>)
+  href: api/SpeckleUnity.SpeckleUnityManager.html#SpeckleUnity_SpeckleUnityManager_GetAllStreamMetaDataForUser_Action_SpeckleStream____
+  commentId: M:SpeckleUnity.SpeckleUnityManager.GetAllStreamMetaDataForUser(Action{SpeckleStream[]})
+  name.vb: GetAllStreamMetaDataForUser(Action(Of SpeckleStream()))
+  fullName: SpeckleUnity.SpeckleUnityManager.GetAllStreamMetaDataForUser(Action<SpeckleStream[]>)
+  fullName.vb: SpeckleUnity.SpeckleUnityManager.GetAllStreamMetaDataForUser(Action(Of SpeckleStream()))
+  nameWithType: SpeckleUnityManager.GetAllStreamMetaDataForUser(Action<SpeckleStream[]>)
+  nameWithType.vb: SpeckleUnityManager.GetAllStreamMetaDataForUser(Action(Of SpeckleStream()))
+- uid: SpeckleUnity.SpeckleUnityManager.GetAllStreamMetaDataForUser*
+  name: GetAllStreamMetaDataForUser
+  href: api/SpeckleUnity.SpeckleUnityManager.html#SpeckleUnity_SpeckleUnityManager_GetAllStreamMetaDataForUser_
+  commentId: Overload:SpeckleUnity.SpeckleUnityManager.GetAllStreamMetaDataForUser
+  isSpec: "True"
+  fullName: SpeckleUnity.SpeckleUnityManager.GetAllStreamMetaDataForUser
+  nameWithType: SpeckleUnityManager.GetAllStreamMetaDataForUser
 - uid: SpeckleUnity.SpeckleUnityManager.InitializeAllClients
   name: InitializeAllClients()
   href: api/SpeckleUnity.SpeckleUnityManager.html#SpeckleUnity_SpeckleUnityManager_InitializeAllClients
@@ -589,6 +621,22 @@ references:
   isSpec: "True"
   fullName: SpeckleUnity.SpeckleUnityManager.Start
   nameWithType: SpeckleUnityManager.Start
+- uid: SpeckleUnity.SpeckleUnityManager.TryGetSpeckleObject(GameObject,SpeckleObject@)
+  name: TryGetSpeckleObject(GameObject, out SpeckleObject)
+  href: api/SpeckleUnity.SpeckleUnityManager.html#SpeckleUnity_SpeckleUnityManager_TryGetSpeckleObject_GameObject_SpeckleObject__
+  commentId: M:SpeckleUnity.SpeckleUnityManager.TryGetSpeckleObject(GameObject,SpeckleObject@)
+  name.vb: TryGetSpeckleObject(GameObject, ByRef SpeckleObject)
+  fullName: SpeckleUnity.SpeckleUnityManager.TryGetSpeckleObject(GameObject, out SpeckleObject)
+  fullName.vb: SpeckleUnity.SpeckleUnityManager.TryGetSpeckleObject(GameObject, ByRef SpeckleObject)
+  nameWithType: SpeckleUnityManager.TryGetSpeckleObject(GameObject, out SpeckleObject)
+  nameWithType.vb: SpeckleUnityManager.TryGetSpeckleObject(GameObject, ByRef SpeckleObject)
+- uid: SpeckleUnity.SpeckleUnityManager.TryGetSpeckleObject*
+  name: TryGetSpeckleObject
+  href: api/SpeckleUnity.SpeckleUnityManager.html#SpeckleUnity_SpeckleUnityManager_TryGetSpeckleObject_
+  commentId: Overload:SpeckleUnity.SpeckleUnityManager.TryGetSpeckleObject
+  isSpec: "True"
+  fullName: SpeckleUnity.SpeckleUnityManager.TryGetSpeckleObject
+  nameWithType: SpeckleUnityManager.TryGetSpeckleObject
 - uid: SpeckleUnity.SpeckleUnityManager.Update
   name: Update()
   href: api/SpeckleUnity.SpeckleUnityManager.html#SpeckleUnity_SpeckleUnityManager_Update
