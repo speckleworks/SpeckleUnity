@@ -68,6 +68,11 @@ namespace SpeckleUnity
 		[SerializeField] protected double scaleFactor = 0.001;
 
 		/// <summary>
+		/// 
+		/// </summary>
+		public RenderingRule renderingRule;
+
+		/// <summary>
 		/// Speed value to allow for instantiation to happen gradually over many frames in case of 
 		/// performance issues with large streams that get initialized / updated.
 		/// </summary>
@@ -133,6 +138,16 @@ namespace SpeckleUnity
 					Debug.LogError ("User has no API token.");
 				}
 			}
+		}
+
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="newServerUrl"></param>
+		public virtual void SetServerUrl (string newServerUrl)
+		{
+			Logout ();
+			serverUrl = newServerUrl;
 		}
 
 		/// <summary>
@@ -413,6 +428,18 @@ namespace SpeckleUnity
 			}
 
 			return false;
+		}
+
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="receiverIndex"></param>
+		public virtual void ReApplyRenderingRule (int receiverIndex)
+		{
+			if (receiverIndex < 0 || receiverIndex >= receivers.Count)
+				throw new Exception ("Receiver could not be updated because it does not exist");
+
+			receivers[receiverIndex].ReApplyRenderingRule ();
 		}
 	}
 

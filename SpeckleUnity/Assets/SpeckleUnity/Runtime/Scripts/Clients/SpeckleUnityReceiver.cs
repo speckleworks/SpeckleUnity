@@ -55,6 +55,11 @@ namespace SpeckleUnity
 		internal Dictionary<GameObject, SpeckleObject> speckleObjectLookup;
 
 		/// <summary>
+		/// 
+		/// </summary>
+		protected MaterialPropertyBlock propertyBlock;
+
+		/// <summary>
 		/// Creates an uninitialized instance of a <c>SpeckleUnityReceiver</c>.
 		/// </summary>
 		/// <param name="streamID">The stream ID to be received.</param>
@@ -259,6 +264,8 @@ namespace SpeckleUnity
 		{
 			ConstructLayers ();
 
+			propertyBlock = new MaterialPropertyBlock ();
+
 			for (int i = 0; i < client.Stream.Objects.Count; i++)
 			{
 				object deserializedStreamObject = Converter.Deserialise (client.Stream.Objects[i]);
@@ -356,21 +363,24 @@ namespace SpeckleUnity
 						break;
 					}
 				}
-			}
 
-			if (deserializedStreamObject is SpeckleUnityMesh mesh)
-			{
-				mesh.meshRenderer.material = manager.meshMaterial;
-			}
+				geometry.renderer.material = manager.meshMaterial;
 
-			if (deserializedStreamObject is SpeckleUnityPolyline line)
-			{
-				line.lineRenderer.material = manager.lineMaterial;
+				manager.renderingRule?.ApplyRuleToObject (geometry.renderer, client.Stream.Objects[objectIndex], propertyBlock);
 			}
+		}
 
-			if (deserializedStreamObject is SpeckleUnityPoint point)
+		/// <summary>
+		/// 
+		/// </summary>
+		public virtual void ReApplyRenderingRule ()
+		{
+			for (int i = 0; i < deserializedStreamObjects.Count; i++)
 			{
-				point.lineRenderer.material = manager.pointMaterial;
+				if (deserializedStreamObjects[i] is SpeckleUnityGeometry geometry)
+				{
+					manager.renderingRule?.ApplyRuleToObject (geometry.renderer, client.Stream.Objects[i], propertyBlock);
+				}
 			}
 		}
 

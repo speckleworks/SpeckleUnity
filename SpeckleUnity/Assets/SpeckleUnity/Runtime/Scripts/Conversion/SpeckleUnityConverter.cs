@@ -100,25 +100,6 @@ namespace SpeckleUnity
 			return result;
 		}
 
-
-		/// <summary>
-		/// 
-		/// </summary>
-		/// <param name="obj"></param>
-		/// <returns></returns>
-		//Currently just sending the position of a transform
-		//TODO - write speckle Kit with new SpeckleTransform
-		public static SpecklePoint ToSpeckle (this SpeckleUnityTransform obj)
-		{
-			Vector3 p = obj.gameObject.transform.position;
-
-			//switch y and z
-			var result = new SpecklePoint (p.x, p.z, p.y);
-			return result;
-		}
-
-
-
 		/// <summary>
 		/// 
 		/// </summary>
