@@ -17,5 +17,9 @@ SpeckleUnity/*
 !SpeckleUnity/Assets/
 !SpeckleUnity/ProjectSettings/
 !SpeckleUnity/Packages/
+!SpeckleUnity/CodeCoverage/
 *.unity
 .unity.meta
+SpeckleUnity/Assets/SpeckleUnity/Tests/Editor/Resources.meta
+SpeckleUnity/Assets/SpeckleUnity/Tests/Editor/Resources/User Credentials.asset
+SpeckleUnity/Assets/SpeckleUnity/Tests/Editor/Resources/User Credentials.asset.meta

@@ -78,7 +78,7 @@ namespace SpeckleUnity
 		/// <param name="url">The url of the speckle server to connect to.</param>
 		/// <param name="apiToken">The authentication token of the user to connect as.</param>
 		/// <returns>An IEnumerator to yield or start as a new coroutine.</returns>
-		public override IEnumerator InitializeClient (SpeckleUnityManager manager, string url, string apiToken)
+		public override async Task InitializeClient (SpeckleUnityManager manager, string url, string apiToken)
 		{
 			if (streamRoot == null)
 			{
@@ -92,22 +92,17 @@ namespace SpeckleUnity
 			client.BaseUrl = url;
 			RegisterClient ();
 
-			//Initialize receiver
-			client.IntializeReceiver (streamID, "SpeckleUnity", "Unity", Guid.NewGuid ().ToString (), apiToken);
+			await client.IntializeReceiver (streamID, "SpeckleUnity", "Unity", Guid.NewGuid ().ToString (), apiToken);
 
 			Debug.Log ("Initialized stream: " + streamID);
 
-			//wait for receiver to be connected
-			while (!client.IsConnected) yield return null;
 
 			deserializedStreamObjects = new List<object> ();
 			layerLookup = new Dictionary<Layer, Transform> ();
 			speckleObjectLookup = new Dictionary<GameObject, SpeckleObject> ();
 
-			Debug.Log ("Connected");
-
 			//after connected, call update global to get geometry
-			yield return manager.StartCoroutine (UpdateGlobal ());
+			await UpdateGlobal ();
 		}
 
 		/// <summary>
@@ -150,7 +145,7 @@ namespace SpeckleUnity
 				switch (messageContent)
 				{
 					case "update-global":
-						manager.StartCoroutine (UpdateGlobal ());
+						_ = UpdateGlobal ();
 						break;
 					case "update-meta":
 						//UpdateMeta();
@@ -174,7 +169,7 @@ namespace SpeckleUnity
 		/// cleans up everything locally and respawns the whole stream.
 		/// </summary>
 		/// <returns>An IEnumerator to yield or start as a new coroutine.</returns>
-		protected virtual IEnumerator UpdateGlobal ()
+		protected virtual async Task UpdateGlobal ()
 		{
 			Debug.Log ("Getting Stream");
 
@@ -183,18 +178,18 @@ namespace SpeckleUnity
 			manager.onUpdateStarted.Invoke (new SpeckleUnityUpdate (streamID, streamRoot, UpdateType.Global));
 
 			//TODO - use LocalContext for caching, etc
-			Task<ResponseStream> streamGet = client.StreamGetAsync (streamID, null);
-			while (!streamGet.IsCompleted) yield return null;
+			ResponseStream streamGet = await client.StreamGetAsync (streamID, null);
+
 			Debug.Log ("Got Stream");
 
-			if (streamGet.Result == null)
+			if (streamGet == null)
 			{
 				Debug.LogError ("Stream '" + streamID + "' Result was null");
 			}
 			else
 			{
 
-				client.Stream = streamGet.Result.Resource;
+				client.Stream = streamGet.Resource;
 
 				string[] payload = client.Stream.Objects.Where (o => o.Type == "Placeholder").Select (obj => obj._id).ToArray ();
 
@@ -214,13 +209,11 @@ namespace SpeckleUnity
 
 					// get it sync as this is always execed out of the main thread
 					//Task<ResponseObject> getTask = Client.ObjectGetBulkAsync(subPayload, "omit=displayValue");
-					Task<ResponseObject> getTask = client.ObjectGetBulkAsync (subPayload, "");
-					while (!getTask.IsCompleted) yield return null;
-
-					ResponseObject response = getTask.Result;
+					ResponseObject response = await client.ObjectGetBulkAsync (subPayload, "");
 
 					// put them in our bucket
 					newObjects.AddRange (response.Resources);
+					await Task.Yield ();
 				}
 
 				// populate the retrieved objects in the original stream's object list
@@ -230,8 +223,8 @@ namespace SpeckleUnity
 					try { client.Stream.Objects[indexInStream] = objects; } catch { }
 				}
 				Debug.Log (streamID + " Download: 100%");
-				yield return manager.StartCoroutine (DisplayContents ());
-
+				RemoveContents ();
+				await CreateContents ();
 				// notify all user code that subsribed to this event in the manager inspector so that their code
 				// can respond to the global update of this stream.
 				manager.onUpdateReceived.Invoke (new SpeckleUnityUpdate (streamID, streamRoot, UpdateType.Global));
@@ -245,14 +238,14 @@ namespace SpeckleUnity
 		/// Reconstruct them for the stream in its current state.
 		/// </summary>
 		/// <returns>An IEnumerator to yield or start as a new coroutine.</returns>
-		protected virtual IEnumerator DisplayContents ()
+		/*protected virtual IEnumerator DisplayContents ()
 		{
 			//TODO - update existing objects instead of destroying/recreating all of them
 
 			RemoveContents ();
 
 			yield return manager.StartCoroutine (CreateContents ());
-		}
+		}*/
 
 		/// <summary>
 		/// First constructs the layers for the stream then deserializes the json of all the stream's
@@ -260,7 +253,7 @@ namespace SpeckleUnity
 		/// <c>SpeckleUnityManager.spawnSpeed</c>.
 		/// </summary>
 		/// <returns>An IEnumerator to yield or start as a new coroutine.</returns>
-		protected virtual IEnumerator CreateContents ()
+		protected virtual async Task CreateContents ()
 		{
 			ConstructLayers ();
 
@@ -273,7 +266,7 @@ namespace SpeckleUnity
 
 				PostProcessObject (deserializedStreamObject, i);
 
-				if (i % (int)manager.spawnSpeed == 0 && i != 0) yield return null;
+				if (i % (int)manager.spawnSpeed == 0 && i != 0) await Task.Yield ();
 			}
 		}
 
@@ -389,10 +382,13 @@ namespace SpeckleUnity
 		/// </summary>
 		public virtual void RemoveContents ()
 		{
-			//Clear existing objects including layer objects
-			for (int i = 0; i < streamRoot.childCount; i++)
+			if (streamRoot != null)
 			{
-				GameObject.Destroy (streamRoot.GetChild (i));
+				//Clear existing objects including layer objects
+				for (int i = 0; i < streamRoot.childCount; i++)
+				{
+					GameObject.Destroy (streamRoot.GetChild (i));
+				}
 			}
 
 			deserializedStreamObjects.Clear ();

@@ -20,7 +20,7 @@ namespace SpeckleUnity
 		/// <summary>
 		/// 
 		/// </summary>
-		[SerializeField] protected StartMode onStartBehaviour = StartMode.LoginAndReceiveStreams;
+		public StartMode onStartBehaviour = StartMode.LoginAndReceiveStreams;
 
 		/// <summary>
 		/// The server to send / receive streams from and authenticate against. Changing this value during
@@ -32,17 +32,17 @@ namespace SpeckleUnity
 		/// <summary>
 		/// The email to login with on start if <c>onStartBehaviour</c> is set to at least <c>JustLogin</c>.
 		/// </summary>
-		[SerializeField] protected string loginEmail = "";
+		public string startLoginEmail = "";
 
 		/// <summary>
 		/// The password to login with on start if <c>onStartBehaviour</c> is set to at least <c>JustLogin</c>.
 		/// </summary>
-		[SerializeField] protected string loginPassword = "";
+		public string startLoginPassword = "";
 
 		/// <summary>
 		/// A cached reference to the current logged in user.
 		/// </summary>
-		protected User loggedInUser;
+		[HideInInspector] public User loggedInUser;
 
 		/// <summary>
 		/// Assigns to the <c>MeshRenderer</c>s of every brep or mesh object for every stream handled by this manager.
@@ -77,7 +77,7 @@ namespace SpeckleUnity
 		/// performance issues with large streams that get initialized / updated.
 		/// </summary>
 		[Header ("Receiver Settings")]
-		[SerializeField] protected internal SpawnSpeed spawnSpeed = SpawnSpeed.TenPerFrame;
+		public SpawnSpeed spawnSpeed = SpawnSpeed.TenPerFrame;
 
 		/// <summary>
 		/// A <c>UnityEvent</c> that is invoked each time a stream update is started, including when it's initialised, for user code to 
@@ -98,28 +98,33 @@ namespace SpeckleUnity
 		[SerializeField] protected List<SpeckleUnityReceiver> receivers = new List<SpeckleUnityReceiver> ();
 
 		/// <summary>
+		/// How many receivers are currently on this manager. Includes both active and inactive receivers.
+		/// </summary>
+		public int ReceiverCount => receivers.Count;
+
+		/// <summary>
 		/// Initializes Speckle and assigns the scale factor of all geometry. Invokes the <c>RunStartBehaviour ()</c>
 		/// coroutine.
 		/// </summary>
-		protected virtual void Start ()
+		protected virtual async void Start ()
 		{
 			SpeckleInitializer.Initialize (false);
 			Conversions.scaleFactor = scaleFactor;
 
-			StartCoroutine (RunStartBehaviour ());
+			await RunStartBehaviourAsync ();
 		}
 
 		/// <summary>
 		/// Intended for running additional actions on start depending on the value of the <c>onStartBehaviour</c> enum.
 		/// </summary>
 		/// <returns></returns>
-		protected virtual IEnumerator RunStartBehaviour ()
+		public virtual async Task RunStartBehaviourAsync ()
 		{
 			if (onStartBehaviour > StartMode.DoNothing)
 			{
-				if (!string.IsNullOrWhiteSpace (loginEmail) && !string.IsNullOrWhiteSpace (loginPassword))
+				if (!string.IsNullOrWhiteSpace (startLoginEmail) && !string.IsNullOrWhiteSpace (startLoginPassword))
 				{
-					yield return StartCoroutine (AttemptLogin (loginEmail, loginPassword, null));
+					await LoginAsync (startLoginEmail, startLoginPassword, null);
 				}
 				else
 				{
@@ -131,7 +136,7 @@ namespace SpeckleUnity
 			{
 				if (!string.IsNullOrWhiteSpace (loggedInUser?.Apitoken))
 				{
-					InitializeAllClients ();
+					await InitializeAllClientsAsync ();
 				}
 				else
 				{
@@ -141,7 +146,7 @@ namespace SpeckleUnity
 		}
 
 		/// <summary>
-		/// 
+		/// Logs out and assigns a new url to point to as the Speckle server.
 		/// </summary>
 		/// <param name="newServerUrl"></param>
 		public virtual void SetServerUrl (string newServerUrl)
@@ -156,39 +161,27 @@ namespace SpeckleUnity
 		/// <param name="email">The email of the account you wish to login with.</param>
 		/// <param name="password">The corresponding password for the account.</param>
 		/// <param name="callBack">A method callback which takes a <c>User</c>.</param>
+		/// <returns>An async Task which can be awaited with a coroutine or just ignored.</returns>
 		/// <remarks>If login was successful, the resulting user object is passed back. If failed, null
 		/// is passed. Need to be using the <c>SpeckleCore</c> namespace to access this type.</remarks>
-		public virtual void Login (string email, string password, Action<User> callBack)
-		{
-			StartCoroutine (AttemptLogin (email, password, callBack));
-		}
-
-		/// <summary>
-		/// Coroutine for running the asyncronous login process.
-		/// </summary>
-		/// <param name="email">The email of the account you wish to login with.</param>
-		/// <param name="password">The corresponding password for the account.</param>
-		/// <param name="callBack">A method callback which takes a <c>User</c>.</param>
-		/// <returns>An IEnumerator to yield or start as a new coroutine.</returns>
-		/// <remarks>If login was successful, the resulting user object is passed back. If failed, null
-		/// is passed. Need to be using the <c>SpeckleCore</c> namespace to access this type.</remarks>
-		protected virtual IEnumerator AttemptLogin (string email, string password, Action<User> callBack)
+		public virtual async Task LoginAsync (string email, string password, Action<User> callBack)
 		{
 			SpeckleApiClient loginClient = new SpeckleApiClient (serverUrl);
 
 			User user = new User { Email = email, Password = password };
 
-			Task<ResponseUser> userGet = loginClient.UserLoginAsync (user);
+			ResponseUser userGet = await loginClient.UserLoginAsync (user);
+
 			Debug.Log ("Atempting login");
-			while (!userGet.IsCompleted) yield return null;
-			if (userGet.Result == null)
+
+			if (userGet == null)
 			{
 				Debug.LogError ("Could not login");
 				callBack?.Invoke (null);
 			}
 			else
 			{
-				loggedInUser = userGet.Result.Resource;
+				loggedInUser = userGet.Resource;
 				Debug.Log ("Logged in as " + loggedInUser.Name + " " + loggedInUser.Surname);
 
 				loginClient?.Dispose (true);
@@ -211,27 +204,22 @@ namespace SpeckleUnity
 		/// logged in user is able to access.
 		/// </summary>
 		/// <param name="callBack">A method callback which takes a <c>Project</c> array.</param>
-		public virtual void GetAllProjectMetaDataForUser (Action<Project[]> callBack)
-		{
-			StartCoroutine (AttemptGetAllProjectMetaDataForUser (callBack));
-		}
-
-		/// <summary>
-		/// Coroutine for running the asyncronous Project download process.
-		/// </summary>
-		/// <param name="callBack">A method callback which takes a <c>Project</c> array.</param>
-		/// <returns>An IEnumerator to yield or start as a new coroutine.</returns>
+		/// <returns>An async Task which can be awaited with a coroutine or just ignored.</returns>
 		/// <remarks>If download was successful, the resulting array is passed back. If failed, null
 		/// is passed. Need to be using the <c>SpeckleCore</c> namespace to access this type.</remarks>
-		protected virtual IEnumerator AttemptGetAllProjectMetaDataForUser (Action<Project[]> callBack)
+		public virtual async Task GetAllProjectMetaDataForUserAsync (Action<Project[]> callBack)
 		{
+			if (loggedInUser == null)
+			{
+				throw new UnauthorizedAccessException ("Need to be logged in before getting project data.");
+			}
+
 			SpeckleApiClient userProjectsClient = new SpeckleApiClient (serverUrl);
 			userProjectsClient.AuthToken = loggedInUser.Apitoken;
 
-			Task<ResponseProject> projectsGet = userProjectsClient.ProjectGetAllAsync ();
-			while (!projectsGet.IsCompleted) yield return null;
+			ResponseProject projectsGet = await userProjectsClient.ProjectGetAllAsync ();
 
-			if (projectsGet.Result == null)
+			if (projectsGet == null)
 			{
 				Debug.LogError ("Could not get projects for user");
 
@@ -239,7 +227,7 @@ namespace SpeckleUnity
 			}
 			else
 			{
-				List<Project> projects = projectsGet.Result.Resources;
+				List<Project> projects = projectsGet.Resources;
 
 				Debug.Log ("Got " + projects.Count + " projects for user");
 
@@ -256,27 +244,19 @@ namespace SpeckleUnity
 		/// <param name="callBack">A method callback which takes a <c>SpeckleStream</c> array.</param>
 		/// <remarks>If download was successful, the resulting array is passed back. If failed, null
 		/// is passed. Need to be using the <c>SpeckleCore</c> namespace to access this type.</remarks>
-		public virtual void GetAllStreamMetaDataForUser (Action<SpeckleStream[]> callBack)
+		public virtual async Task GetAllStreamMetaDataForUserAsync (Action<SpeckleStream[]> callBack)
 		{
-			StartCoroutine (AttemptGetAllStreamMetaDataForUser (callBack));
-		}
+			if (loggedInUser == null)
+			{
+				throw new UnauthorizedAccessException ("Need to be logged in before getting stream meta data.");
+			}
 
-		/// <summary>
-		/// Coroutine for running the asyncronous Stream download process.
-		/// </summary>
-		/// <param name="callBack">A method callback which takes a <c>SpeckleStream</c> array.</param>
-		/// <returns>An IEnumerator to yield or start as a new coroutine.</returns>
-		/// <remarks>If download was successful, the resulting array is passed back. If failed, null
-		/// is passed. Need to be using the <c>SpeckleCore</c> namespace to access this type.</remarks>
-		protected virtual IEnumerator AttemptGetAllStreamMetaDataForUser (Action<SpeckleStream[]> callBack)
-		{
 			SpeckleApiClient userStreamsClient = new SpeckleApiClient (serverUrl);
 			userStreamsClient.AuthToken = loggedInUser.Apitoken;
 
-			Task<ResponseStream> streamsGet = userStreamsClient.StreamsGetAllAsync (null);
-			while (!streamsGet.IsCompleted) yield return null;
+			ResponseStream streamsGet = await userStreamsClient.StreamsGetAllAsync (null);
 
-			if (streamsGet.Result == null)
+			if (streamsGet == null)
 			{
 				Debug.LogError ("Could not get streams for user");
 
@@ -284,7 +264,7 @@ namespace SpeckleUnity
 			}
 			else
 			{
-				List<SpeckleStream> streams = streamsGet.Result.Resources;
+				List<SpeckleStream> streams = streamsGet.Resources;
 
 				Debug.Log ("Got " + streams.Count + " streams for user");
 
@@ -295,11 +275,22 @@ namespace SpeckleUnity
 		/// <summary>
 		/// Loops through each receiver and starts each of their initialization coroutines.
 		/// </summary>
-		public virtual void InitializeAllClients ()
+		public virtual async Task InitializeAllClientsAsync ()
 		{
+			Task[] tasks = new Task[receivers.Count];
+
 			for (int i = 0; i < receivers.Count; i++)
 			{
-				StartCoroutine (receivers[i].InitializeClient (this, serverUrl, loggedInUser.Apitoken));
+				tasks[i] = receivers[i].InitializeClient (this, serverUrl, loggedInUser.Apitoken);
+			}
+
+			try
+			{
+				await Task.WhenAll (tasks);
+			}
+			catch
+			{
+				throw;
 			}
 		}
 
@@ -324,13 +315,13 @@ namespace SpeckleUnity
 		/// under.</param>
 		/// <param name="initialiseOnCreation">Optionally, the stream can have its <c>InitializeClient</c>
 		/// coroutine started after being created.</param>
-		public virtual void AddReceiver (string streamID, Transform streamRoot = null, bool initialiseOnCreation = false)
+		public virtual async Task AddReceiverAsync (string streamID, Transform streamRoot = null, bool initialiseOnCreation = false)
 		{
 			SpeckleUnityReceiver newReceiver = new SpeckleUnityReceiver (streamID, streamRoot);
 			receivers.Add (newReceiver);
 
 			if (initialiseOnCreation)
-				StartCoroutine (newReceiver.InitializeClient (this, serverUrl, loggedInUser.Apitoken));
+				await newReceiver.InitializeClient (this, serverUrl, loggedInUser.Apitoken);
 		}
 
 		/// <summary>
@@ -387,7 +378,7 @@ namespace SpeckleUnity
 			receivers.RemoveAt (receiverIndex);
 
 			receiver.RemoveContents ();
-			receiver.client.Dispose (true);
+			receiver.client?.Dispose (true);
 		}
 
 		/// <summary>

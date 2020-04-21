@@ -24,7 +24,7 @@ namespace SpeckleUnity
         /// <param name="url"></param>
         /// <param name="authToken"></param>
         /// <returns></returns>
-        public override IEnumerator InitializeClient (SpeckleUnityManager controller, string url, string authToken)
+        public override Task InitializeClient (SpeckleUnityManager controller, string url, string authToken)
         {
             throw new System.NotImplementedException ();
         }
