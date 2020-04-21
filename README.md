@@ -2,7 +2,7 @@
 
 [![openupm](https://img.shields.io/npm/v/com.open.speckleunity?label=openupm&registry_uri=https://package.openupm.com)](https://openupm.com/packages/com.open.speckleunity/)
 
-![CodeCoverage](SpeckleUnity/CodeCoverage/Report/badge_linecoverage.svg.jpg)
+![CodeCoverage](SpeckleUnity/CodeCoverage/Report/badge_linecoverage.svg)
 
 In this repository you will find the source code, assets and project settings of the SpeckleUnity package for Unity app development (Unity 2019.3 or newer recommended) along with a DocFX project containing documentation assets and articles.
 
