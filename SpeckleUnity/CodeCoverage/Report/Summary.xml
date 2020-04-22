@@ -1,35 +1,35 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <CoverageReport scope="Summary">
   <Summary>
-    <Generatedon>21/04/2020 - 22:08:44</Generatedon>
-    <Parser>OpenCoverParser</Parser>
+    <Generatedon>22/04/2020 - 10:33:00</Generatedon>
+    <Parser>MultiReportParser (2x OpenCoverParser)</Parser>
     <Assemblies>1</Assemblies>
     <Classes>14</Classes>
     <Files>8</Files>
-    <Coveredlines>70</Coveredlines>
-    <Uncoveredlines>443</Uncoveredlines>
-    <Coverablelines>513</Coverablelines>
-    <Totallines>1559</Totallines>
-    <Linecoverage>13.6</Linecoverage>
+    <Coveredlines>275</Coveredlines>
+    <Uncoveredlines>240</Uncoveredlines>
+    <Coverablelines>515</Coverablelines>
+    <Totallines>1558</Totallines>
+    <Linecoverage>53.3</Linecoverage>
     <Coveredbranches>0</Coveredbranches>
     <Totalbranches>0</Totalbranches>
   </Summary>
   <Coverage>
-    <Assembly name="SpeckleUnity" classes="14" coverage="13.6" coveredlines="70" coverablelines="513" totallines="2588" branchcoverage="" coveredbranches="0" totalbranches="0">
-      <Class name="SpeckleUnity.ColorByType" coverage="0" coveredlines="0" coverablelines="21" totallines="104" branchcoverage="" coveredbranches="0" totalbranches="0" />
+    <Assembly name="SpeckleUnity" classes="14" coverage="53.3" coveredlines="275" coverablelines="515" totallines="2587" branchcoverage="" coveredbranches="0" totalbranches="0">
+      <Class name="SpeckleUnity.ColorByType" coverage="23.8" coveredlines="5" coverablelines="21" totallines="104" branchcoverage="" coveredbranches="0" totalbranches="0" />
       <Class name="SpeckleUnity.ColorKey" coverage="0" coveredlines="0" coverablelines="5" totallines="104" branchcoverage="" coveredbranches="0" totalbranches="0" />
-      <Class name="SpeckleUnity.Conversions" coverage="0" coveredlines="0" coverablelines="81" totallines="219" branchcoverage="" coveredbranches="0" totalbranches="0" />
-      <Class name="SpeckleUnity.SpeckleUnityClient" coverage="0" coveredlines="0" coverablelines="22" totallines="118" branchcoverage="" coveredbranches="0" totalbranches="0" />
-      <Class name="SpeckleUnity.SpeckleUnityGeometry" coverage="0" coveredlines="0" coverablelines="4" totallines="185" branchcoverage="" coveredbranches="0" totalbranches="0" />
-      <Class name="SpeckleUnity.SpeckleUnityManager" coverage="31.7" coveredlines="55" coverablelines="173" totallines="460" branchcoverage="" coveredbranches="0" totalbranches="0" />
-      <Class name="SpeckleUnity.SpeckleUnityMesh" coverage="0" coveredlines="0" coverablelines="12" totallines="185" branchcoverage="" coveredbranches="0" totalbranches="0" />
+      <Class name="SpeckleUnity.Conversions" coverage="35.8" coveredlines="29" coverablelines="81" totallines="219" branchcoverage="" coveredbranches="0" totalbranches="0" />
+      <Class name="SpeckleUnity.SpeckleUnityClient" coverage="59" coveredlines="13" coverablelines="22" totallines="118" branchcoverage="" coveredbranches="0" totalbranches="0" />
+      <Class name="SpeckleUnity.SpeckleUnityGeometry" coverage="100" coveredlines="4" coverablelines="4" totallines="185" branchcoverage="" coveredbranches="0" totalbranches="0" />
+      <Class name="SpeckleUnity.SpeckleUnityManager" coverage="60" coveredlines="105" coverablelines="175" totallines="460" branchcoverage="" coveredbranches="0" totalbranches="0" />
+      <Class name="SpeckleUnity.SpeckleUnityMesh" coverage="100" coveredlines="12" coverablelines="12" totallines="185" branchcoverage="" coveredbranches="0" totalbranches="0" />
       <Class name="SpeckleUnity.SpeckleUnityNumber" coverage="0" coveredlines="0" coverablelines="4" totallines="185" branchcoverage="" coveredbranches="0" totalbranches="0" />
       <Class name="SpeckleUnity.SpeckleUnityObject" coverage="0" coveredlines="0" coverablelines="3" totallines="185" branchcoverage="" coveredbranches="0" totalbranches="0" />
       <Class name="SpeckleUnity.SpeckleUnityPoint" coverage="0" coveredlines="0" coverablelines="10" totallines="185" branchcoverage="" coveredbranches="0" totalbranches="0" />
       <Class name="SpeckleUnity.SpeckleUnityPolyline" coverage="0" coveredlines="0" coverablelines="10" totallines="185" branchcoverage="" coveredbranches="0" totalbranches="0" />
-      <Class name="SpeckleUnity.SpeckleUnityReceiver" coverage="9.3" coveredlines="15" coverablelines="160" totallines="397" branchcoverage="" coveredbranches="0" totalbranches="0" />
+      <Class name="SpeckleUnity.SpeckleUnityReceiver" coverage="63.1" coveredlines="101" coverablelines="160" totallines="396" branchcoverage="" coveredbranches="0" totalbranches="0" />
       <Class name="SpeckleUnity.SpeckleUnitySender" coverage="0" coveredlines="0" coverablelines="2" totallines="33" branchcoverage="" coveredbranches="0" totalbranches="0" />
-      <Class name="SpeckleUnity.SpeckleUnityUpdate" coverage="0" coveredlines="0" coverablelines="6" totallines="43" branchcoverage="" coveredbranches="0" totalbranches="0" />
+      <Class name="SpeckleUnity.SpeckleUnityUpdate" coverage="100" coveredlines="6" coverablelines="6" totallines="43" branchcoverage="" coveredbranches="0" totalbranches="0" />
     </Assembly>
   </Coverage>
 </CoverageReport>

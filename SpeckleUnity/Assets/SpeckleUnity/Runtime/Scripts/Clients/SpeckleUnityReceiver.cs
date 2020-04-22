@@ -177,7 +177,6 @@ namespace SpeckleUnity
 			// can respond to the global update of this stream.
 			manager.onUpdateStarted.Invoke (new SpeckleUnityUpdate (streamID, streamRoot, UpdateType.Global));
 
-			//TODO - use LocalContext for caching, etc
 			ResponseStream streamGet = await client.StreamGetAsync (streamID, null);
 
 			Debug.Log ("Got Stream");

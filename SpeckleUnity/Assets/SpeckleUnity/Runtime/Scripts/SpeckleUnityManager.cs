@@ -83,13 +83,13 @@ namespace SpeckleUnity
 		/// A <c>UnityEvent</c> that is invoked each time a stream update is started, including when it's initialised, for user code to 
 		/// respond to that event. Passes some helpful data to inform that custom response.
 		/// </summary>
-		[SerializeField] protected internal SpeckleUnityUpdateEvent onUpdateStarted;
+		[SerializeField] protected internal SpeckleUnityUpdateEvent onUpdateStarted = new SpeckleUnityUpdateEvent ();
 
 		/// <summary>
 		/// A <c>UnityEvent</c> that is invoked each time a stream update is finished, including when it's initialised, for user code to 
 		/// respond to that event. Passes some helpful data to inform that custom response.
 		/// </summary>
-		[SerializeField] protected internal SpeckleUnityUpdateEvent onUpdateReceived;
+		[SerializeField] protected internal SpeckleUnityUpdateEvent onUpdateReceived = new SpeckleUnityUpdateEvent ();
 
 		/// <summary>
 		/// A list of all the <c>SpeckleUnityReceivers</c> this manager controls. Intended to only be directly editable via

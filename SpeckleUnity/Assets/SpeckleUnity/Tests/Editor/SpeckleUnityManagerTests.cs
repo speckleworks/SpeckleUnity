@@ -41,7 +41,6 @@ namespace SpeckleUnity.Tests
 		[TearDown]
 		public void AfterTest ()
 		{
-			manager.ClearReceivers ();
 			GameObject.Destroy (manager.gameObject);
 		}
 
@@ -64,74 +63,77 @@ namespace SpeckleUnity.Tests
 		}
 
 		[UnityTest]
-		public async Task OnStartDoNothingSuccess ()
+		public IEnumerator OnStartDoNothingSuccess ()
 		{
-			await manager.RunStartBehaviourAsync ();
+			yield return AsyncTest.Execute (manager.RunStartBehaviourAsync ());
 
 			Assert.IsNull (manager.loggedInUser);
 		}
 
 		[UnityTest]
-		public async Task OnStartJustLoginSuccess ()
+		public IEnumerator OnStartJustLoginSuccess ()
 		{
 			manager.onStartBehaviour = StartMode.JustLogin;
 			manager.startLoginEmail = workingCredentials.email;
 			manager.startLoginPassword = workingCredentials.password;
 
-			await manager.RunStartBehaviourAsync ();
+			yield return AsyncTest.Execute (manager.RunStartBehaviourAsync ());
 
 			Assert.NotNull (manager.loggedInUser);
 			Assert.NotNull (manager.loggedInUser.Apitoken);
 		}
 
-		// SHOULD NOT PASS
 		[UnityTest]
-		public async Task OnStartLoginAndReceiveStreamsSuccess ()
+		public IEnumerator OnStartLoginAndReceiveStreamsSuccess ()
 		{
 			Transform root = new GameObject ().transform;
 
 			manager.onStartBehaviour = StartMode.LoginAndReceiveStreams;
 			manager.startLoginEmail = workingCredentials.email;
 			manager.startLoginPassword = workingCredentials.password;
-			await manager.AddReceiverAsync (workingCredentials.streamID, root);
 
-			await manager.RunStartBehaviourAsync ();
+			yield return AsyncTest.Execute (manager.AddReceiverAsync (workingCredentials.streamID, root));
+			yield return AsyncTest.Execute (manager.RunStartBehaviourAsync ());
 
-			Debug.Log (root.childCount);
-			Assert.True (root.childCount < 0);
+			Assert.True (root.childCount > 0);
 			Assert.NotNull (manager.loggedInUser);
 			Assert.NotNull (manager.loggedInUser.Apitoken);
 		}
 
 		[UnityTest]
-		public async Task AddReceiver ()
+		public IEnumerator AddReceiver ()
 		{
-			await manager.AddReceiverAsync (workingCredentials.streamID);
+			yield return AsyncTest.Execute (manager.AddReceiverAsync (workingCredentials.streamID));
 
 			Assert.True (manager.ReceiverCount == 1);
 		}
 
 		[UnityTest]
-		public async Task AddReceiverAndInitializeWithWorkingID ()
+		public IEnumerator AddReceiverAndInitializeSuccess ()
 		{
-			await manager.AddReceiverAsync (workingCredentials.streamID, null, true);
+			Transform root = new GameObject ().transform;
 
-			Assert.True (manager.ReceiverCount == 1);
-		}
-
-		// THIS TEST SHOULDNT PASS
-		[UnityTest]
-		public async Task AddReceiverAndInitializeWithBrokenID ()
-		{
-			await manager.AddReceiverAsync ("", null, true);
+			yield return AsyncTest.Execute (manager.LoginAsync (workingCredentials.email, workingCredentials.password, LoginCallback));
+			yield return AsyncTest.Execute (manager.AddReceiverAsync (workingCredentials.streamID, root, true));
 
 			Assert.True (manager.ReceiverCount == 1);
 		}
 
 		[UnityTest]
-		public async Task LoginSuccess ()
+		public IEnumerator AddReceiverAndInitializeWithInvalidID ()
 		{
-			await manager.LoginAsync (workingCredentials.email, workingCredentials.password, LoginCallback);
+			Transform root = new GameObject ().transform;
+
+			yield return AsyncTest.Execute (manager.LoginAsync (workingCredentials.email, workingCredentials.password, LoginCallback));
+			yield return AsyncTest.Execute (AsyncTest.ThrowsAsync<SpeckleException> (manager.AddReceiverAsync ("not valid stream ID", root, true)));
+
+			LogAssert.Expect (LogType.Error, "INTERNAL ERROR: The HTTP status code of the response was not expected (404).");
+		}
+
+		[UnityTest]
+		public IEnumerator LoginSuccess ()
+		{
+			yield return AsyncTest.Execute (manager.LoginAsync (workingCredentials.email, workingCredentials.password, LoginCallback));
 
 			Assert.NotNull (manager.loggedInUser);
 			Assert.NotNull (manager.loggedInUser.Apitoken);
@@ -140,9 +142,9 @@ namespace SpeckleUnity.Tests
 		}
 
 		[UnityTest]
-		public async Task LoginThenLogoutSuccess ()
+		public IEnumerator LoginThenLogoutSuccess ()
 		{
-			await manager.LoginAsync (workingCredentials.email, workingCredentials.password, LoginCallback);
+			yield return AsyncTest.Execute (manager.LoginAsync (workingCredentials.email, workingCredentials.password, LoginCallback));
 
 			manager.Logout ();
 
@@ -152,54 +154,60 @@ namespace SpeckleUnity.Tests
 
 
 		[UnityTest]
-		public async Task LoginWithWrongEmailOrPassword ()
+		public IEnumerator LoginWithWrongEmailOrPassword ()
 		{
-			await AssertAsync.ThrowsAsync<SpeckleException> (manager.LoginAsync ("email", "password", LoginCallback));
+			yield return AsyncTest.Execute (AsyncTest.ThrowsAsync<SpeckleException> (manager.LoginAsync ("email", "password", LoginCallback)));
 		}
 
 		[UnityTest]
-		public async Task ConnectToInvalidServer ()
+		public IEnumerator ConnectToInvalidServer ()
 		{
 			manager.SetServerUrl ("I am a wrong server URL");
 
-			await AssertAsync.ThrowsAsync<SpeckleException> (manager.LoginAsync ("email", "password", LoginCallback));
+			yield return AsyncTest.Execute (AsyncTest.ThrowsAsync<InvalidOperationException> (manager.LoginAsync ("email", "password", LoginCallback)));
 		}
 
 		[UnityTest]
-		public async Task GetProjectMetaDataWithoutLogin ()
+		public IEnumerator GetProjectMetaDataWithoutLogin ()
 		{
-			await AssertAsync.ThrowsAsync<SpeckleException> (manager.GetAllProjectMetaDataForUserAsync (ProjectCallback));
+			yield return AsyncTest.Execute (AsyncTest.ThrowsAsync<UnauthorizedAccessException> (manager.GetAllProjectMetaDataForUserAsync (ProjectCallback)));
 		}
 
 		[UnityTest]
-		public async Task GetProjectMetaDataSuccess ()
+		public IEnumerator GetProjectMetaDataSuccess ()
 		{
-			await manager.LoginAsync (workingCredentials.email, workingCredentials.password, null);
-			await manager.GetAllProjectMetaDataForUserAsync (ProjectCallback);
+			yield return AsyncTest.Execute (manager.LoginAsync (workingCredentials.email, workingCredentials.password, null));
+			yield return AsyncTest.Execute (manager.GetAllProjectMetaDataForUserAsync (ProjectCallback));
 
 			Assert.NotNull (projectData);
 			Assert.True (gotCallback);
 		}
 
 		[UnityTest]
-		public async Task GetStreamMetaDataWithoutLogin ()
+		public IEnumerator GetStreamMetaDataWithoutLogin ()
 		{
-			await AssertAsync.ThrowsAsync<SpeckleException> (manager.GetAllStreamMetaDataForUserAsync (StreamCallback));
+			yield return AsyncTest.Execute (AsyncTest.ThrowsAsync<UnauthorizedAccessException> (manager.GetAllStreamMetaDataForUserAsync (StreamCallback)));
 		}
 
 		[UnityTest]
-		public async Task GetStreamtMetaDataSuccess ()
+		public IEnumerator GetStreamtMetaDataSuccess ()
 		{
-			await manager.LoginAsync (workingCredentials.email, workingCredentials.password, null);
-			await manager.GetAllStreamMetaDataForUserAsync (StreamCallback);
+			yield return AsyncTest.Execute (manager.LoginAsync (workingCredentials.email, workingCredentials.password, null));
+			yield return AsyncTest.Execute (manager.GetAllStreamMetaDataForUserAsync (StreamCallback));
 
 			Assert.NotNull (streamData);
 			Assert.True (gotCallback);
 		}
 	}
 
-	public static class AssertAsync
+	public static class AsyncTest
 	{
+		public static IEnumerator Execute (Task task)
+		{
+			while (!task.IsCompleted) { yield return null; }
+			if (task.IsFaulted) { throw task.Exception; }
+		}
+
 		public static async Task ThrowsAsync<T> (Task asyncMethod) where T : Exception
 		{
 			await ThrowsAsync<T> (asyncMethod, "");
