@@ -1,6 +1,6 @@
 # SpeckleUnity
 
-[![openupm](https://img.shields.io/npm/v/com.open.speckleunity?label=openupm&registry_uri=https://package.openupm.com)](https://openupm.com/packages/com.open.speckleunity/) ![CodeCoverage](SpeckleUnity/CodeCoverage/Report/badge_linecoverage.svg)
+[![openupm](https://img.shields.io/npm/v/com.open.speckleunity?label=openupm&registry_uri=https://package.openupm.com)](https://openupm.com/packages/com.open.speckleunity/) ![CodeCoverage](badge_linecoverage.svg)
 
 In this repository you will find the source code, assets and project settings of the SpeckleUnity package for Unity app development (Unity 2019.3 or newer recommended) along with a DocFX project containing documentation assets and articles.
 
@@ -19,7 +19,7 @@ See instructions in [this](https://speckleworks.github.io/SpeckleUnity/articles/
 
 ## Roadmap
 
-> Roadmap is subject to change. Last reviewed 23rd of March 2020.
+> Roadmap is subject to change. Last reviewed 22nd of April 2020.
 
 | Version | Defining Feature                  						  				         |
 | ------- | -------------------------------------------------------------------------------- |
@@ -28,5 +28,6 @@ See instructions in [this](https://speckleworks.github.io/SpeckleUnity/articles/
 | ~0.3~   | ~Custom materials assigned via inspector~								         |
 | ~0.4~   | ~Spawn geometry in transform heirarchy based on layer data~		    	         |
 | ~0.5~   | ~User login API, get Stream API and no dependency on a local install of Speckle~ |
-| 0.6     | Local caching of Speckle streams			                                     |
-| 0.7     | Implement SpeckleUnitySender API    			                                 |
+| ~0.6~   | ~Android Support, Rendering Rule API and Async Refactor~                         |
+| 0.7     | Local caching of Speckle streams			                                     |
+| 0.8     | Implement SpeckleUnitySender API    			                                 |

@@ -4,6 +4,7 @@
 
 !.gitignore
 !README.md
+!badge_linecoverage.svg
 
 # Include the main folders needed
 !SpeckleUnity/
@@ -17,7 +18,6 @@ SpeckleUnity/*
 !SpeckleUnity/Assets/
 !SpeckleUnity/ProjectSettings/
 !SpeckleUnity/Packages/
-!SpeckleUnity/CodeCoverage/
 *.unity
 .unity.meta
 SpeckleUnity/Assets/SpeckleUnity/Tests/Editor/Resources.meta
