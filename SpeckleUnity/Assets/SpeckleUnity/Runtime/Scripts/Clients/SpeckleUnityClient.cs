@@ -67,7 +67,7 @@ namespace SpeckleUnity
 		/// <param name="manager">The manager instance that provides inspector values for this client.</param>
 		/// <param name="url">The url of the speckle server to connect to.</param>
 		/// <param name="authToken">The authentication token of the user to connect as.</param>
-		/// <returns>An IEnumerator to yield or start as a new coroutine.</returns>
+		/// <returns>An async <c>Task</c> of the new operation.</returns>
 		public abstract Task InitializeClient (SpeckleUnityManager manager, string url, string authToken);
 
 		/// <summary>

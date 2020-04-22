@@ -107,7 +107,8 @@
             <article class="content wrap" id="_content" data-uid="">
 <h1 id="supported-platforms">Supported Platforms</h1>
 
-<p>Since the package is still in preview, support for all of Unity's build options isn't quite possible yet. Here is a table breaking down all the build options in Unity and if SpeckleUnity supports them:</p>
+<p>Since the package is still in preview, support for all of Unity's build options hasn't been tested yet. This is mainly due to lack of hardware to test the builds but if you do discover a new working possible build option (or a way to achieve it) please let us know!</p>
+<p>Here is a table breaking down all the build options in Unity and if SpeckleUnity is known to support them:</p>
 <table>
 <thead>
 <tr>
@@ -125,7 +126,25 @@
 <td></td>
 </tr>
 <tr>
+<td>Android</td>
+<td>X</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
 <td>Windows IL2CPP</td>
+<td></td>
+<td>X</td>
+<td></td>
+</tr>
+<tr>
+<td>Android IL2CPP</td>
+<td></td>
+<td>X</td>
+<td></td>
+</tr>
+<tr>
+<td>iOS</td>
 <td></td>
 <td>X</td>
 <td></td>
@@ -143,24 +162,6 @@
 <td></td>
 </tr>
 <tr>
-<td>iOS</td>
-<td></td>
-<td>X</td>
-<td></td>
-</tr>
-<tr>
-<td>Android</td>
-<td></td>
-<td></td>
-<td>X</td>
-</tr>
-<tr>
-<td>Android IL2CPP</td>
-<td></td>
-<td></td>
-<td>X</td>
-</tr>
-<tr>
 <td>WebGL</td>
 <td></td>
 <td></td>
@@ -168,6 +169,7 @@
 </tr>
 </tbody>
 </table>
+<p>WebGl isn't supported because web sockets simply won't work on the platform via Unity. For web viewing purposes please check out <a href="https://app.speckle.systems/">https://app.speckle.systems/</a> as an alternative.</p>
 </article>
           </div>
           

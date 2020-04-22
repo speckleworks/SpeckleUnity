@@ -87,7 +87,16 @@
                         
                         <ul class="nav level2">
                           <li class="">
+                            <a href="SpeckleUnity.ColorByType.html" title="ColorByType" class="">ColorByType</a>
+                          </li>
+                          <li class="">
+                            <a href="SpeckleUnity.ColorKey.html" title="ColorKey" class="">ColorKey</a>
+                          </li>
+                          <li class="">
                             <a href="SpeckleUnity.Conversions.html" title="Conversions" class="">Conversions</a>
+                          </li>
+                          <li class="">
+                            <a href="SpeckleUnity.RenderingRule.html" title="RenderingRule" class="">RenderingRule</a>
                           </li>
                           <li class="">
                             <a href="SpeckleUnity.SpawnSpeed.html" title="SpawnSpeed" class="">SpawnSpeed</a>
@@ -123,9 +132,6 @@
                             <a href="SpeckleUnity.SpeckleUnitySender.html" title="SpeckleUnitySender" class="">SpeckleUnitySender</a>
                           </li>
                           <li class="">
-                            <a href="SpeckleUnity.SpeckleUnityTransform.html" title="SpeckleUnityTransform" class="">SpeckleUnityTransform</a>
-                          </li>
-                          <li class="">
                             <a href="SpeckleUnity.SpeckleUnityUpdate.html" title="SpeckleUnityUpdate" class="">SpeckleUnityUpdate</a>
                           </li>
                           <li class="">
@@ -154,6 +160,21 @@
                         <ul class="nav level2">
                           <li class="">
                             <a href="SpeckleUnity.CustomEditors.SpeckleUnityMenus.html" title="SpeckleUnityMenus" class="">SpeckleUnityMenus</a>
+                          </li>
+                        </ul>  </li>
+                    <li class="">
+                      <span class="expand-stub"></span>
+                      <a href="SpeckleUnity.Tests.html" title="SpeckleUnity.Tests" class="">SpeckleUnity.Tests</a>
+                        
+                        <ul class="nav level2">
+                          <li class="">
+                            <a href="SpeckleUnity.Tests.AsyncTest.html" title="AsyncTest" class="">AsyncTest</a>
+                          </li>
+                          <li class="">
+                            <a href="SpeckleUnity.Tests.SpeckleUnityManagerTests.html" title="SpeckleUnityManagerTests" class="">SpeckleUnityManagerTests</a>
+                          </li>
+                          <li class="">
+                            <a href="SpeckleUnity.Tests.TestInput.html" title="TestInput" class="">TestInput</a>
                           </li>
                         </ul>  </li>
                   </ul>        </div>
@@ -218,7 +239,7 @@ that control the output of the stream conversion.</p>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">protected User loggedInUser</code></pre>
+    <pre><code class="lang-csharp hljs">public User loggedInUser</code></pre>
   </div>
   <h5 class="fieldValue">Field Value</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -231,56 +252,6 @@ that control the output of the stream conversion.</p>
     <tbody>
       <tr>
         <td><span class="xref">User</span></td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
-  
-  
-  <h4 id="SpeckleUnity_SpeckleUnityManager_loginEmail" data-uid="SpeckleUnity.SpeckleUnityManager.loginEmail">loginEmail</h4>
-  <div class="markdown level1 summary"><p>The email to login with on start if <code>onStartBehaviour</code> is set to at least <code>JustLogin</code>.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">protected string loginEmail</code></pre>
-  </div>
-  <h5 class="fieldValue">Field Value</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="xref">System.String</span></td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
-  
-  
-  <h4 id="SpeckleUnity_SpeckleUnityManager_loginPassword" data-uid="SpeckleUnity.SpeckleUnityManager.loginPassword">loginPassword</h4>
-  <div class="markdown level1 summary"><p>The password to login with on start if <code>onStartBehaviour</code> is set to at least <code>JustLogin</code>.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">protected string loginPassword</code></pre>
-  </div>
-  <h5 class="fieldValue">Field Value</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="xref">System.String</span></td>
         <td></td>
       </tr>
     </tbody>
@@ -313,11 +284,12 @@ that control the output of the stream conversion.</p>
   
   
   <h4 id="SpeckleUnity_SpeckleUnityManager_onStartBehaviour" data-uid="SpeckleUnity.SpeckleUnityManager.onStartBehaviour">onStartBehaviour</h4>
-  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 summary"><p>Controls how the <code>RunStartBehaviourAsync ()</code> method executes.</p>
+</div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">protected StartMode onStartBehaviour</code></pre>
+    <pre><code class="lang-csharp hljs">public StartMode onStartBehaviour</code></pre>
   </div>
   <h5 class="fieldValue">Field Value</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -336,40 +308,14 @@ that control the output of the stream conversion.</p>
   </table>
   
   
-  <h4 id="SpeckleUnity_SpeckleUnityManager_onUpdateReceived" data-uid="SpeckleUnity.SpeckleUnityManager.onUpdateReceived">onUpdateReceived</h4>
-  <div class="markdown level1 summary"><p>A <code>UnityEvent</code> that is invoked each time a stream update is finished, including when it's initialised, for user code to
-respond to that event. Passes some helpful data to inform that custom response.</p>
+  <h4 id="SpeckleUnity_SpeckleUnityManager_onUpdateProgress" data-uid="SpeckleUnity.SpeckleUnityManager.onUpdateProgress">onUpdateProgress</h4>
+  <div class="markdown level1 summary"><p>A <code>UnityEvent</code> that is invoked each frame a stream update is progressed, including when it's initialised, for user code to
+respond to that event. Passes some helpful data to inform that custom response including the percentage progress.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">protected SpeckleUnityUpdateEvent onUpdateReceived</code></pre>
-  </div>
-  <h5 class="fieldValue">Field Value</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="SpeckleUnity.SpeckleUnityUpdateEvent.html">SpeckleUnityUpdateEvent</a></td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
-  
-  
-  <h4 id="SpeckleUnity_SpeckleUnityManager_onUpdateStarted" data-uid="SpeckleUnity.SpeckleUnityManager.onUpdateStarted">onUpdateStarted</h4>
-  <div class="markdown level1 summary"><p>A <code>UnityEvent</code> that is invoked each time a stream update is started, including when it's initialised, for user code to
-respond to that event. Passes some helpful data to inform that custom response.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">protected SpeckleUnityUpdateEvent onUpdateStarted</code></pre>
+    <pre><code class="lang-csharp hljs">protected SpeckleUnityUpdateEvent onUpdateProgress</code></pre>
   </div>
   <h5 class="fieldValue">Field Value</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -439,6 +385,31 @@ the inspector. During runtime you should make use of the <code>RemoveReceiver ()
   </table>
   
   
+  <h4 id="SpeckleUnity_SpeckleUnityManager_renderingRule" data-uid="SpeckleUnity.SpeckleUnityManager.renderingRule">renderingRule</h4>
+  <div class="markdown level1 summary"><p>An optional rendering rule to inject into the stream update process which defines how the stream looks in the scene.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public RenderingRule renderingRule</code></pre>
+  </div>
+  <h5 class="fieldValue">Field Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="SpeckleUnity.RenderingRule.html">RenderingRule</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
   <h4 id="SpeckleUnity_SpeckleUnityManager_scaleFactor" data-uid="SpeckleUnity.SpeckleUnityManager.scaleFactor">scaleFactor</h4>
   <div class="markdown level1 summary"><p>A value for easily setting the static <code>Conversions.scaleFactor</code> value via the inspector.
 This class assigs the value once on <code>Start ()</code>. Default value is 0.001 because it's assuming
@@ -499,7 +470,7 @@ performance issues with large streams that get initialized / updated.</p>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">protected SpawnSpeed spawnSpeed</code></pre>
+    <pre><code class="lang-csharp hljs">public SpawnSpeed spawnSpeed</code></pre>
   </div>
   <h5 class="fieldValue">Field Value</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -516,18 +487,96 @@ performance issues with large streams that get initialized / updated.</p>
       </tr>
     </tbody>
   </table>
+  
+  
+  <h4 id="SpeckleUnity_SpeckleUnityManager_startLoginEmail" data-uid="SpeckleUnity.SpeckleUnityManager.startLoginEmail">startLoginEmail</h4>
+  <div class="markdown level1 summary"><p>The email to login with on start if <code>onStartBehaviour</code> is set to at least <code>JustLogin</code>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public string startLoginEmail</code></pre>
+  </div>
+  <h5 class="fieldValue">Field Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <h4 id="SpeckleUnity_SpeckleUnityManager_startLoginPassword" data-uid="SpeckleUnity.SpeckleUnityManager.startLoginPassword">startLoginPassword</h4>
+  <div class="markdown level1 summary"><p>The password to login with on start if <code>onStartBehaviour</code> is set to at least <code>JustLogin</code>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public string startLoginPassword</code></pre>
+  </div>
+  <h5 class="fieldValue">Field Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="properties">Properties
+  </h3>
+  
+  
+  <a id="SpeckleUnity_SpeckleUnityManager_ReceiverCount_" data-uid="SpeckleUnity.SpeckleUnityManager.ReceiverCount*"></a>
+  <h4 id="SpeckleUnity_SpeckleUnityManager_ReceiverCount" data-uid="SpeckleUnity.SpeckleUnityManager.ReceiverCount">ReceiverCount</h4>
+  <div class="markdown level1 summary"><p>How many receivers are currently on this manager. Includes both active and inactive receivers.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public int ReceiverCount { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Int32</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
   <h3 id="methods">Methods
   </h3>
   
   
-  <a id="SpeckleUnity_SpeckleUnityManager_AddReceiver_" data-uid="SpeckleUnity.SpeckleUnityManager.AddReceiver*"></a>
-  <h4 id="SpeckleUnity_SpeckleUnityManager_AddReceiver_System_String_Transform_System_Boolean_" data-uid="SpeckleUnity.SpeckleUnityManager.AddReceiver(System.String,Transform,System.Boolean)">AddReceiver(String, Transform, Boolean)</h4>
+  <a id="SpeckleUnity_SpeckleUnityManager_AddReceiverAsync_" data-uid="SpeckleUnity.SpeckleUnityManager.AddReceiverAsync*"></a>
+  <h4 id="SpeckleUnity_SpeckleUnityManager_AddReceiverAsync_System_String_Transform_System_Boolean_" data-uid="SpeckleUnity.SpeckleUnityManager.AddReceiverAsync(System.String,Transform,System.Boolean)">AddReceiverAsync(String, Transform, Boolean)</h4>
   <div class="markdown level1 summary"><p>Creates a new receiver to be managed by this manager instance.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public virtual void AddReceiver(string streamID, Transform streamRoot = null, bool initialiseOnCreation = false)</code></pre>
+    <pre><code class="lang-csharp hljs">public virtual Task AddReceiverAsync(string streamID, Transform streamRoot = null, bool initialiseOnCreation = false)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -562,35 +611,6 @@ coroutine started after being created.</p>
       </tr>
     </tbody>
   </table>
-  
-  
-  <a id="SpeckleUnity_SpeckleUnityManager_AttemptGetAllProjectMetaDataForUser_" data-uid="SpeckleUnity.SpeckleUnityManager.AttemptGetAllProjectMetaDataForUser*"></a>
-  <h4 id="SpeckleUnity_SpeckleUnityManager_AttemptGetAllProjectMetaDataForUser_Action_Project____" data-uid="SpeckleUnity.SpeckleUnityManager.AttemptGetAllProjectMetaDataForUser(Action{Project[]})">AttemptGetAllProjectMetaDataForUser(Action&lt;Project[]&gt;)</h4>
-  <div class="markdown level1 summary"><p>Coroutine for running the asyncronous Project download process.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">protected virtual IEnumerator AttemptGetAllProjectMetaDataForUser(Action&lt;Project[]&gt; callBack)</code></pre>
-  </div>
-  <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="xref">Action</span>&lt;<span class="xref">Project</span>[]&gt;</td>
-        <td><span class="parametername">callBack</span></td>
-        <td><p>A method callback which takes a <code>Project</code> array.</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
   <h5 class="returns">Returns</h5>
   <table class="table table-bordered table-striped table-condensed">
     <thead>
@@ -601,126 +621,11 @@ coroutine started after being created.</p>
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">System.Collections.IEnumerator</span></td>
-        <td><p>An IEnumerator to yield or start as a new coroutine.</p>
-</td>
+        <td><span class="xref">Task</span></td>
+        <td></td>
       </tr>
     </tbody>
   </table>
-  <h5 id="SpeckleUnity_SpeckleUnityManager_AttemptGetAllProjectMetaDataForUser_Action_Project_____remarks">Remarks</h5>
-  <div class="markdown level1 remarks"><p>If download was successful, the resulting array is passed back. If failed, null
-is passed. Need to be using the <code>SpeckleCore</code> namespace to access this type.</p>
-</div>
-  
-  
-  <a id="SpeckleUnity_SpeckleUnityManager_AttemptGetAllStreamMetaDataForUser_" data-uid="SpeckleUnity.SpeckleUnityManager.AttemptGetAllStreamMetaDataForUser*"></a>
-  <h4 id="SpeckleUnity_SpeckleUnityManager_AttemptGetAllStreamMetaDataForUser_Action_SpeckleStream____" data-uid="SpeckleUnity.SpeckleUnityManager.AttemptGetAllStreamMetaDataForUser(Action{SpeckleStream[]})">AttemptGetAllStreamMetaDataForUser(Action&lt;SpeckleStream[]&gt;)</h4>
-  <div class="markdown level1 summary"><p>Coroutine for running the asyncronous Stream download process.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">protected virtual IEnumerator AttemptGetAllStreamMetaDataForUser(Action&lt;SpeckleStream[]&gt; callBack)</code></pre>
-  </div>
-  <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="xref">Action</span>&lt;<span class="xref">SpeckleStream</span>[]&gt;</td>
-        <td><span class="parametername">callBack</span></td>
-        <td><p>A method callback which takes a <code>SpeckleStream</code> array.</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="xref">System.Collections.IEnumerator</span></td>
-        <td><p>An IEnumerator to yield or start as a new coroutine.</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  <h5 id="SpeckleUnity_SpeckleUnityManager_AttemptGetAllStreamMetaDataForUser_Action_SpeckleStream_____remarks">Remarks</h5>
-  <div class="markdown level1 remarks"><p>If download was successful, the resulting array is passed back. If failed, null
-is passed. Need to be using the <code>SpeckleCore</code> namespace to access this type.</p>
-</div>
-  
-  
-  <a id="SpeckleUnity_SpeckleUnityManager_AttemptLogin_" data-uid="SpeckleUnity.SpeckleUnityManager.AttemptLogin*"></a>
-  <h4 id="SpeckleUnity_SpeckleUnityManager_AttemptLogin_System_String_System_String_Action_User__" data-uid="SpeckleUnity.SpeckleUnityManager.AttemptLogin(System.String,System.String,Action{User})">AttemptLogin(String, String, Action&lt;User&gt;)</h4>
-  <div class="markdown level1 summary"><p>Coroutine for running the asyncronous login process.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">protected virtual IEnumerator AttemptLogin(string email, string password, Action&lt;User&gt; callBack)</code></pre>
-  </div>
-  <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="xref">System.String</span></td>
-        <td><span class="parametername">email</span></td>
-        <td><p>The email of the account you wish to login with.</p>
-</td>
-      </tr>
-      <tr>
-        <td><span class="xref">System.String</span></td>
-        <td><span class="parametername">password</span></td>
-        <td><p>The corresponding password for the account.</p>
-</td>
-      </tr>
-      <tr>
-        <td><span class="xref">Action</span>&lt;<span class="xref">User</span>&gt;</td>
-        <td><span class="parametername">callBack</span></td>
-        <td><p>A method callback which takes a <code>User</code>.</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="xref">System.Collections.IEnumerator</span></td>
-        <td><p>An IEnumerator to yield or start as a new coroutine.</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  <h5 id="SpeckleUnity_SpeckleUnityManager_AttemptLogin_System_String_System_String_Action_User___remarks">Remarks</h5>
-  <div class="markdown level1 remarks"><p>If login was successful, the resulting user object is passed back. If failed, null
-is passed. Need to be using the <code>SpeckleCore</code> namespace to access this type.</p>
-</div>
   
   
   <a id="SpeckleUnity_SpeckleUnityManager_ClearReceivers_" data-uid="SpeckleUnity.SpeckleUnityManager.ClearReceivers*"></a>
@@ -734,15 +639,15 @@ is passed. Need to be using the <code>SpeckleCore</code> namespace to access thi
   </div>
   
   
-  <a id="SpeckleUnity_SpeckleUnityManager_GetAllProjectMetaDataForUser_" data-uid="SpeckleUnity.SpeckleUnityManager.GetAllProjectMetaDataForUser*"></a>
-  <h4 id="SpeckleUnity_SpeckleUnityManager_GetAllProjectMetaDataForUser_Action_Project____" data-uid="SpeckleUnity.SpeckleUnityManager.GetAllProjectMetaDataForUser(Action{Project[]})">GetAllProjectMetaDataForUser(Action&lt;Project[]&gt;)</h4>
+  <a id="SpeckleUnity_SpeckleUnityManager_GetAllProjectMetaDataForUserAsync_" data-uid="SpeckleUnity.SpeckleUnityManager.GetAllProjectMetaDataForUserAsync*"></a>
+  <h4 id="SpeckleUnity_SpeckleUnityManager_GetAllProjectMetaDataForUserAsync_Action_Project____" data-uid="SpeckleUnity.SpeckleUnityManager.GetAllProjectMetaDataForUserAsync(Action{Project[]})">GetAllProjectMetaDataForUserAsync(Action&lt;Project[]&gt;)</h4>
   <div class="markdown level1 summary"><p>Exposed method for users to call when trying to download the meta data of the Projects the current
 logged in user is able to access.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public virtual void GetAllProjectMetaDataForUser(Action&lt;Project[]&gt; callBack)</code></pre>
+    <pre><code class="lang-csharp hljs">public virtual Task GetAllProjectMetaDataForUserAsync(Action&lt;Project[]&gt; callBack)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -762,10 +667,30 @@ logged in user is able to access.</p>
       </tr>
     </tbody>
   </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Task</span></td>
+        <td><p>An async Task which can be awaited with a coroutine or just ignored.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="SpeckleUnity_SpeckleUnityManager_GetAllProjectMetaDataForUserAsync_Action_Project_____remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>If download was successful, the resulting array is passed back. If failed, null
+is passed. Need to be using the <code>SpeckleCore</code> namespace to access this type.</p>
+</div>
   
   
-  <a id="SpeckleUnity_SpeckleUnityManager_GetAllStreamMetaDataForUser_" data-uid="SpeckleUnity.SpeckleUnityManager.GetAllStreamMetaDataForUser*"></a>
-  <h4 id="SpeckleUnity_SpeckleUnityManager_GetAllStreamMetaDataForUser_Action_SpeckleStream____" data-uid="SpeckleUnity.SpeckleUnityManager.GetAllStreamMetaDataForUser(Action{SpeckleStream[]})">GetAllStreamMetaDataForUser(Action&lt;SpeckleStream[]&gt;)</h4>
+  <a id="SpeckleUnity_SpeckleUnityManager_GetAllStreamMetaDataForUserAsync_" data-uid="SpeckleUnity.SpeckleUnityManager.GetAllStreamMetaDataForUserAsync*"></a>
+  <h4 id="SpeckleUnity_SpeckleUnityManager_GetAllStreamMetaDataForUserAsync_Action_SpeckleStream____" data-uid="SpeckleUnity.SpeckleUnityManager.GetAllStreamMetaDataForUserAsync(Action{SpeckleStream[]})">GetAllStreamMetaDataForUserAsync(Action&lt;SpeckleStream[]&gt;)</h4>
   <div class="markdown level1 summary"><p>Exposed method for users to call when trying to download the meta data of the Streams the current
 logged in user is able to access. Use this to get the IDs of the streams you would later want to start
 receiving or use the rest of the data to populate your UI with data describing the Streams that are
@@ -774,7 +699,7 @@ available.</p>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public virtual void GetAllStreamMetaDataForUser(Action&lt;SpeckleStream[]&gt; callBack)</code></pre>
+    <pre><code class="lang-csharp hljs">public virtual Task GetAllStreamMetaDataForUserAsync(Action&lt;SpeckleStream[]&gt; callBack)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -794,31 +719,61 @@ available.</p>
       </tr>
     </tbody>
   </table>
-  <h5 id="SpeckleUnity_SpeckleUnityManager_GetAllStreamMetaDataForUser_Action_SpeckleStream_____remarks">Remarks</h5>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Task</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="SpeckleUnity_SpeckleUnityManager_GetAllStreamMetaDataForUserAsync_Action_SpeckleStream_____remarks">Remarks</h5>
   <div class="markdown level1 remarks"><p>If download was successful, the resulting array is passed back. If failed, null
 is passed. Need to be using the <code>SpeckleCore</code> namespace to access this type.</p>
 </div>
   
   
-  <a id="SpeckleUnity_SpeckleUnityManager_InitializeAllClients_" data-uid="SpeckleUnity.SpeckleUnityManager.InitializeAllClients*"></a>
-  <h4 id="SpeckleUnity_SpeckleUnityManager_InitializeAllClients" data-uid="SpeckleUnity.SpeckleUnityManager.InitializeAllClients">InitializeAllClients()</h4>
+  <a id="SpeckleUnity_SpeckleUnityManager_InitializeAllClientsAsync_" data-uid="SpeckleUnity.SpeckleUnityManager.InitializeAllClientsAsync*"></a>
+  <h4 id="SpeckleUnity_SpeckleUnityManager_InitializeAllClientsAsync" data-uid="SpeckleUnity.SpeckleUnityManager.InitializeAllClientsAsync">InitializeAllClientsAsync()</h4>
   <div class="markdown level1 summary"><p>Loops through each receiver and starts each of their initialization coroutines.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public virtual void InitializeAllClients()</code></pre>
+    <pre><code class="lang-csharp hljs">public virtual Task InitializeAllClientsAsync()</code></pre>
   </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Task</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
   
   
-  <a id="SpeckleUnity_SpeckleUnityManager_Login_" data-uid="SpeckleUnity.SpeckleUnityManager.Login*"></a>
-  <h4 id="SpeckleUnity_SpeckleUnityManager_Login_System_String_System_String_Action_User__" data-uid="SpeckleUnity.SpeckleUnityManager.Login(System.String,System.String,Action{User})">Login(String, String, Action&lt;User&gt;)</h4>
+  <a id="SpeckleUnity_SpeckleUnityManager_LoginAsync_" data-uid="SpeckleUnity.SpeckleUnityManager.LoginAsync*"></a>
+  <h4 id="SpeckleUnity_SpeckleUnityManager_LoginAsync_System_String_System_String_Action_User__" data-uid="SpeckleUnity.SpeckleUnityManager.LoginAsync(System.String,System.String,Action{User})">LoginAsync(String, String, Action&lt;User&gt;)</h4>
   <div class="markdown level1 summary"><p>Exposed method for users to call when trying to login to a Speckle server via code.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public virtual void Login(string email, string password, Action&lt;User&gt; callBack)</code></pre>
+    <pre><code class="lang-csharp hljs">public virtual Task LoginAsync(string email, string password, Action&lt;User&gt; callBack)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -850,7 +805,23 @@ is passed. Need to be using the <code>SpeckleCore</code> namespace to access thi
       </tr>
     </tbody>
   </table>
-  <h5 id="SpeckleUnity_SpeckleUnityManager_Login_System_String_System_String_Action_User___remarks">Remarks</h5>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Task</span></td>
+        <td><p>An async Task which can be awaited with a coroutine or just ignored.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="SpeckleUnity_SpeckleUnityManager_LoginAsync_System_String_System_String_Action_User___remarks">Remarks</h5>
   <div class="markdown level1 remarks"><p>If login was successful, the resulting user object is passed back. If failed, null
 is passed. Need to be using the <code>SpeckleCore</code> namespace to access this type.</p>
 </div>
@@ -865,6 +836,33 @@ is passed. Need to be using the <code>SpeckleCore</code> namespace to access thi
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public virtual void Logout()</code></pre>
   </div>
+  
+  
+  <a id="SpeckleUnity_SpeckleUnityManager_ReApplyRenderingRule_" data-uid="SpeckleUnity.SpeckleUnityManager.ReApplyRenderingRule*"></a>
+  <h4 id="SpeckleUnity_SpeckleUnityManager_ReApplyRenderingRule_System_Int32_" data-uid="SpeckleUnity.SpeckleUnityManager.ReApplyRenderingRule(System.Int32)">ReApplyRenderingRule(Int32)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual void ReApplyRenderingRule(int receiverIndex)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Int32</span></td>
+        <td><span class="parametername">receiverIndex</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
   
   
   <a id="SpeckleUnity_SpeckleUnityManager_RemoveReceiver_" data-uid="SpeckleUnity.SpeckleUnityManager.RemoveReceiver*"></a>
@@ -959,14 +957,14 @@ found, nothing will happen.</p>
   </table>
   
   
-  <a id="SpeckleUnity_SpeckleUnityManager_RunStartBehaviour_" data-uid="SpeckleUnity.SpeckleUnityManager.RunStartBehaviour*"></a>
-  <h4 id="SpeckleUnity_SpeckleUnityManager_RunStartBehaviour" data-uid="SpeckleUnity.SpeckleUnityManager.RunStartBehaviour">RunStartBehaviour()</h4>
+  <a id="SpeckleUnity_SpeckleUnityManager_RunStartBehaviourAsync_" data-uid="SpeckleUnity.SpeckleUnityManager.RunStartBehaviourAsync*"></a>
+  <h4 id="SpeckleUnity_SpeckleUnityManager_RunStartBehaviourAsync" data-uid="SpeckleUnity.SpeckleUnityManager.RunStartBehaviourAsync">RunStartBehaviourAsync()</h4>
   <div class="markdown level1 summary"><p>Intended for running additional actions on start depending on the value of the <code>onStartBehaviour</code> enum.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">protected virtual IEnumerator RunStartBehaviour()</code></pre>
+    <pre><code class="lang-csharp hljs">public virtual Task RunStartBehaviourAsync()</code></pre>
   </div>
   <h5 class="returns">Returns</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -978,8 +976,38 @@ found, nothing will happen.</p>
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">System.Collections.IEnumerator</span></td>
-        <td></td>
+        <td><span class="xref">Task</span></td>
+        <td><p>An async <code>Task</code> of the new operation.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="SpeckleUnity_SpeckleUnityManager_SetServerUrl_" data-uid="SpeckleUnity.SpeckleUnityManager.SetServerUrl*"></a>
+  <h4 id="SpeckleUnity_SpeckleUnityManager_SetServerUrl_System_String_" data-uid="SpeckleUnity.SpeckleUnityManager.SetServerUrl(System.String)">SetServerUrl(String)</h4>
+  <div class="markdown level1 summary"><p>Logs out and assigns a new url to point to as the Speckle server.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual void SetServerUrl(string newServerUrl)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">newServerUrl</span></td>
+        <td><p>The url of the new Speckle server to point to suffixed with &quot;/api/&quot;.</p>
+</td>
       </tr>
     </tbody>
   </table>

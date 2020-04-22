@@ -77,7 +77,7 @@ namespace SpeckleUnity
 		/// <param name="manager">The manager instance that provides inspector values for this client.</param>
 		/// <param name="url">The url of the speckle server to connect to.</param>
 		/// <param name="apiToken">The authentication token of the user to connect as.</param>
-		/// <returns>An IEnumerator to yield or start as a new coroutine.</returns>
+		/// <returns>An async <c>Task</c> of the new operation.</returns>
 		public override async Task InitializeClient (SpeckleUnityManager manager, string url, string apiToken)
 		{
 			if (streamRoot == null)
@@ -168,14 +168,14 @@ namespace SpeckleUnity
 		/// Coroutine for the global update message for the stream. Simply put, it redownloads the stream data,
 		/// cleans up everything locally and respawns the whole stream.
 		/// </summary>
-		/// <returns>An IEnumerator to yield or start as a new coroutine.</returns>
+		/// <returns>An async <c>Task</c> of the new operation.</returns>
 		protected virtual async Task UpdateGlobal ()
 		{
 			Debug.Log ("Getting Stream");
 
 			// notify all user code that subsribed to this event in the manager inspector so that their code
 			// can respond to the global update of this stream.
-			manager.onUpdateStarted.Invoke (new SpeckleUnityUpdate (streamID, streamRoot, UpdateType.Global));
+			manager.onUpdateProgress.Invoke (new SpeckleUnityUpdate (streamID, streamRoot, UpdateType.Global, 0));
 
 			ResponseStream streamGet = await client.StreamGetAsync (streamID, null);
 
@@ -201,7 +201,7 @@ namespace SpeckleUnity
 				// jump in `maxObjRequestCount` increments through the payload array
 				for (int i = 0; i < payload.Length; i += maxObjRequestCount)
 				{
-					Debug.Log (streamID + " Download: " + (float)i / payload.Length * 100 + "%");
+					manager.onUpdateProgress.Invoke (new SpeckleUnityUpdate (streamID, streamRoot, UpdateType.Global, (float)i / (payload.Length * 2)));
 
 					// create a subset
 					string[] subPayload = payload.Skip (i).Take (maxObjRequestCount).ToArray ();
@@ -221,37 +221,22 @@ namespace SpeckleUnity
 					int indexInStream = client.Stream.Objects.FindIndex (o => o._id == objects._id);
 					try { client.Stream.Objects[indexInStream] = objects; } catch { }
 				}
-				Debug.Log (streamID + " Download: 100%");
+
 				RemoveContents ();
 				await CreateContents ();
 				// notify all user code that subsribed to this event in the manager inspector so that their code
 				// can respond to the global update of this stream.
-				manager.onUpdateReceived.Invoke (new SpeckleUnityUpdate (streamID, streamRoot, UpdateType.Global));
+				manager.onUpdateProgress.Invoke (new SpeckleUnityUpdate (streamID, streamRoot, UpdateType.Global, 1));
 				Debug.Log (streamID + " Download Complete");
 			}
 		}
-
-
-		/// <summary>
-		/// Assuming the stream is already downloaded, clean up all local gameobjects for it and 
-		/// Reconstruct them for the stream in its current state.
-		/// </summary>
-		/// <returns>An IEnumerator to yield or start as a new coroutine.</returns>
-		/*protected virtual IEnumerator DisplayContents ()
-		{
-			//TODO - update existing objects instead of destroying/recreating all of them
-
-			RemoveContents ();
-
-			yield return manager.StartCoroutine (CreateContents ());
-		}*/
 
 		/// <summary>
 		/// First constructs the layers for the stream then deserializes the json of all the stream's
 		/// objects into Unity gameobjects. The speed of this process is determined by
 		/// <c>SpeckleUnityManager.spawnSpeed</c>.
 		/// </summary>
-		/// <returns>An IEnumerator to yield or start as a new coroutine.</returns>
+		/// <returns>An async <c>Task</c> of the new operation.</returns>
 		protected virtual async Task CreateContents ()
 		{
 			ConstructLayers ();
@@ -265,7 +250,11 @@ namespace SpeckleUnity
 
 				PostProcessObject (deserializedStreamObject, i);
 
-				if (i % (int)manager.spawnSpeed == 0 && i != 0) await Task.Yield ();
+				if (i % (int)manager.spawnSpeed == 0 && i != 0)
+				{
+					manager.onUpdateProgress.Invoke (new SpeckleUnityUpdate (streamID, streamRoot, UpdateType.Global, (float)(i + client.Stream.Objects.Count) / (client.Stream.Objects.Count * 2)));
+					await Task.Yield ();
+				}
 			}
 		}
 

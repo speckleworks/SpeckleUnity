@@ -18,7 +18,7 @@ namespace SpeckleUnity
 	public class SpeckleUnityManager : MonoBehaviour, ISpeckleInitializer
 	{
 		/// <summary>
-		/// 
+		/// Controls how the <c>RunStartBehaviourAsync ()</c> method executes.
 		/// </summary>
 		public StartMode onStartBehaviour = StartMode.LoginAndReceiveStreams;
 
@@ -42,7 +42,7 @@ namespace SpeckleUnity
 		/// <summary>
 		/// A cached reference to the current logged in user.
 		/// </summary>
-		[HideInInspector] public User loggedInUser;
+		[HideInInspector] public User loggedInUser = null;
 
 		/// <summary>
 		/// Assigns to the <c>MeshRenderer</c>s of every brep or mesh object for every stream handled by this manager.
@@ -68,7 +68,7 @@ namespace SpeckleUnity
 		[SerializeField] protected double scaleFactor = 0.001;
 
 		/// <summary>
-		/// 
+		/// An optional rendering rule to inject into the stream update process which defines how the stream looks in the scene.
 		/// </summary>
 		public RenderingRule renderingRule;
 
@@ -80,16 +80,10 @@ namespace SpeckleUnity
 		public SpawnSpeed spawnSpeed = SpawnSpeed.TenPerFrame;
 
 		/// <summary>
-		/// A <c>UnityEvent</c> that is invoked each time a stream update is started, including when it's initialised, for user code to 
-		/// respond to that event. Passes some helpful data to inform that custom response.
+		/// A <c>UnityEvent</c> that is invoked each frame a stream update is progressed, including when it's initialised, for user code to 
+		/// respond to that event. Passes some helpful data to inform that custom response including the percentage progress.
 		/// </summary>
-		[SerializeField] protected internal SpeckleUnityUpdateEvent onUpdateStarted = new SpeckleUnityUpdateEvent ();
-
-		/// <summary>
-		/// A <c>UnityEvent</c> that is invoked each time a stream update is finished, including when it's initialised, for user code to 
-		/// respond to that event. Passes some helpful data to inform that custom response.
-		/// </summary>
-		[SerializeField] protected internal SpeckleUnityUpdateEvent onUpdateReceived = new SpeckleUnityUpdateEvent ();
+		[SerializeField] protected internal SpeckleUnityUpdateEvent onUpdateProgress = new SpeckleUnityUpdateEvent ();
 
 		/// <summary>
 		/// A list of all the <c>SpeckleUnityReceivers</c> this manager controls. Intended to only be directly editable via
@@ -117,7 +111,7 @@ namespace SpeckleUnity
 		/// <summary>
 		/// Intended for running additional actions on start depending on the value of the <c>onStartBehaviour</c> enum.
 		/// </summary>
-		/// <returns></returns>
+		/// <returns>An async <c>Task</c> of the new operation.</returns>
 		public virtual async Task RunStartBehaviourAsync ()
 		{
 			if (onStartBehaviour > StartMode.DoNothing)
@@ -148,7 +142,7 @@ namespace SpeckleUnity
 		/// <summary>
 		/// Logs out and assigns a new url to point to as the Speckle server.
 		/// </summary>
-		/// <param name="newServerUrl"></param>
+		/// <param name="newServerUrl">The url of the new Speckle server to point to suffixed with "/api/".</param>
 		public virtual void SetServerUrl (string newServerUrl)
 		{
 			Logout ();

@@ -5,14 +5,38 @@
   "files": [
     {
       "type": "ManagedReference",
+      "source_relative_path": "api/SpeckleUnity.ColorByType.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/SpeckleUnity.ColorByType.html",
+          "hash": "Um8R5or/IVUZyTLw7xjqUg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/SpeckleUnity.ColorKey.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/SpeckleUnity.ColorKey.html",
+          "hash": "CL1XdokjzJf0U14ai0xKJA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
       "source_relative_path": "api/SpeckleUnity.Conversions.yml",
       "output": {
         ".html": {
           "relative_path": "api/SpeckleUnity.Conversions.html",
-          "hash": "2A9KreNhPw48ZVskxl/OXg=="
+          "hash": "5xzLMgc4rkKr0jx30Dk7og=="
         }
       },
-      "is_incremental": true,
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -21,10 +45,10 @@
       "output": {
         ".html": {
           "relative_path": "api/SpeckleUnity.CustomEditors.SpeckleUnityMenus.html",
-          "hash": "tddHedMUNF4GHrh0RgZCYg=="
+          "hash": "wbm8T8dgt0PxQlOzTIgytA=="
         }
       },
-      "is_incremental": true,
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -33,10 +57,22 @@
       "output": {
         ".html": {
           "relative_path": "api/SpeckleUnity.CustomEditors.html",
-          "hash": "JsH1BPvdCi3FcMEzk6Qi6Q=="
+          "hash": "u65UR2nILYg5f3SOKVxFWQ=="
         }
       },
-      "is_incremental": true,
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/SpeckleUnity.RenderingRule.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/SpeckleUnity.RenderingRule.html",
+          "hash": "LC46GKNkwSkyZcpiEEhdUw=="
+        }
+      },
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -45,10 +81,10 @@
       "output": {
         ".html": {
           "relative_path": "api/SpeckleUnity.SpawnSpeed.html",
-          "hash": "q3RjWUIn1dwjv1OVsIrLbQ=="
+          "hash": "Bl4vWrjR+uDMiRnHDkauug=="
         }
       },
-      "is_incremental": true,
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -57,10 +93,10 @@
       "output": {
         ".html": {
           "relative_path": "api/SpeckleUnity.SpeckleUnityClient.html",
-          "hash": "I38Wz9wjlY0c+9/Raspw4g=="
+          "hash": "PEg7tMbpinHLNHDws/59ng=="
         }
       },
-      "is_incremental": true,
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -69,10 +105,10 @@
       "output": {
         ".html": {
           "relative_path": "api/SpeckleUnity.SpeckleUnityGeometry.html",
-          "hash": "fHIQMKDX1HZj191ZVpAW1Q=="
+          "hash": "eXpjCAwzGpc6WsjCT+Wleg=="
         }
       },
-      "is_incremental": true,
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -81,10 +117,10 @@
       "output": {
         ".html": {
           "relative_path": "api/SpeckleUnity.SpeckleUnityManager.html",
-          "hash": "bW6/E65rGZHrXVaDtg+NTA=="
+          "hash": "FJSzC3pE7iKuNAqVHveNpQ=="
         }
       },
-      "is_incremental": true,
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -93,10 +129,10 @@
       "output": {
         ".html": {
           "relative_path": "api/SpeckleUnity.SpeckleUnityMesh.html",
-          "hash": "OPT1vJmYGkrnYgTiD3h43Q=="
+          "hash": "BN13iuVw9Ok9GC3bpR5lkg=="
         }
       },
-      "is_incremental": true,
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -105,10 +141,10 @@
       "output": {
         ".html": {
           "relative_path": "api/SpeckleUnity.SpeckleUnityNumber.html",
-          "hash": "e/wVbWFtw6A5hHSmhzKrWQ=="
+          "hash": "thaezvIvCVSwXOGFFTpITw=="
         }
       },
-      "is_incremental": true,
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -117,10 +153,10 @@
       "output": {
         ".html": {
           "relative_path": "api/SpeckleUnity.SpeckleUnityObject.html",
-          "hash": "0/FPCsENXP7/y8nA5b3Hog=="
+          "hash": "ahIPuBiQHwLM2i3KUMGCaA=="
         }
       },
-      "is_incremental": true,
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -129,10 +165,10 @@
       "output": {
         ".html": {
           "relative_path": "api/SpeckleUnity.SpeckleUnityPoint.html",
-          "hash": "HCKV0njNhXZBXIguXX/rzA=="
+          "hash": "HQe5uB1PuxunIZlgKpJvGg=="
         }
       },
-      "is_incremental": true,
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -141,10 +177,10 @@
       "output": {
         ".html": {
           "relative_path": "api/SpeckleUnity.SpeckleUnityPolyline.html",
-          "hash": "+IPsOiRp2VR8AU+bKNJglQ=="
+          "hash": "vxmI6fQXfyq0r4YIJ3dPOA=="
         }
       },
-      "is_incremental": true,
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -153,10 +189,10 @@
       "output": {
         ".html": {
           "relative_path": "api/SpeckleUnity.SpeckleUnityReceiver.html",
-          "hash": "7HoYrzp4foBQLx3r7oxg8Q=="
+          "hash": "1e7swAH0CfSf4dD9uqtB8Q=="
         }
       },
-      "is_incremental": true,
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -165,22 +201,10 @@
       "output": {
         ".html": {
           "relative_path": "api/SpeckleUnity.SpeckleUnitySender.html",
-          "hash": "n2Y+P5gaH03t4EL3pOiGxQ=="
+          "hash": "bE5fs7mRFAp4b02HM6wcIw=="
         }
       },
-      "is_incremental": true,
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/SpeckleUnity.SpeckleUnityTransform.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/SpeckleUnity.SpeckleUnityTransform.html",
-          "hash": "KLcpG4Y6AQjC5wH6ZglXkQ=="
-        }
-      },
-      "is_incremental": true,
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -189,10 +213,10 @@
       "output": {
         ".html": {
           "relative_path": "api/SpeckleUnity.SpeckleUnityUpdate.html",
-          "hash": "2iMX+R/zh8OjR3fFGg5QIQ=="
+          "hash": "DdE9KVa0Z10TU8plVjEMLg=="
         }
       },
-      "is_incremental": true,
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -201,10 +225,10 @@
       "output": {
         ".html": {
           "relative_path": "api/SpeckleUnity.SpeckleUnityUpdateEvent.html",
-          "hash": "t8SSdjYPC6HBsscp79rwQA=="
+          "hash": "csCh0XZMu84e0BaBxLoQ8w=="
         }
       },
-      "is_incremental": true,
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -213,10 +237,10 @@
       "output": {
         ".html": {
           "relative_path": "api/SpeckleUnity.SpeckleUnityValueChange.html",
-          "hash": "LkXnSRKnxlUfQNN/yHGgCA=="
+          "hash": "oebJtG4MLHlulJ9J4EO3HA=="
         }
       },
-      "is_incremental": true,
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -225,10 +249,58 @@
       "output": {
         ".html": {
           "relative_path": "api/SpeckleUnity.StartMode.html",
-          "hash": "yKWfzaE3Enb2TA3O79PNsQ=="
+          "hash": "bR52wSaorzeKabkGscLkSw=="
         }
       },
-      "is_incremental": true,
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/SpeckleUnity.Tests.AsyncTest.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/SpeckleUnity.Tests.AsyncTest.html",
+          "hash": "ORVR8drUjnThGJ2fCGXrVA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/SpeckleUnity.Tests.SpeckleUnityManagerTests.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/SpeckleUnity.Tests.SpeckleUnityManagerTests.html",
+          "hash": "2dJ0x++hsv0AKtejnUruCA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/SpeckleUnity.Tests.TestInput.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/SpeckleUnity.Tests.TestInput.html",
+          "hash": "3f5FRfPLAXQ57cBa/HNFoA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/SpeckleUnity.Tests.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/SpeckleUnity.Tests.html",
+          "hash": "LQorA0X/c6RR7xfNAditTw=="
+        }
+      },
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -237,10 +309,10 @@
       "output": {
         ".html": {
           "relative_path": "api/SpeckleUnity.UpdateType.html",
-          "hash": "ZkwnawBUeXhNY1yOFrXF/Q=="
+          "hash": "TxIGmeg65T/WliVcVfTFTw=="
         }
       },
-      "is_incremental": true,
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -249,10 +321,10 @@
       "output": {
         ".html": {
           "relative_path": "api/SpeckleUnity.WSMessageData.html",
-          "hash": "YkKI68dnrkTu3Gc8u2tDtw=="
+          "hash": "uCd7SJ64+cfQkXdVCK5IuQ=="
         }
       },
-      "is_incremental": true,
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -261,10 +333,10 @@
       "output": {
         ".html": {
           "relative_path": "api/SpeckleUnity.WSMessageDataArgs.html",
-          "hash": "bmi9Q/lMZUBoZjLfDg2/2A=="
+          "hash": "DXIw86xZiIHk7X4s7RfoYA=="
         }
       },
-      "is_incremental": true,
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -273,10 +345,10 @@
       "output": {
         ".html": {
           "relative_path": "api/SpeckleUnity.html",
-          "hash": "GrEJgG7HF+vZRCX13zpyaw=="
+          "hash": "FdXTtC0hjoDgXmsipx4Tpg=="
         }
       },
-      "is_incremental": true,
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -285,10 +357,10 @@
       "output": {
         ".html": {
           "relative_path": "api/index.html",
-          "hash": "6Z42xVUBBB2+NC11ixWcJA=="
+          "hash": "3x9exgqJR9nEdm6Vh9Ya+A=="
         }
       },
-      "is_incremental": true,
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -297,7 +369,7 @@
       "output": {
         ".html": {
           "relative_path": "articles/exampleCode.html",
-          "hash": "vpFk2iErRqzWi+50Ia9AYw=="
+          "hash": "ovs54hG7ihbOLWDO94B2Zw=="
         }
       },
       "is_incremental": false,
@@ -309,10 +381,10 @@
       "output": {
         ".html": {
           "relative_path": "articles/gettingStarted.html",
-          "hash": "v01/lB1synHTnRDCuRpmtw=="
+          "hash": "2Tog34QLoHaM/Gn5ijaU1A=="
         }
       },
-      "is_incremental": true,
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -321,10 +393,10 @@
       "output": {
         ".html": {
           "relative_path": "articles/howToInstall.html",
-          "hash": "B6qz+GZPii/uCz7s6/KNdQ=="
+          "hash": "LAQqFZ6v7vakyW5adv+Qcg=="
         }
       },
-      "is_incremental": true,
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -357,10 +429,10 @@
       "output": {
         ".html": {
           "relative_path": "articles/supportedPlatforms.html",
-          "hash": "NvK33owlEoFP4mti6ztYBQ=="
+          "hash": "8Ke1qdC3hB6stURQ6mRzJg=="
         }
       },
-      "is_incremental": true,
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -433,13 +505,13 @@
           "can_incremental": true,
           "incrementalPhase": "build",
           "total_file_count": 8,
-          "skipped_file_count": 7
+          "skipped_file_count": 4
         },
         "ManagedReferenceDocumentProcessor": {
           "can_incremental": true,
           "incrementalPhase": "build",
-          "total_file_count": 23,
-          "skipped_file_count": 23
+          "total_file_count": 29,
+          "skipped_file_count": 2
         },
         "ResourceDocumentProcessor": {
           "can_incremental": false,

@@ -87,7 +87,16 @@
                         
                         <ul class="nav level2">
                           <li class="">
+                            <a href="SpeckleUnity.ColorByType.html" title="ColorByType" class="">ColorByType</a>
+                          </li>
+                          <li class="">
+                            <a href="SpeckleUnity.ColorKey.html" title="ColorKey" class="">ColorKey</a>
+                          </li>
+                          <li class="">
                             <a href="SpeckleUnity.Conversions.html" title="Conversions" class="">Conversions</a>
+                          </li>
+                          <li class="">
+                            <a href="SpeckleUnity.RenderingRule.html" title="RenderingRule" class="">RenderingRule</a>
                           </li>
                           <li class="">
                             <a href="SpeckleUnity.SpawnSpeed.html" title="SpawnSpeed" class="">SpawnSpeed</a>
@@ -123,9 +132,6 @@
                             <a href="SpeckleUnity.SpeckleUnitySender.html" title="SpeckleUnitySender" class="">SpeckleUnitySender</a>
                           </li>
                           <li class="">
-                            <a href="SpeckleUnity.SpeckleUnityTransform.html" title="SpeckleUnityTransform" class="">SpeckleUnityTransform</a>
-                          </li>
-                          <li class="">
                             <a href="SpeckleUnity.SpeckleUnityUpdate.html" title="SpeckleUnityUpdate" class="">SpeckleUnityUpdate</a>
                           </li>
                           <li class="">
@@ -154,6 +160,21 @@
                         <ul class="nav level2">
                           <li class="">
                             <a href="SpeckleUnity.CustomEditors.SpeckleUnityMenus.html" title="SpeckleUnityMenus" class="">SpeckleUnityMenus</a>
+                          </li>
+                        </ul>  </li>
+                    <li class="">
+                      <span class="expand-stub"></span>
+                      <a href="SpeckleUnity.Tests.html" title="SpeckleUnity.Tests" class="">SpeckleUnity.Tests</a>
+                        
+                        <ul class="nav level2">
+                          <li class="">
+                            <a href="SpeckleUnity.Tests.AsyncTest.html" title="AsyncTest" class="">AsyncTest</a>
+                          </li>
+                          <li class="">
+                            <a href="SpeckleUnity.Tests.SpeckleUnityManagerTests.html" title="SpeckleUnityManagerTests" class="">SpeckleUnityManagerTests</a>
+                          </li>
+                          <li class="">
+                            <a href="SpeckleUnity.Tests.TestInput.html" title="TestInput" class="">TestInput</a>
                           </li>
                         </ul>  </li>
                   </ul>        </div>
@@ -420,7 +441,7 @@ authenticates against the server and provides a manager object to receive inspec
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public abstract IEnumerator InitializeClient(SpeckleUnityManager manager, string url, string authToken)</code></pre>
+    <pre><code class="lang-csharp hljs">public abstract Task InitializeClient(SpeckleUnityManager manager, string url, string authToken)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -462,8 +483,8 @@ authenticates against the server and provides a manager object to receive inspec
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">System.Collections.IEnumerator</span></td>
-        <td><p>An IEnumerator to yield or start as a new coroutine.</p>
+        <td><span class="xref">Task</span></td>
+        <td><p>An async <code>Task</code> of the new operation.</p>
 </td>
       </tr>
     </tbody>

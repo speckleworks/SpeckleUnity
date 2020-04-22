@@ -5,10 +5,10 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>Class SpeckleUnityMesh
+    <title>Class RenderingRule
    </title>
     <meta name="viewport" content="width=device-width">
-    <meta name="title" content="Class SpeckleUnityMesh
+    <meta name="title" content="Class RenderingRule
    ">
     <meta name="generator" content="docfx 2.50.0.0">
     
@@ -95,8 +95,8 @@
                           <li class="">
                             <a href="SpeckleUnity.Conversions.html" title="Conversions" class="">Conversions</a>
                           </li>
-                          <li class="">
-                            <a href="SpeckleUnity.RenderingRule.html" title="RenderingRule" class="">RenderingRule</a>
+                          <li class="active">
+                            <a href="SpeckleUnity.RenderingRule.html" title="RenderingRule" class="active">RenderingRule</a>
                           </li>
                           <li class="">
                             <a href="SpeckleUnity.SpawnSpeed.html" title="SpawnSpeed" class="">SpawnSpeed</a>
@@ -110,8 +110,8 @@
                           <li class="">
                             <a href="SpeckleUnity.SpeckleUnityManager.html" title="SpeckleUnityManager" class="">SpeckleUnityManager</a>
                           </li>
-                          <li class="active">
-                            <a href="SpeckleUnity.SpeckleUnityMesh.html" title="SpeckleUnityMesh" class="active">SpeckleUnityMesh</a>
+                          <li class="">
+                            <a href="SpeckleUnity.SpeckleUnityMesh.html" title="SpeckleUnityMesh" class="">SpeckleUnityMesh</a>
                           </li>
                           <li class="">
                             <a href="SpeckleUnity.SpeckleUnityNumber.html" title="SpeckleUnityNumber" class="">SpeckleUnityNumber</a>
@@ -184,54 +184,36 @@
         </div>
         <div class="article row grid-right">
           <div class="col-md-10">
-            <article class="content wrap" id="_content" data-uid="SpeckleUnity.SpeckleUnityMesh">
+            <article class="content wrap" id="_content" data-uid="SpeckleUnity.RenderingRule">
   
   
-  <h1 id="SpeckleUnity_SpeckleUnityMesh" data-uid="SpeckleUnity.SpeckleUnityMesh" class="text-break">Class SpeckleUnityMesh
+  <h1 id="SpeckleUnity_RenderingRule" data-uid="SpeckleUnity.RenderingRule" class="text-break">Class RenderingRule
   </h1>
-  <div class="markdown level0 summary"><p>A stream object represented as a gameobject with a <code>MeshRenderer</code>. Also adds a
-<code>MeshCollider</code> to the object. The material is assigned by the <code>SpeckleUnityReceiver</code>.</p>
-</div>
+  <div class="markdown level0 summary"></div>
   <div class="markdown level0 conceptual"></div>
   <div class="inheritance">
     <h5>Inheritance</h5>
     <div class="level0"><span class="xref">System.Object</span></div>
-    <div class="level1"><a class="xref" href="SpeckleUnity.SpeckleUnityObject.html">SpeckleUnityObject</a></div>
-    <div class="level2"><a class="xref" href="SpeckleUnity.SpeckleUnityGeometry.html">SpeckleUnityGeometry</a></div>
-    <div class="level3"><span class="xref">SpeckleUnityMesh</span></div>
-  </div>
-  <div class="inheritedMembers">
-    <h5>Inherited Members</h5>
-    <div>
-      <a class="xref" href="SpeckleUnity.SpeckleUnityGeometry.html#SpeckleUnity_SpeckleUnityGeometry_gameObject">SpeckleUnityGeometry.gameObject</a>
-    </div>
-    <div>
-      <a class="xref" href="SpeckleUnity.SpeckleUnityGeometry.html#SpeckleUnity_SpeckleUnityGeometry_renderer">SpeckleUnityGeometry.renderer</a>
-    </div>
-    <div>
-      <a class="xref" href="SpeckleUnity.SpeckleUnityObject.html#SpeckleUnity_SpeckleUnityObject_ValueChanged">SpeckleUnityObject.ValueChanged</a>
-    </div>
-    <div>
-      <a class="xref" href="SpeckleUnity.SpeckleUnityObject.html#SpeckleUnity_SpeckleUnityObject_OnValueChanged">SpeckleUnityObject.OnValueChanged()</a>
-    </div>
+    <div class="level1"><span class="xref">RenderingRule</span></div>
+      <div class="level2"><a class="xref" href="SpeckleUnity.ColorByType.html">ColorByType</a></div>
   </div>
   <h6><strong>Namespace</strong>: <a class="xref" href="SpeckleUnity.html">SpeckleUnity</a></h6>
   <h6><strong>Assembly</strong>: cs.temp.dll.dll</h6>
-  <h5 id="SpeckleUnity_SpeckleUnityMesh_syntax">Syntax</h5>
+  <h5 id="SpeckleUnity_RenderingRule_syntax">Syntax</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public class SpeckleUnityMesh : SpeckleUnityGeometry</code></pre>
+    <pre><code class="lang-csharp hljs">public abstract class RenderingRule : ScriptableObject</code></pre>
   </div>
-  <h3 id="constructors">Constructors
+  <h3 id="methods">Methods
   </h3>
   
   
-  <a id="SpeckleUnity_SpeckleUnityMesh__ctor_" data-uid="SpeckleUnity.SpeckleUnityMesh.#ctor*"></a>
-  <h4 id="SpeckleUnity_SpeckleUnityMesh__ctor_System_String_Vector3___System_Int32___" data-uid="SpeckleUnity.SpeckleUnityMesh.#ctor(System.String,Vector3[],System.Int32[])">SpeckleUnityMesh(String, Vector3[], Int32[])</h4>
+  <a id="SpeckleUnity_RenderingRule_ApplyRuleToObject_" data-uid="SpeckleUnity.RenderingRule.ApplyRuleToObject*"></a>
+  <h4 id="SpeckleUnity_RenderingRule_ApplyRuleToObject_Renderer_SpeckleObject_MaterialPropertyBlock_" data-uid="SpeckleUnity.RenderingRule.ApplyRuleToObject(Renderer,SpeckleObject,MaterialPropertyBlock)">ApplyRuleToObject(Renderer, SpeckleObject, MaterialPropertyBlock)</h4>
   <div class="markdown level1 summary"></div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public SpeckleUnityMesh(string type, Vector3[] verts, int[] tris)</code></pre>
+    <pre><code class="lang-csharp hljs">public abstract void ApplyRuleToObject(Renderer renderer, SpeckleObject speckleObject, MaterialPropertyBlock block)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -244,44 +226,18 @@
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">System.String</span></td>
-        <td><span class="parametername">type</span></td>
+        <td><span class="xref">Renderer</span></td>
+        <td><span class="parametername">renderer</span></td>
         <td></td>
       </tr>
       <tr>
-        <td><span class="xref">Vector3</span>[]</td>
-        <td><span class="parametername">verts</span></td>
+        <td><span class="xref">SpeckleObject</span></td>
+        <td><span class="parametername">speckleObject</span></td>
         <td></td>
       </tr>
       <tr>
-        <td><span class="xref">System.Int32</span>[]</td>
-        <td><span class="parametername">tris</span></td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
-  <h3 id="fields">Fields
-  </h3>
-  
-  
-  <h4 id="SpeckleUnity_SpeckleUnityMesh_meshRenderer" data-uid="SpeckleUnity.SpeckleUnityMesh.meshRenderer">meshRenderer</h4>
-  <div class="markdown level1 summary"></div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public MeshRenderer meshRenderer</code></pre>
-  </div>
-  <h5 class="fieldValue">Field Value</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="xref">MeshRenderer</span></td>
+        <td><span class="xref">MaterialPropertyBlock</span></td>
+        <td><span class="parametername">block</span></td>
         <td></td>
       </tr>
     </tbody>
