@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -66,8 +67,8 @@ namespace SpeckleUnity
 		/// <param name="manager">The manager instance that provides inspector values for this client.</param>
 		/// <param name="url">The url of the speckle server to connect to.</param>
 		/// <param name="authToken">The authentication token of the user to connect as.</param>
-		/// <returns>An IEnumerator to yield or start as a new coroutine.</returns>
-		public abstract IEnumerator InitializeClient (SpeckleUnityManager manager, string url, string authToken);
+		/// <returns>An async <c>Task</c> of the new operation.</returns>
+		public abstract Task InitializeClient (SpeckleUnityManager manager, string url, string authToken);
 
 		/// <summary>
 		/// Base implementation of the "OnReady" event response. It's empty at this level and intended to be 

@@ -27,17 +27,24 @@ namespace SpeckleUnity
         /// </summary>
         public UpdateType updateType;
 
-		/// <summary>
-		/// Constructs a new instance of this object with all its values assigned.
-		/// </summary>
-		/// <param name="streamID">The ID of the stream that got updated.</param>
-		/// <param name="streamRoot">The root <c>Transform</c> of the stream that got updated.</param>
-		/// <param name="updateType">The type of update made to the stream.</param>
-		public SpeckleUnityUpdate (string streamID, Transform streamRoot, UpdateType updateType)
+        /// <summary>
+        /// A value from 0-1 describing how far along the update is. Can be used to represent a percentage;
+        /// </summary>
+        public float updateProgress;
+
+        /// <summary>
+        /// Constructs a new instance of this object with all its values assigned.
+        /// </summary>
+        /// <param name="streamID">The ID of the stream that got updated.</param>
+        /// <param name="streamRoot">The root <c>Transform</c> of the stream that got updated.</param>
+        /// <param name="updateType">The type of update made to the stream.</param>
+        /// <param name="updateProgress">The current progress of the ongoing update.</param>
+        public SpeckleUnityUpdate (string streamID, Transform streamRoot, UpdateType updateType, float updateProgress)
         {
             this.streamID = streamID;
             this.streamRoot = streamRoot;
             this.updateType = updateType;
+            this.updateProgress = updateProgress;
         }
     }
 }

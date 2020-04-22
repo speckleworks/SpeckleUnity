@@ -107,7 +107,9 @@
             <article class="content wrap" id="_content" data-uid="">
 <h1 id="how-to-install">How To Install</h1>
 
-<p>In order to install SpeckleUnity in your project, add the following to the top of your manifest.json file right before the dependencies object. Next, save the file and restart the editor. You should then find the package in the package manager UI which can be installed like any other Unity package. You can even view a list of all previous versions of the package that are available in our registry.</p>
+<p>Since SpeckleUnity is a package installed via the Unity Package Manager (UPM), there are a few different ways to go about installing it into your Unity project.</p>
+<h2 id="scoped-registry-recommended">Scoped Registry (Recommended)</h2>
+<p>Add the following to the top of your manifest.json file right before the dependencies object. Next, save the file and restart the editor. You should then find the package in the package manager UI which can be installed like any other Unity package. You can even view a list of all previous versions of the package that are available in our registry.</p>
 <pre><code class="lang-js">&quot;scopedRegistries&quot;: [
     {
         &quot;name&quot;: &quot;Open Source Packages&quot;,
@@ -122,14 +124,15 @@
 <p>&quot;YOUR-PROJECT-FOLDER&quot; &gt; Packages &gt; manifest.json</p>
 <p>This needs to be done once for each Unity project you intend to use SpeckleUnity with because new Unity projects are always created with the default manifest.json file for that editor version.</p>
 <p>If you can't see the latest version of SpeckleUnity in the package manager UI, it's likely because it supports only a later version of Unity than you are currently using.</p>
-<hr>
 <p><strong>Note:</strong> In some versions of Unity there is a bug with the package manager in how it communicates with scoped registries. If you don't see any new packages appear, you must also update your list of dependencies to include SpeckleUnity. For example...</p>
 <pre><code class="lang-js">&quot;dependencies&quot;: {
-    &quot;com.open.speckleunity&quot;: &quot;0.5.0-preview&quot;,
+    &quot;com.open.speckleunity&quot;: &quot;0.6.3-preview&quot;,
     &quot;com.unity.ads&quot;: &quot;2.0.8&quot;
  }
 </code></pre>
 <p>Keep in mind that you will most likely have a larger list of dependencies than what is depicted in the example above. The line beginning with &quot;com.unity.ads&quot; merely serves as a placeholder to show that the necessary entry of &quot;com.open.speckleunity&quot; is inserted into the dependencies list.</p>
+<h2 id="openump-cli">OpenUMP CLI</h2>
+<p>SpeckleUnity is also available on OpenUPM, a community driven &quot;virtual&quot; package registry. The reason why this method isn't recomended is because it's the least beginner friendly even though there's nothing wrong with doing it this way. To learn more about installing via OpenUPM, see their official guide <a href="https://openupm.com/docs/getting-started.html">here</a>.</p>
 </article>
           </div>
           

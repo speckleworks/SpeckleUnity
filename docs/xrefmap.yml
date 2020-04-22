@@ -7,6 +7,92 @@ references:
   commentId: N:SpeckleUnity
   fullName: SpeckleUnity
   nameWithType: SpeckleUnity
+- uid: SpeckleUnity.ColorByType
+  name: ColorByType
+  href: api/SpeckleUnity.ColorByType.html
+  commentId: T:SpeckleUnity.ColorByType
+  fullName: SpeckleUnity.ColorByType
+  nameWithType: ColorByType
+- uid: SpeckleUnity.ColorByType.ApplyRuleToObject(Renderer,SpeckleObject,MaterialPropertyBlock)
+  name: ApplyRuleToObject(Renderer, SpeckleObject, MaterialPropertyBlock)
+  href: api/SpeckleUnity.ColorByType.html#SpeckleUnity_ColorByType_ApplyRuleToObject_Renderer_SpeckleObject_MaterialPropertyBlock_
+  commentId: M:SpeckleUnity.ColorByType.ApplyRuleToObject(Renderer,SpeckleObject,MaterialPropertyBlock)
+  fullName: SpeckleUnity.ColorByType.ApplyRuleToObject(Renderer, SpeckleObject, MaterialPropertyBlock)
+  nameWithType: ColorByType.ApplyRuleToObject(Renderer, SpeckleObject, MaterialPropertyBlock)
+- uid: SpeckleUnity.ColorByType.ApplyRuleToObject*
+  name: ApplyRuleToObject
+  href: api/SpeckleUnity.ColorByType.html#SpeckleUnity_ColorByType_ApplyRuleToObject_
+  commentId: Overload:SpeckleUnity.ColorByType.ApplyRuleToObject
+  isSpec: "True"
+  fullName: SpeckleUnity.ColorByType.ApplyRuleToObject
+  nameWithType: ColorByType.ApplyRuleToObject
+- uid: SpeckleUnity.ColorByType.colorKey
+  name: colorKey
+  href: api/SpeckleUnity.ColorByType.html#SpeckleUnity_ColorByType_colorKey
+  commentId: F:SpeckleUnity.ColorByType.colorKey
+  fullName: SpeckleUnity.ColorByType.colorKey
+  nameWithType: ColorByType.colorKey
+- uid: SpeckleUnity.ColorByType.colorLookup
+  name: colorLookup
+  href: api/SpeckleUnity.ColorByType.html#SpeckleUnity_ColorByType_colorLookup
+  commentId: F:SpeckleUnity.ColorByType.colorLookup
+  fullName: SpeckleUnity.ColorByType.colorLookup
+  nameWithType: ColorByType.colorLookup
+- uid: SpeckleUnity.ColorByType.colorName
+  name: colorName
+  href: api/SpeckleUnity.ColorByType.html#SpeckleUnity_ColorByType_colorName
+  commentId: F:SpeckleUnity.ColorByType.colorName
+  fullName: SpeckleUnity.ColorByType.colorName
+  nameWithType: ColorByType.colorName
+- uid: SpeckleUnity.ColorByType.gradient
+  name: gradient
+  href: api/SpeckleUnity.ColorByType.html#SpeckleUnity_ColorByType_gradient
+  commentId: F:SpeckleUnity.ColorByType.gradient
+  fullName: SpeckleUnity.ColorByType.gradient
+  nameWithType: ColorByType.gradient
+- uid: SpeckleUnity.ColorByType.receiveShadows
+  name: receiveShadows
+  href: api/SpeckleUnity.ColorByType.html#SpeckleUnity_ColorByType_receiveShadows
+  commentId: F:SpeckleUnity.ColorByType.receiveShadows
+  fullName: SpeckleUnity.ColorByType.receiveShadows
+  nameWithType: ColorByType.receiveShadows
+- uid: SpeckleUnity.ColorByType.shadowCastingMode
+  name: shadowCastingMode
+  href: api/SpeckleUnity.ColorByType.html#SpeckleUnity_ColorByType_shadowCastingMode
+  commentId: F:SpeckleUnity.ColorByType.shadowCastingMode
+  fullName: SpeckleUnity.ColorByType.shadowCastingMode
+  nameWithType: ColorByType.shadowCastingMode
+- uid: SpeckleUnity.ColorKey
+  name: ColorKey
+  href: api/SpeckleUnity.ColorKey.html
+  commentId: T:SpeckleUnity.ColorKey
+  fullName: SpeckleUnity.ColorKey
+  nameWithType: ColorKey
+- uid: SpeckleUnity.ColorKey.#ctor(System.String,Color)
+  name: ColorKey(String, Color)
+  href: api/SpeckleUnity.ColorKey.html#SpeckleUnity_ColorKey__ctor_System_String_Color_
+  commentId: M:SpeckleUnity.ColorKey.#ctor(System.String,Color)
+  fullName: SpeckleUnity.ColorKey.ColorKey(System.String, Color)
+  nameWithType: ColorKey.ColorKey(String, Color)
+- uid: SpeckleUnity.ColorKey.#ctor*
+  name: ColorKey
+  href: api/SpeckleUnity.ColorKey.html#SpeckleUnity_ColorKey__ctor_
+  commentId: Overload:SpeckleUnity.ColorKey.#ctor
+  isSpec: "True"
+  fullName: SpeckleUnity.ColorKey.ColorKey
+  nameWithType: ColorKey.ColorKey
+- uid: SpeckleUnity.ColorKey.color
+  name: color
+  href: api/SpeckleUnity.ColorKey.html#SpeckleUnity_ColorKey_color
+  commentId: F:SpeckleUnity.ColorKey.color
+  fullName: SpeckleUnity.ColorKey.color
+  nameWithType: ColorKey.color
+- uid: SpeckleUnity.ColorKey.name
+  name: name
+  href: api/SpeckleUnity.ColorKey.html#SpeckleUnity_ColorKey_name
+  commentId: F:SpeckleUnity.ColorKey.name
+  fullName: SpeckleUnity.ColorKey.name
+  nameWithType: ColorKey.name
 - uid: SpeckleUnity.Conversions
   name: Conversions
   href: api/SpeckleUnity.Conversions.html
@@ -124,12 +210,6 @@ references:
   commentId: M:SpeckleUnity.Conversions.ToSpeckle(SpeckleUnity.SpeckleUnityPoint)
   fullName: SpeckleUnity.Conversions.ToSpeckle(SpeckleUnity.SpeckleUnityPoint)
   nameWithType: Conversions.ToSpeckle(SpeckleUnityPoint)
-- uid: SpeckleUnity.Conversions.ToSpeckle(SpeckleUnity.SpeckleUnityTransform)
-  name: ToSpeckle(SpeckleUnityTransform)
-  href: api/SpeckleUnity.Conversions.html#SpeckleUnity_Conversions_ToSpeckle_SpeckleUnity_SpeckleUnityTransform_
-  commentId: M:SpeckleUnity.Conversions.ToSpeckle(SpeckleUnity.SpeckleUnityTransform)
-  fullName: SpeckleUnity.Conversions.ToSpeckle(SpeckleUnity.SpeckleUnityTransform)
-  nameWithType: Conversions.ToSpeckle(SpeckleUnityTransform)
 - uid: SpeckleUnity.Conversions.ToSpeckle*
   name: ToSpeckle
   href: api/SpeckleUnity.Conversions.html#SpeckleUnity_Conversions_ToSpeckle_
@@ -162,6 +242,25 @@ references:
   isSpec: "True"
   fullName: SpeckleUnity.CustomEditors.SpeckleUnityMenus.CreateManager
   nameWithType: SpeckleUnityMenus.CreateManager
+- uid: SpeckleUnity.RenderingRule
+  name: RenderingRule
+  href: api/SpeckleUnity.RenderingRule.html
+  commentId: T:SpeckleUnity.RenderingRule
+  fullName: SpeckleUnity.RenderingRule
+  nameWithType: RenderingRule
+- uid: SpeckleUnity.RenderingRule.ApplyRuleToObject(Renderer,SpeckleObject,MaterialPropertyBlock)
+  name: ApplyRuleToObject(Renderer, SpeckleObject, MaterialPropertyBlock)
+  href: api/SpeckleUnity.RenderingRule.html#SpeckleUnity_RenderingRule_ApplyRuleToObject_Renderer_SpeckleObject_MaterialPropertyBlock_
+  commentId: M:SpeckleUnity.RenderingRule.ApplyRuleToObject(Renderer,SpeckleObject,MaterialPropertyBlock)
+  fullName: SpeckleUnity.RenderingRule.ApplyRuleToObject(Renderer, SpeckleObject, MaterialPropertyBlock)
+  nameWithType: RenderingRule.ApplyRuleToObject(Renderer, SpeckleObject, MaterialPropertyBlock)
+- uid: SpeckleUnity.RenderingRule.ApplyRuleToObject*
+  name: ApplyRuleToObject
+  href: api/SpeckleUnity.RenderingRule.html#SpeckleUnity_RenderingRule_ApplyRuleToObject_
+  commentId: Overload:SpeckleUnity.RenderingRule.ApplyRuleToObject
+  isSpec: "True"
+  fullName: SpeckleUnity.RenderingRule.ApplyRuleToObject
+  nameWithType: RenderingRule.ApplyRuleToObject
 - uid: SpeckleUnity.SpawnSpeed
   name: SpawnSpeed
   href: api/SpeckleUnity.SpawnSpeed.html
@@ -319,12 +418,6 @@ references:
   commentId: M:SpeckleUnity.SpeckleUnityGeometry.#ctor
   fullName: SpeckleUnity.SpeckleUnityGeometry.SpeckleUnityGeometry()
   nameWithType: SpeckleUnityGeometry.SpeckleUnityGeometry()
-- uid: SpeckleUnity.SpeckleUnityGeometry.#ctor(GameObject)
-  name: SpeckleUnityGeometry(GameObject)
-  href: api/SpeckleUnity.SpeckleUnityGeometry.html#SpeckleUnity_SpeckleUnityGeometry__ctor_GameObject_
-  commentId: M:SpeckleUnity.SpeckleUnityGeometry.#ctor(GameObject)
-  fullName: SpeckleUnity.SpeckleUnityGeometry.SpeckleUnityGeometry(GameObject)
-  nameWithType: SpeckleUnityGeometry.SpeckleUnityGeometry(GameObject)
 - uid: SpeckleUnity.SpeckleUnityGeometry.#ctor*
   name: SpeckleUnityGeometry
   href: api/SpeckleUnity.SpeckleUnityGeometry.html#SpeckleUnity_SpeckleUnityGeometry__ctor_
@@ -338,73 +431,31 @@ references:
   commentId: F:SpeckleUnity.SpeckleUnityGeometry.gameObject
   fullName: SpeckleUnity.SpeckleUnityGeometry.gameObject
   nameWithType: SpeckleUnityGeometry.gameObject
+- uid: SpeckleUnity.SpeckleUnityGeometry.renderer
+  name: renderer
+  href: api/SpeckleUnity.SpeckleUnityGeometry.html#SpeckleUnity_SpeckleUnityGeometry_renderer
+  commentId: F:SpeckleUnity.SpeckleUnityGeometry.renderer
+  fullName: SpeckleUnity.SpeckleUnityGeometry.renderer
+  nameWithType: SpeckleUnityGeometry.renderer
 - uid: SpeckleUnity.SpeckleUnityManager
   name: SpeckleUnityManager
   href: api/SpeckleUnity.SpeckleUnityManager.html
   commentId: T:SpeckleUnity.SpeckleUnityManager
   fullName: SpeckleUnity.SpeckleUnityManager
   nameWithType: SpeckleUnityManager
-- uid: SpeckleUnity.SpeckleUnityManager.AddReceiver(System.String,Transform,System.Boolean)
-  name: AddReceiver(String, Transform, Boolean)
-  href: api/SpeckleUnity.SpeckleUnityManager.html#SpeckleUnity_SpeckleUnityManager_AddReceiver_System_String_Transform_System_Boolean_
-  commentId: M:SpeckleUnity.SpeckleUnityManager.AddReceiver(System.String,Transform,System.Boolean)
-  fullName: SpeckleUnity.SpeckleUnityManager.AddReceiver(System.String, Transform, System.Boolean)
-  nameWithType: SpeckleUnityManager.AddReceiver(String, Transform, Boolean)
-- uid: SpeckleUnity.SpeckleUnityManager.AddReceiver*
-  name: AddReceiver
-  href: api/SpeckleUnity.SpeckleUnityManager.html#SpeckleUnity_SpeckleUnityManager_AddReceiver_
-  commentId: Overload:SpeckleUnity.SpeckleUnityManager.AddReceiver
+- uid: SpeckleUnity.SpeckleUnityManager.AddReceiverAsync(System.String,Transform,System.Boolean)
+  name: AddReceiverAsync(String, Transform, Boolean)
+  href: api/SpeckleUnity.SpeckleUnityManager.html#SpeckleUnity_SpeckleUnityManager_AddReceiverAsync_System_String_Transform_System_Boolean_
+  commentId: M:SpeckleUnity.SpeckleUnityManager.AddReceiverAsync(System.String,Transform,System.Boolean)
+  fullName: SpeckleUnity.SpeckleUnityManager.AddReceiverAsync(System.String, Transform, System.Boolean)
+  nameWithType: SpeckleUnityManager.AddReceiverAsync(String, Transform, Boolean)
+- uid: SpeckleUnity.SpeckleUnityManager.AddReceiverAsync*
+  name: AddReceiverAsync
+  href: api/SpeckleUnity.SpeckleUnityManager.html#SpeckleUnity_SpeckleUnityManager_AddReceiverAsync_
+  commentId: Overload:SpeckleUnity.SpeckleUnityManager.AddReceiverAsync
   isSpec: "True"
-  fullName: SpeckleUnity.SpeckleUnityManager.AddReceiver
-  nameWithType: SpeckleUnityManager.AddReceiver
-- uid: SpeckleUnity.SpeckleUnityManager.AttemptGetAllProjectMetaDataForUser(Action{Project[]})
-  name: AttemptGetAllProjectMetaDataForUser(Action<Project[]>)
-  href: api/SpeckleUnity.SpeckleUnityManager.html#SpeckleUnity_SpeckleUnityManager_AttemptGetAllProjectMetaDataForUser_Action_Project____
-  commentId: M:SpeckleUnity.SpeckleUnityManager.AttemptGetAllProjectMetaDataForUser(Action{Project[]})
-  name.vb: AttemptGetAllProjectMetaDataForUser(Action(Of Project()))
-  fullName: SpeckleUnity.SpeckleUnityManager.AttemptGetAllProjectMetaDataForUser(Action<Project[]>)
-  fullName.vb: SpeckleUnity.SpeckleUnityManager.AttemptGetAllProjectMetaDataForUser(Action(Of Project()))
-  nameWithType: SpeckleUnityManager.AttemptGetAllProjectMetaDataForUser(Action<Project[]>)
-  nameWithType.vb: SpeckleUnityManager.AttemptGetAllProjectMetaDataForUser(Action(Of Project()))
-- uid: SpeckleUnity.SpeckleUnityManager.AttemptGetAllProjectMetaDataForUser*
-  name: AttemptGetAllProjectMetaDataForUser
-  href: api/SpeckleUnity.SpeckleUnityManager.html#SpeckleUnity_SpeckleUnityManager_AttemptGetAllProjectMetaDataForUser_
-  commentId: Overload:SpeckleUnity.SpeckleUnityManager.AttemptGetAllProjectMetaDataForUser
-  isSpec: "True"
-  fullName: SpeckleUnity.SpeckleUnityManager.AttemptGetAllProjectMetaDataForUser
-  nameWithType: SpeckleUnityManager.AttemptGetAllProjectMetaDataForUser
-- uid: SpeckleUnity.SpeckleUnityManager.AttemptGetAllStreamMetaDataForUser(Action{SpeckleStream[]})
-  name: AttemptGetAllStreamMetaDataForUser(Action<SpeckleStream[]>)
-  href: api/SpeckleUnity.SpeckleUnityManager.html#SpeckleUnity_SpeckleUnityManager_AttemptGetAllStreamMetaDataForUser_Action_SpeckleStream____
-  commentId: M:SpeckleUnity.SpeckleUnityManager.AttemptGetAllStreamMetaDataForUser(Action{SpeckleStream[]})
-  name.vb: AttemptGetAllStreamMetaDataForUser(Action(Of SpeckleStream()))
-  fullName: SpeckleUnity.SpeckleUnityManager.AttemptGetAllStreamMetaDataForUser(Action<SpeckleStream[]>)
-  fullName.vb: SpeckleUnity.SpeckleUnityManager.AttemptGetAllStreamMetaDataForUser(Action(Of SpeckleStream()))
-  nameWithType: SpeckleUnityManager.AttemptGetAllStreamMetaDataForUser(Action<SpeckleStream[]>)
-  nameWithType.vb: SpeckleUnityManager.AttemptGetAllStreamMetaDataForUser(Action(Of SpeckleStream()))
-- uid: SpeckleUnity.SpeckleUnityManager.AttemptGetAllStreamMetaDataForUser*
-  name: AttemptGetAllStreamMetaDataForUser
-  href: api/SpeckleUnity.SpeckleUnityManager.html#SpeckleUnity_SpeckleUnityManager_AttemptGetAllStreamMetaDataForUser_
-  commentId: Overload:SpeckleUnity.SpeckleUnityManager.AttemptGetAllStreamMetaDataForUser
-  isSpec: "True"
-  fullName: SpeckleUnity.SpeckleUnityManager.AttemptGetAllStreamMetaDataForUser
-  nameWithType: SpeckleUnityManager.AttemptGetAllStreamMetaDataForUser
-- uid: SpeckleUnity.SpeckleUnityManager.AttemptLogin(System.String,System.String,Action{User})
-  name: AttemptLogin(String, String, Action<User>)
-  href: api/SpeckleUnity.SpeckleUnityManager.html#SpeckleUnity_SpeckleUnityManager_AttemptLogin_System_String_System_String_Action_User__
-  commentId: M:SpeckleUnity.SpeckleUnityManager.AttemptLogin(System.String,System.String,Action{User})
-  name.vb: AttemptLogin(String, String, Action(Of User))
-  fullName: SpeckleUnity.SpeckleUnityManager.AttemptLogin(System.String, System.String, Action<User>)
-  fullName.vb: SpeckleUnity.SpeckleUnityManager.AttemptLogin(System.String, System.String, Action(Of User))
-  nameWithType: SpeckleUnityManager.AttemptLogin(String, String, Action<User>)
-  nameWithType.vb: SpeckleUnityManager.AttemptLogin(String, String, Action(Of User))
-- uid: SpeckleUnity.SpeckleUnityManager.AttemptLogin*
-  name: AttemptLogin
-  href: api/SpeckleUnity.SpeckleUnityManager.html#SpeckleUnity_SpeckleUnityManager_AttemptLogin_
-  commentId: Overload:SpeckleUnity.SpeckleUnityManager.AttemptLogin
-  isSpec: "True"
-  fullName: SpeckleUnity.SpeckleUnityManager.AttemptLogin
-  nameWithType: SpeckleUnityManager.AttemptLogin
+  fullName: SpeckleUnity.SpeckleUnityManager.AddReceiverAsync
+  nameWithType: SpeckleUnityManager.AddReceiverAsync
 - uid: SpeckleUnity.SpeckleUnityManager.ClearReceivers
   name: ClearReceivers()
   href: api/SpeckleUnity.SpeckleUnityManager.html#SpeckleUnity_SpeckleUnityManager_ClearReceivers
@@ -418,51 +469,51 @@ references:
   isSpec: "True"
   fullName: SpeckleUnity.SpeckleUnityManager.ClearReceivers
   nameWithType: SpeckleUnityManager.ClearReceivers
-- uid: SpeckleUnity.SpeckleUnityManager.GetAllProjectMetaDataForUser(Action{Project[]})
-  name: GetAllProjectMetaDataForUser(Action<Project[]>)
-  href: api/SpeckleUnity.SpeckleUnityManager.html#SpeckleUnity_SpeckleUnityManager_GetAllProjectMetaDataForUser_Action_Project____
-  commentId: M:SpeckleUnity.SpeckleUnityManager.GetAllProjectMetaDataForUser(Action{Project[]})
-  name.vb: GetAllProjectMetaDataForUser(Action(Of Project()))
-  fullName: SpeckleUnity.SpeckleUnityManager.GetAllProjectMetaDataForUser(Action<Project[]>)
-  fullName.vb: SpeckleUnity.SpeckleUnityManager.GetAllProjectMetaDataForUser(Action(Of Project()))
-  nameWithType: SpeckleUnityManager.GetAllProjectMetaDataForUser(Action<Project[]>)
-  nameWithType.vb: SpeckleUnityManager.GetAllProjectMetaDataForUser(Action(Of Project()))
-- uid: SpeckleUnity.SpeckleUnityManager.GetAllProjectMetaDataForUser*
-  name: GetAllProjectMetaDataForUser
-  href: api/SpeckleUnity.SpeckleUnityManager.html#SpeckleUnity_SpeckleUnityManager_GetAllProjectMetaDataForUser_
-  commentId: Overload:SpeckleUnity.SpeckleUnityManager.GetAllProjectMetaDataForUser
+- uid: SpeckleUnity.SpeckleUnityManager.GetAllProjectMetaDataForUserAsync(Action{Project[]})
+  name: GetAllProjectMetaDataForUserAsync(Action<Project[]>)
+  href: api/SpeckleUnity.SpeckleUnityManager.html#SpeckleUnity_SpeckleUnityManager_GetAllProjectMetaDataForUserAsync_Action_Project____
+  commentId: M:SpeckleUnity.SpeckleUnityManager.GetAllProjectMetaDataForUserAsync(Action{Project[]})
+  name.vb: GetAllProjectMetaDataForUserAsync(Action(Of Project()))
+  fullName: SpeckleUnity.SpeckleUnityManager.GetAllProjectMetaDataForUserAsync(Action<Project[]>)
+  fullName.vb: SpeckleUnity.SpeckleUnityManager.GetAllProjectMetaDataForUserAsync(Action(Of Project()))
+  nameWithType: SpeckleUnityManager.GetAllProjectMetaDataForUserAsync(Action<Project[]>)
+  nameWithType.vb: SpeckleUnityManager.GetAllProjectMetaDataForUserAsync(Action(Of Project()))
+- uid: SpeckleUnity.SpeckleUnityManager.GetAllProjectMetaDataForUserAsync*
+  name: GetAllProjectMetaDataForUserAsync
+  href: api/SpeckleUnity.SpeckleUnityManager.html#SpeckleUnity_SpeckleUnityManager_GetAllProjectMetaDataForUserAsync_
+  commentId: Overload:SpeckleUnity.SpeckleUnityManager.GetAllProjectMetaDataForUserAsync
   isSpec: "True"
-  fullName: SpeckleUnity.SpeckleUnityManager.GetAllProjectMetaDataForUser
-  nameWithType: SpeckleUnityManager.GetAllProjectMetaDataForUser
-- uid: SpeckleUnity.SpeckleUnityManager.GetAllStreamMetaDataForUser(Action{SpeckleStream[]})
-  name: GetAllStreamMetaDataForUser(Action<SpeckleStream[]>)
-  href: api/SpeckleUnity.SpeckleUnityManager.html#SpeckleUnity_SpeckleUnityManager_GetAllStreamMetaDataForUser_Action_SpeckleStream____
-  commentId: M:SpeckleUnity.SpeckleUnityManager.GetAllStreamMetaDataForUser(Action{SpeckleStream[]})
-  name.vb: GetAllStreamMetaDataForUser(Action(Of SpeckleStream()))
-  fullName: SpeckleUnity.SpeckleUnityManager.GetAllStreamMetaDataForUser(Action<SpeckleStream[]>)
-  fullName.vb: SpeckleUnity.SpeckleUnityManager.GetAllStreamMetaDataForUser(Action(Of SpeckleStream()))
-  nameWithType: SpeckleUnityManager.GetAllStreamMetaDataForUser(Action<SpeckleStream[]>)
-  nameWithType.vb: SpeckleUnityManager.GetAllStreamMetaDataForUser(Action(Of SpeckleStream()))
-- uid: SpeckleUnity.SpeckleUnityManager.GetAllStreamMetaDataForUser*
-  name: GetAllStreamMetaDataForUser
-  href: api/SpeckleUnity.SpeckleUnityManager.html#SpeckleUnity_SpeckleUnityManager_GetAllStreamMetaDataForUser_
-  commentId: Overload:SpeckleUnity.SpeckleUnityManager.GetAllStreamMetaDataForUser
+  fullName: SpeckleUnity.SpeckleUnityManager.GetAllProjectMetaDataForUserAsync
+  nameWithType: SpeckleUnityManager.GetAllProjectMetaDataForUserAsync
+- uid: SpeckleUnity.SpeckleUnityManager.GetAllStreamMetaDataForUserAsync(Action{SpeckleStream[]})
+  name: GetAllStreamMetaDataForUserAsync(Action<SpeckleStream[]>)
+  href: api/SpeckleUnity.SpeckleUnityManager.html#SpeckleUnity_SpeckleUnityManager_GetAllStreamMetaDataForUserAsync_Action_SpeckleStream____
+  commentId: M:SpeckleUnity.SpeckleUnityManager.GetAllStreamMetaDataForUserAsync(Action{SpeckleStream[]})
+  name.vb: GetAllStreamMetaDataForUserAsync(Action(Of SpeckleStream()))
+  fullName: SpeckleUnity.SpeckleUnityManager.GetAllStreamMetaDataForUserAsync(Action<SpeckleStream[]>)
+  fullName.vb: SpeckleUnity.SpeckleUnityManager.GetAllStreamMetaDataForUserAsync(Action(Of SpeckleStream()))
+  nameWithType: SpeckleUnityManager.GetAllStreamMetaDataForUserAsync(Action<SpeckleStream[]>)
+  nameWithType.vb: SpeckleUnityManager.GetAllStreamMetaDataForUserAsync(Action(Of SpeckleStream()))
+- uid: SpeckleUnity.SpeckleUnityManager.GetAllStreamMetaDataForUserAsync*
+  name: GetAllStreamMetaDataForUserAsync
+  href: api/SpeckleUnity.SpeckleUnityManager.html#SpeckleUnity_SpeckleUnityManager_GetAllStreamMetaDataForUserAsync_
+  commentId: Overload:SpeckleUnity.SpeckleUnityManager.GetAllStreamMetaDataForUserAsync
   isSpec: "True"
-  fullName: SpeckleUnity.SpeckleUnityManager.GetAllStreamMetaDataForUser
-  nameWithType: SpeckleUnityManager.GetAllStreamMetaDataForUser
-- uid: SpeckleUnity.SpeckleUnityManager.InitializeAllClients
-  name: InitializeAllClients()
-  href: api/SpeckleUnity.SpeckleUnityManager.html#SpeckleUnity_SpeckleUnityManager_InitializeAllClients
-  commentId: M:SpeckleUnity.SpeckleUnityManager.InitializeAllClients
-  fullName: SpeckleUnity.SpeckleUnityManager.InitializeAllClients()
-  nameWithType: SpeckleUnityManager.InitializeAllClients()
-- uid: SpeckleUnity.SpeckleUnityManager.InitializeAllClients*
-  name: InitializeAllClients
-  href: api/SpeckleUnity.SpeckleUnityManager.html#SpeckleUnity_SpeckleUnityManager_InitializeAllClients_
-  commentId: Overload:SpeckleUnity.SpeckleUnityManager.InitializeAllClients
+  fullName: SpeckleUnity.SpeckleUnityManager.GetAllStreamMetaDataForUserAsync
+  nameWithType: SpeckleUnityManager.GetAllStreamMetaDataForUserAsync
+- uid: SpeckleUnity.SpeckleUnityManager.InitializeAllClientsAsync
+  name: InitializeAllClientsAsync()
+  href: api/SpeckleUnity.SpeckleUnityManager.html#SpeckleUnity_SpeckleUnityManager_InitializeAllClientsAsync
+  commentId: M:SpeckleUnity.SpeckleUnityManager.InitializeAllClientsAsync
+  fullName: SpeckleUnity.SpeckleUnityManager.InitializeAllClientsAsync()
+  nameWithType: SpeckleUnityManager.InitializeAllClientsAsync()
+- uid: SpeckleUnity.SpeckleUnityManager.InitializeAllClientsAsync*
+  name: InitializeAllClientsAsync
+  href: api/SpeckleUnity.SpeckleUnityManager.html#SpeckleUnity_SpeckleUnityManager_InitializeAllClientsAsync_
+  commentId: Overload:SpeckleUnity.SpeckleUnityManager.InitializeAllClientsAsync
   isSpec: "True"
-  fullName: SpeckleUnity.SpeckleUnityManager.InitializeAllClients
-  nameWithType: SpeckleUnityManager.InitializeAllClients
+  fullName: SpeckleUnity.SpeckleUnityManager.InitializeAllClientsAsync
+  nameWithType: SpeckleUnityManager.InitializeAllClientsAsync
 - uid: SpeckleUnity.SpeckleUnityManager.lineMaterial
   name: lineMaterial
   href: api/SpeckleUnity.SpeckleUnityManager.html#SpeckleUnity_SpeckleUnityManager_lineMaterial
@@ -475,34 +526,22 @@ references:
   commentId: F:SpeckleUnity.SpeckleUnityManager.loggedInUser
   fullName: SpeckleUnity.SpeckleUnityManager.loggedInUser
   nameWithType: SpeckleUnityManager.loggedInUser
-- uid: SpeckleUnity.SpeckleUnityManager.Login(System.String,System.String,Action{User})
-  name: Login(String, String, Action<User>)
-  href: api/SpeckleUnity.SpeckleUnityManager.html#SpeckleUnity_SpeckleUnityManager_Login_System_String_System_String_Action_User__
-  commentId: M:SpeckleUnity.SpeckleUnityManager.Login(System.String,System.String,Action{User})
-  name.vb: Login(String, String, Action(Of User))
-  fullName: SpeckleUnity.SpeckleUnityManager.Login(System.String, System.String, Action<User>)
-  fullName.vb: SpeckleUnity.SpeckleUnityManager.Login(System.String, System.String, Action(Of User))
-  nameWithType: SpeckleUnityManager.Login(String, String, Action<User>)
-  nameWithType.vb: SpeckleUnityManager.Login(String, String, Action(Of User))
-- uid: SpeckleUnity.SpeckleUnityManager.Login*
-  name: Login
-  href: api/SpeckleUnity.SpeckleUnityManager.html#SpeckleUnity_SpeckleUnityManager_Login_
-  commentId: Overload:SpeckleUnity.SpeckleUnityManager.Login
+- uid: SpeckleUnity.SpeckleUnityManager.LoginAsync(System.String,System.String,Action{User})
+  name: LoginAsync(String, String, Action<User>)
+  href: api/SpeckleUnity.SpeckleUnityManager.html#SpeckleUnity_SpeckleUnityManager_LoginAsync_System_String_System_String_Action_User__
+  commentId: M:SpeckleUnity.SpeckleUnityManager.LoginAsync(System.String,System.String,Action{User})
+  name.vb: LoginAsync(String, String, Action(Of User))
+  fullName: SpeckleUnity.SpeckleUnityManager.LoginAsync(System.String, System.String, Action<User>)
+  fullName.vb: SpeckleUnity.SpeckleUnityManager.LoginAsync(System.String, System.String, Action(Of User))
+  nameWithType: SpeckleUnityManager.LoginAsync(String, String, Action<User>)
+  nameWithType.vb: SpeckleUnityManager.LoginAsync(String, String, Action(Of User))
+- uid: SpeckleUnity.SpeckleUnityManager.LoginAsync*
+  name: LoginAsync
+  href: api/SpeckleUnity.SpeckleUnityManager.html#SpeckleUnity_SpeckleUnityManager_LoginAsync_
+  commentId: Overload:SpeckleUnity.SpeckleUnityManager.LoginAsync
   isSpec: "True"
-  fullName: SpeckleUnity.SpeckleUnityManager.Login
-  nameWithType: SpeckleUnityManager.Login
-- uid: SpeckleUnity.SpeckleUnityManager.loginEmail
-  name: loginEmail
-  href: api/SpeckleUnity.SpeckleUnityManager.html#SpeckleUnity_SpeckleUnityManager_loginEmail
-  commentId: F:SpeckleUnity.SpeckleUnityManager.loginEmail
-  fullName: SpeckleUnity.SpeckleUnityManager.loginEmail
-  nameWithType: SpeckleUnityManager.loginEmail
-- uid: SpeckleUnity.SpeckleUnityManager.loginPassword
-  name: loginPassword
-  href: api/SpeckleUnity.SpeckleUnityManager.html#SpeckleUnity_SpeckleUnityManager_loginPassword
-  commentId: F:SpeckleUnity.SpeckleUnityManager.loginPassword
-  fullName: SpeckleUnity.SpeckleUnityManager.loginPassword
-  nameWithType: SpeckleUnityManager.loginPassword
+  fullName: SpeckleUnity.SpeckleUnityManager.LoginAsync
+  nameWithType: SpeckleUnityManager.LoginAsync
 - uid: SpeckleUnity.SpeckleUnityManager.Logout
   name: Logout()
   href: api/SpeckleUnity.SpeckleUnityManager.html#SpeckleUnity_SpeckleUnityManager_Logout
@@ -528,24 +567,44 @@ references:
   commentId: F:SpeckleUnity.SpeckleUnityManager.onStartBehaviour
   fullName: SpeckleUnity.SpeckleUnityManager.onStartBehaviour
   nameWithType: SpeckleUnityManager.onStartBehaviour
-- uid: SpeckleUnity.SpeckleUnityManager.onUpdateReceived
-  name: onUpdateReceived
-  href: api/SpeckleUnity.SpeckleUnityManager.html#SpeckleUnity_SpeckleUnityManager_onUpdateReceived
-  commentId: F:SpeckleUnity.SpeckleUnityManager.onUpdateReceived
-  fullName: SpeckleUnity.SpeckleUnityManager.onUpdateReceived
-  nameWithType: SpeckleUnityManager.onUpdateReceived
-- uid: SpeckleUnity.SpeckleUnityManager.onUpdateStarted
-  name: onUpdateStarted
-  href: api/SpeckleUnity.SpeckleUnityManager.html#SpeckleUnity_SpeckleUnityManager_onUpdateStarted
-  commentId: F:SpeckleUnity.SpeckleUnityManager.onUpdateStarted
-  fullName: SpeckleUnity.SpeckleUnityManager.onUpdateStarted
-  nameWithType: SpeckleUnityManager.onUpdateStarted
+- uid: SpeckleUnity.SpeckleUnityManager.onUpdateProgress
+  name: onUpdateProgress
+  href: api/SpeckleUnity.SpeckleUnityManager.html#SpeckleUnity_SpeckleUnityManager_onUpdateProgress
+  commentId: F:SpeckleUnity.SpeckleUnityManager.onUpdateProgress
+  fullName: SpeckleUnity.SpeckleUnityManager.onUpdateProgress
+  nameWithType: SpeckleUnityManager.onUpdateProgress
 - uid: SpeckleUnity.SpeckleUnityManager.pointMaterial
   name: pointMaterial
   href: api/SpeckleUnity.SpeckleUnityManager.html#SpeckleUnity_SpeckleUnityManager_pointMaterial
   commentId: F:SpeckleUnity.SpeckleUnityManager.pointMaterial
   fullName: SpeckleUnity.SpeckleUnityManager.pointMaterial
   nameWithType: SpeckleUnityManager.pointMaterial
+- uid: SpeckleUnity.SpeckleUnityManager.ReApplyRenderingRule(System.Int32)
+  name: ReApplyRenderingRule(Int32)
+  href: api/SpeckleUnity.SpeckleUnityManager.html#SpeckleUnity_SpeckleUnityManager_ReApplyRenderingRule_System_Int32_
+  commentId: M:SpeckleUnity.SpeckleUnityManager.ReApplyRenderingRule(System.Int32)
+  fullName: SpeckleUnity.SpeckleUnityManager.ReApplyRenderingRule(System.Int32)
+  nameWithType: SpeckleUnityManager.ReApplyRenderingRule(Int32)
+- uid: SpeckleUnity.SpeckleUnityManager.ReApplyRenderingRule*
+  name: ReApplyRenderingRule
+  href: api/SpeckleUnity.SpeckleUnityManager.html#SpeckleUnity_SpeckleUnityManager_ReApplyRenderingRule_
+  commentId: Overload:SpeckleUnity.SpeckleUnityManager.ReApplyRenderingRule
+  isSpec: "True"
+  fullName: SpeckleUnity.SpeckleUnityManager.ReApplyRenderingRule
+  nameWithType: SpeckleUnityManager.ReApplyRenderingRule
+- uid: SpeckleUnity.SpeckleUnityManager.ReceiverCount
+  name: ReceiverCount
+  href: api/SpeckleUnity.SpeckleUnityManager.html#SpeckleUnity_SpeckleUnityManager_ReceiverCount
+  commentId: P:SpeckleUnity.SpeckleUnityManager.ReceiverCount
+  fullName: SpeckleUnity.SpeckleUnityManager.ReceiverCount
+  nameWithType: SpeckleUnityManager.ReceiverCount
+- uid: SpeckleUnity.SpeckleUnityManager.ReceiverCount*
+  name: ReceiverCount
+  href: api/SpeckleUnity.SpeckleUnityManager.html#SpeckleUnity_SpeckleUnityManager_ReceiverCount_
+  commentId: Overload:SpeckleUnity.SpeckleUnityManager.ReceiverCount
+  isSpec: "True"
+  fullName: SpeckleUnity.SpeckleUnityManager.ReceiverCount
+  nameWithType: SpeckleUnityManager.ReceiverCount
 - uid: SpeckleUnity.SpeckleUnityManager.receivers
   name: receivers
   href: api/SpeckleUnity.SpeckleUnityManager.html#SpeckleUnity_SpeckleUnityManager_receivers
@@ -577,19 +636,25 @@ references:
   isSpec: "True"
   fullName: SpeckleUnity.SpeckleUnityManager.RemoveReceiver
   nameWithType: SpeckleUnityManager.RemoveReceiver
-- uid: SpeckleUnity.SpeckleUnityManager.RunStartBehaviour
-  name: RunStartBehaviour()
-  href: api/SpeckleUnity.SpeckleUnityManager.html#SpeckleUnity_SpeckleUnityManager_RunStartBehaviour
-  commentId: M:SpeckleUnity.SpeckleUnityManager.RunStartBehaviour
-  fullName: SpeckleUnity.SpeckleUnityManager.RunStartBehaviour()
-  nameWithType: SpeckleUnityManager.RunStartBehaviour()
-- uid: SpeckleUnity.SpeckleUnityManager.RunStartBehaviour*
-  name: RunStartBehaviour
-  href: api/SpeckleUnity.SpeckleUnityManager.html#SpeckleUnity_SpeckleUnityManager_RunStartBehaviour_
-  commentId: Overload:SpeckleUnity.SpeckleUnityManager.RunStartBehaviour
+- uid: SpeckleUnity.SpeckleUnityManager.renderingRule
+  name: renderingRule
+  href: api/SpeckleUnity.SpeckleUnityManager.html#SpeckleUnity_SpeckleUnityManager_renderingRule
+  commentId: F:SpeckleUnity.SpeckleUnityManager.renderingRule
+  fullName: SpeckleUnity.SpeckleUnityManager.renderingRule
+  nameWithType: SpeckleUnityManager.renderingRule
+- uid: SpeckleUnity.SpeckleUnityManager.RunStartBehaviourAsync
+  name: RunStartBehaviourAsync()
+  href: api/SpeckleUnity.SpeckleUnityManager.html#SpeckleUnity_SpeckleUnityManager_RunStartBehaviourAsync
+  commentId: M:SpeckleUnity.SpeckleUnityManager.RunStartBehaviourAsync
+  fullName: SpeckleUnity.SpeckleUnityManager.RunStartBehaviourAsync()
+  nameWithType: SpeckleUnityManager.RunStartBehaviourAsync()
+- uid: SpeckleUnity.SpeckleUnityManager.RunStartBehaviourAsync*
+  name: RunStartBehaviourAsync
+  href: api/SpeckleUnity.SpeckleUnityManager.html#SpeckleUnity_SpeckleUnityManager_RunStartBehaviourAsync_
+  commentId: Overload:SpeckleUnity.SpeckleUnityManager.RunStartBehaviourAsync
   isSpec: "True"
-  fullName: SpeckleUnity.SpeckleUnityManager.RunStartBehaviour
-  nameWithType: SpeckleUnityManager.RunStartBehaviour
+  fullName: SpeckleUnity.SpeckleUnityManager.RunStartBehaviourAsync
+  nameWithType: SpeckleUnityManager.RunStartBehaviourAsync
 - uid: SpeckleUnity.SpeckleUnityManager.scaleFactor
   name: scaleFactor
   href: api/SpeckleUnity.SpeckleUnityManager.html#SpeckleUnity_SpeckleUnityManager_scaleFactor
@@ -602,6 +667,19 @@ references:
   commentId: F:SpeckleUnity.SpeckleUnityManager.serverUrl
   fullName: SpeckleUnity.SpeckleUnityManager.serverUrl
   nameWithType: SpeckleUnityManager.serverUrl
+- uid: SpeckleUnity.SpeckleUnityManager.SetServerUrl(System.String)
+  name: SetServerUrl(String)
+  href: api/SpeckleUnity.SpeckleUnityManager.html#SpeckleUnity_SpeckleUnityManager_SetServerUrl_System_String_
+  commentId: M:SpeckleUnity.SpeckleUnityManager.SetServerUrl(System.String)
+  fullName: SpeckleUnity.SpeckleUnityManager.SetServerUrl(System.String)
+  nameWithType: SpeckleUnityManager.SetServerUrl(String)
+- uid: SpeckleUnity.SpeckleUnityManager.SetServerUrl*
+  name: SetServerUrl
+  href: api/SpeckleUnity.SpeckleUnityManager.html#SpeckleUnity_SpeckleUnityManager_SetServerUrl_
+  commentId: Overload:SpeckleUnity.SpeckleUnityManager.SetServerUrl
+  isSpec: "True"
+  fullName: SpeckleUnity.SpeckleUnityManager.SetServerUrl
+  nameWithType: SpeckleUnityManager.SetServerUrl
 - uid: SpeckleUnity.SpeckleUnityManager.spawnSpeed
   name: spawnSpeed
   href: api/SpeckleUnity.SpeckleUnityManager.html#SpeckleUnity_SpeckleUnityManager_spawnSpeed
@@ -621,6 +699,18 @@ references:
   isSpec: "True"
   fullName: SpeckleUnity.SpeckleUnityManager.Start
   nameWithType: SpeckleUnityManager.Start
+- uid: SpeckleUnity.SpeckleUnityManager.startLoginEmail
+  name: startLoginEmail
+  href: api/SpeckleUnity.SpeckleUnityManager.html#SpeckleUnity_SpeckleUnityManager_startLoginEmail
+  commentId: F:SpeckleUnity.SpeckleUnityManager.startLoginEmail
+  fullName: SpeckleUnity.SpeckleUnityManager.startLoginEmail
+  nameWithType: SpeckleUnityManager.startLoginEmail
+- uid: SpeckleUnity.SpeckleUnityManager.startLoginPassword
+  name: startLoginPassword
+  href: api/SpeckleUnity.SpeckleUnityManager.html#SpeckleUnity_SpeckleUnityManager_startLoginPassword
+  commentId: F:SpeckleUnity.SpeckleUnityManager.startLoginPassword
+  fullName: SpeckleUnity.SpeckleUnityManager.startLoginPassword
+  nameWithType: SpeckleUnityManager.startLoginPassword
 - uid: SpeckleUnity.SpeckleUnityManager.TryGetSpeckleObject(GameObject,SpeckleObject@)
   name: TryGetSpeckleObject(GameObject, out SpeckleObject)
   href: api/SpeckleUnity.SpeckleUnityManager.html#SpeckleUnity_SpeckleUnityManager_TryGetSpeckleObject_GameObject_SpeckleObject__
@@ -851,19 +941,6 @@ references:
   commentId: F:SpeckleUnity.SpeckleUnityReceiver.deserializedStreamObjects
   fullName: SpeckleUnity.SpeckleUnityReceiver.deserializedStreamObjects
   nameWithType: SpeckleUnityReceiver.deserializedStreamObjects
-- uid: SpeckleUnity.SpeckleUnityReceiver.DisplayContents
-  name: DisplayContents()
-  href: api/SpeckleUnity.SpeckleUnityReceiver.html#SpeckleUnity_SpeckleUnityReceiver_DisplayContents
-  commentId: M:SpeckleUnity.SpeckleUnityReceiver.DisplayContents
-  fullName: SpeckleUnity.SpeckleUnityReceiver.DisplayContents()
-  nameWithType: SpeckleUnityReceiver.DisplayContents()
-- uid: SpeckleUnity.SpeckleUnityReceiver.DisplayContents*
-  name: DisplayContents
-  href: api/SpeckleUnity.SpeckleUnityReceiver.html#SpeckleUnity_SpeckleUnityReceiver_DisplayContents_
-  commentId: Overload:SpeckleUnity.SpeckleUnityReceiver.DisplayContents
-  isSpec: "True"
-  fullName: SpeckleUnity.SpeckleUnityReceiver.DisplayContents
-  nameWithType: SpeckleUnityReceiver.DisplayContents
 - uid: SpeckleUnity.SpeckleUnityReceiver.FindParentInHierarchy(System.String[])
   name: FindParentInHierarchy(String[])
   href: api/SpeckleUnity.SpeckleUnityReceiver.html#SpeckleUnity_SpeckleUnityReceiver_FindParentInHierarchy_System_String___
@@ -937,6 +1014,25 @@ references:
   isSpec: "True"
   fullName: SpeckleUnity.SpeckleUnityReceiver.PostProcessObject
   nameWithType: SpeckleUnityReceiver.PostProcessObject
+- uid: SpeckleUnity.SpeckleUnityReceiver.propertyBlock
+  name: propertyBlock
+  href: api/SpeckleUnity.SpeckleUnityReceiver.html#SpeckleUnity_SpeckleUnityReceiver_propertyBlock
+  commentId: F:SpeckleUnity.SpeckleUnityReceiver.propertyBlock
+  fullName: SpeckleUnity.SpeckleUnityReceiver.propertyBlock
+  nameWithType: SpeckleUnityReceiver.propertyBlock
+- uid: SpeckleUnity.SpeckleUnityReceiver.ReApplyRenderingRule
+  name: ReApplyRenderingRule()
+  href: api/SpeckleUnity.SpeckleUnityReceiver.html#SpeckleUnity_SpeckleUnityReceiver_ReApplyRenderingRule
+  commentId: M:SpeckleUnity.SpeckleUnityReceiver.ReApplyRenderingRule
+  fullName: SpeckleUnity.SpeckleUnityReceiver.ReApplyRenderingRule()
+  nameWithType: SpeckleUnityReceiver.ReApplyRenderingRule()
+- uid: SpeckleUnity.SpeckleUnityReceiver.ReApplyRenderingRule*
+  name: ReApplyRenderingRule
+  href: api/SpeckleUnity.SpeckleUnityReceiver.html#SpeckleUnity_SpeckleUnityReceiver_ReApplyRenderingRule_
+  commentId: Overload:SpeckleUnity.SpeckleUnityReceiver.ReApplyRenderingRule
+  isSpec: "True"
+  fullName: SpeckleUnity.SpeckleUnityReceiver.ReApplyRenderingRule
+  nameWithType: SpeckleUnityReceiver.ReApplyRenderingRule
 - uid: SpeckleUnity.SpeckleUnityReceiver.RemoveContents
   name: RemoveContents()
   href: api/SpeckleUnity.SpeckleUnityReceiver.html#SpeckleUnity_SpeckleUnityReceiver_RemoveContents
@@ -988,37 +1084,18 @@ references:
   isSpec: "True"
   fullName: SpeckleUnity.SpeckleUnitySender.InitializeClient
   nameWithType: SpeckleUnitySender.InitializeClient
-- uid: SpeckleUnity.SpeckleUnityTransform
-  name: SpeckleUnityTransform
-  href: api/SpeckleUnity.SpeckleUnityTransform.html
-  commentId: T:SpeckleUnity.SpeckleUnityTransform
-  fullName: SpeckleUnity.SpeckleUnityTransform
-  nameWithType: SpeckleUnityTransform
-- uid: SpeckleUnity.SpeckleUnityTransform.#ctor(GameObject)
-  name: SpeckleUnityTransform(GameObject)
-  href: api/SpeckleUnity.SpeckleUnityTransform.html#SpeckleUnity_SpeckleUnityTransform__ctor_GameObject_
-  commentId: M:SpeckleUnity.SpeckleUnityTransform.#ctor(GameObject)
-  fullName: SpeckleUnity.SpeckleUnityTransform.SpeckleUnityTransform(GameObject)
-  nameWithType: SpeckleUnityTransform.SpeckleUnityTransform(GameObject)
-- uid: SpeckleUnity.SpeckleUnityTransform.#ctor*
-  name: SpeckleUnityTransform
-  href: api/SpeckleUnity.SpeckleUnityTransform.html#SpeckleUnity_SpeckleUnityTransform__ctor_
-  commentId: Overload:SpeckleUnity.SpeckleUnityTransform.#ctor
-  isSpec: "True"
-  fullName: SpeckleUnity.SpeckleUnityTransform.SpeckleUnityTransform
-  nameWithType: SpeckleUnityTransform.SpeckleUnityTransform
 - uid: SpeckleUnity.SpeckleUnityUpdate
   name: SpeckleUnityUpdate
   href: api/SpeckleUnity.SpeckleUnityUpdate.html
   commentId: T:SpeckleUnity.SpeckleUnityUpdate
   fullName: SpeckleUnity.SpeckleUnityUpdate
   nameWithType: SpeckleUnityUpdate
-- uid: SpeckleUnity.SpeckleUnityUpdate.#ctor(System.String,Transform,SpeckleUnity.UpdateType)
-  name: SpeckleUnityUpdate(String, Transform, UpdateType)
-  href: api/SpeckleUnity.SpeckleUnityUpdate.html#SpeckleUnity_SpeckleUnityUpdate__ctor_System_String_Transform_SpeckleUnity_UpdateType_
-  commentId: M:SpeckleUnity.SpeckleUnityUpdate.#ctor(System.String,Transform,SpeckleUnity.UpdateType)
-  fullName: SpeckleUnity.SpeckleUnityUpdate.SpeckleUnityUpdate(System.String, Transform, SpeckleUnity.UpdateType)
-  nameWithType: SpeckleUnityUpdate.SpeckleUnityUpdate(String, Transform, UpdateType)
+- uid: SpeckleUnity.SpeckleUnityUpdate.#ctor(System.String,Transform,SpeckleUnity.UpdateType,System.Single)
+  name: SpeckleUnityUpdate(String, Transform, UpdateType, Single)
+  href: api/SpeckleUnity.SpeckleUnityUpdate.html#SpeckleUnity_SpeckleUnityUpdate__ctor_System_String_Transform_SpeckleUnity_UpdateType_System_Single_
+  commentId: M:SpeckleUnity.SpeckleUnityUpdate.#ctor(System.String,Transform,SpeckleUnity.UpdateType,System.Single)
+  fullName: SpeckleUnity.SpeckleUnityUpdate.SpeckleUnityUpdate(System.String, Transform, SpeckleUnity.UpdateType, System.Single)
+  nameWithType: SpeckleUnityUpdate.SpeckleUnityUpdate(String, Transform, UpdateType, Single)
 - uid: SpeckleUnity.SpeckleUnityUpdate.#ctor*
   name: SpeckleUnityUpdate
   href: api/SpeckleUnity.SpeckleUnityUpdate.html#SpeckleUnity_SpeckleUnityUpdate__ctor_
@@ -1038,6 +1115,12 @@ references:
   commentId: F:SpeckleUnity.SpeckleUnityUpdate.streamRoot
   fullName: SpeckleUnity.SpeckleUnityUpdate.streamRoot
   nameWithType: SpeckleUnityUpdate.streamRoot
+- uid: SpeckleUnity.SpeckleUnityUpdate.updateProgress
+  name: updateProgress
+  href: api/SpeckleUnity.SpeckleUnityUpdate.html#SpeckleUnity_SpeckleUnityUpdate_updateProgress
+  commentId: F:SpeckleUnity.SpeckleUnityUpdate.updateProgress
+  fullName: SpeckleUnity.SpeckleUnityUpdate.updateProgress
+  nameWithType: SpeckleUnityUpdate.updateProgress
 - uid: SpeckleUnity.SpeckleUnityUpdate.updateType
   name: updateType
   href: api/SpeckleUnity.SpeckleUnityUpdate.html#SpeckleUnity_SpeckleUnityUpdate_updateType
@@ -1080,6 +1163,352 @@ references:
   commentId: F:SpeckleUnity.StartMode.LoginAndReceiveStreams
   fullName: SpeckleUnity.StartMode.LoginAndReceiveStreams
   nameWithType: StartMode.LoginAndReceiveStreams
+- uid: SpeckleUnity.Tests
+  name: SpeckleUnity.Tests
+  href: api/SpeckleUnity.Tests.html
+  commentId: N:SpeckleUnity.Tests
+  fullName: SpeckleUnity.Tests
+  nameWithType: SpeckleUnity.Tests
+- uid: SpeckleUnity.Tests.AsyncTest
+  name: AsyncTest
+  href: api/SpeckleUnity.Tests.AsyncTest.html
+  commentId: T:SpeckleUnity.Tests.AsyncTest
+  fullName: SpeckleUnity.Tests.AsyncTest
+  nameWithType: AsyncTest
+- uid: SpeckleUnity.Tests.AsyncTest.Execute(Task)
+  name: Execute(Task)
+  href: api/SpeckleUnity.Tests.AsyncTest.html#SpeckleUnity_Tests_AsyncTest_Execute_Task_
+  commentId: M:SpeckleUnity.Tests.AsyncTest.Execute(Task)
+  fullName: SpeckleUnity.Tests.AsyncTest.Execute(Task)
+  nameWithType: AsyncTest.Execute(Task)
+- uid: SpeckleUnity.Tests.AsyncTest.Execute*
+  name: Execute
+  href: api/SpeckleUnity.Tests.AsyncTest.html#SpeckleUnity_Tests_AsyncTest_Execute_
+  commentId: Overload:SpeckleUnity.Tests.AsyncTest.Execute
+  isSpec: "True"
+  fullName: SpeckleUnity.Tests.AsyncTest.Execute
+  nameWithType: AsyncTest.Execute
+- uid: SpeckleUnity.Tests.AsyncTest.ThrowsAsync*
+  name: ThrowsAsync
+  href: api/SpeckleUnity.Tests.AsyncTest.html#SpeckleUnity_Tests_AsyncTest_ThrowsAsync_
+  commentId: Overload:SpeckleUnity.Tests.AsyncTest.ThrowsAsync
+  isSpec: "True"
+  fullName: SpeckleUnity.Tests.AsyncTest.ThrowsAsync
+  nameWithType: AsyncTest.ThrowsAsync
+- uid: SpeckleUnity.Tests.AsyncTest.ThrowsAsync``1(Task)
+  name: ThrowsAsync<T>(Task)
+  href: api/SpeckleUnity.Tests.AsyncTest.html#SpeckleUnity_Tests_AsyncTest_ThrowsAsync__1_Task_
+  commentId: M:SpeckleUnity.Tests.AsyncTest.ThrowsAsync``1(Task)
+  name.vb: ThrowsAsync(Of T)(Task)
+  fullName: SpeckleUnity.Tests.AsyncTest.ThrowsAsync<T>(Task)
+  fullName.vb: SpeckleUnity.Tests.AsyncTest.ThrowsAsync(Of T)(Task)
+  nameWithType: AsyncTest.ThrowsAsync<T>(Task)
+  nameWithType.vb: AsyncTest.ThrowsAsync(Of T)(Task)
+- uid: SpeckleUnity.Tests.AsyncTest.ThrowsAsync``1(Task,System.String)
+  name: ThrowsAsync<T>(Task, String)
+  href: api/SpeckleUnity.Tests.AsyncTest.html#SpeckleUnity_Tests_AsyncTest_ThrowsAsync__1_Task_System_String_
+  commentId: M:SpeckleUnity.Tests.AsyncTest.ThrowsAsync``1(Task,System.String)
+  name.vb: ThrowsAsync(Of T)(Task, String)
+  fullName: SpeckleUnity.Tests.AsyncTest.ThrowsAsync<T>(Task, System.String)
+  fullName.vb: SpeckleUnity.Tests.AsyncTest.ThrowsAsync(Of T)(Task, System.String)
+  nameWithType: AsyncTest.ThrowsAsync<T>(Task, String)
+  nameWithType.vb: AsyncTest.ThrowsAsync(Of T)(Task, String)
+- uid: SpeckleUnity.Tests.SpeckleUnityManagerTests
+  name: SpeckleUnityManagerTests
+  href: api/SpeckleUnity.Tests.SpeckleUnityManagerTests.html
+  commentId: T:SpeckleUnity.Tests.SpeckleUnityManagerTests
+  fullName: SpeckleUnity.Tests.SpeckleUnityManagerTests
+  nameWithType: SpeckleUnityManagerTests
+- uid: SpeckleUnity.Tests.SpeckleUnityManagerTests.AddReceiver
+  name: AddReceiver()
+  href: api/SpeckleUnity.Tests.SpeckleUnityManagerTests.html#SpeckleUnity_Tests_SpeckleUnityManagerTests_AddReceiver
+  commentId: M:SpeckleUnity.Tests.SpeckleUnityManagerTests.AddReceiver
+  fullName: SpeckleUnity.Tests.SpeckleUnityManagerTests.AddReceiver()
+  nameWithType: SpeckleUnityManagerTests.AddReceiver()
+- uid: SpeckleUnity.Tests.SpeckleUnityManagerTests.AddReceiver*
+  name: AddReceiver
+  href: api/SpeckleUnity.Tests.SpeckleUnityManagerTests.html#SpeckleUnity_Tests_SpeckleUnityManagerTests_AddReceiver_
+  commentId: Overload:SpeckleUnity.Tests.SpeckleUnityManagerTests.AddReceiver
+  isSpec: "True"
+  fullName: SpeckleUnity.Tests.SpeckleUnityManagerTests.AddReceiver
+  nameWithType: SpeckleUnityManagerTests.AddReceiver
+- uid: SpeckleUnity.Tests.SpeckleUnityManagerTests.AddReceiverAndInitializeSuccess
+  name: AddReceiverAndInitializeSuccess()
+  href: api/SpeckleUnity.Tests.SpeckleUnityManagerTests.html#SpeckleUnity_Tests_SpeckleUnityManagerTests_AddReceiverAndInitializeSuccess
+  commentId: M:SpeckleUnity.Tests.SpeckleUnityManagerTests.AddReceiverAndInitializeSuccess
+  fullName: SpeckleUnity.Tests.SpeckleUnityManagerTests.AddReceiverAndInitializeSuccess()
+  nameWithType: SpeckleUnityManagerTests.AddReceiverAndInitializeSuccess()
+- uid: SpeckleUnity.Tests.SpeckleUnityManagerTests.AddReceiverAndInitializeSuccess*
+  name: AddReceiverAndInitializeSuccess
+  href: api/SpeckleUnity.Tests.SpeckleUnityManagerTests.html#SpeckleUnity_Tests_SpeckleUnityManagerTests_AddReceiverAndInitializeSuccess_
+  commentId: Overload:SpeckleUnity.Tests.SpeckleUnityManagerTests.AddReceiverAndInitializeSuccess
+  isSpec: "True"
+  fullName: SpeckleUnity.Tests.SpeckleUnityManagerTests.AddReceiverAndInitializeSuccess
+  nameWithType: SpeckleUnityManagerTests.AddReceiverAndInitializeSuccess
+- uid: SpeckleUnity.Tests.SpeckleUnityManagerTests.AddReceiverAndInitializeWithInvalidID
+  name: AddReceiverAndInitializeWithInvalidID()
+  href: api/SpeckleUnity.Tests.SpeckleUnityManagerTests.html#SpeckleUnity_Tests_SpeckleUnityManagerTests_AddReceiverAndInitializeWithInvalidID
+  commentId: M:SpeckleUnity.Tests.SpeckleUnityManagerTests.AddReceiverAndInitializeWithInvalidID
+  fullName: SpeckleUnity.Tests.SpeckleUnityManagerTests.AddReceiverAndInitializeWithInvalidID()
+  nameWithType: SpeckleUnityManagerTests.AddReceiverAndInitializeWithInvalidID()
+- uid: SpeckleUnity.Tests.SpeckleUnityManagerTests.AddReceiverAndInitializeWithInvalidID*
+  name: AddReceiverAndInitializeWithInvalidID
+  href: api/SpeckleUnity.Tests.SpeckleUnityManagerTests.html#SpeckleUnity_Tests_SpeckleUnityManagerTests_AddReceiverAndInitializeWithInvalidID_
+  commentId: Overload:SpeckleUnity.Tests.SpeckleUnityManagerTests.AddReceiverAndInitializeWithInvalidID
+  isSpec: "True"
+  fullName: SpeckleUnity.Tests.SpeckleUnityManagerTests.AddReceiverAndInitializeWithInvalidID
+  nameWithType: SpeckleUnityManagerTests.AddReceiverAndInitializeWithInvalidID
+- uid: SpeckleUnity.Tests.SpeckleUnityManagerTests.AfterTest
+  name: AfterTest()
+  href: api/SpeckleUnity.Tests.SpeckleUnityManagerTests.html#SpeckleUnity_Tests_SpeckleUnityManagerTests_AfterTest
+  commentId: M:SpeckleUnity.Tests.SpeckleUnityManagerTests.AfterTest
+  fullName: SpeckleUnity.Tests.SpeckleUnityManagerTests.AfterTest()
+  nameWithType: SpeckleUnityManagerTests.AfterTest()
+- uid: SpeckleUnity.Tests.SpeckleUnityManagerTests.AfterTest*
+  name: AfterTest
+  href: api/SpeckleUnity.Tests.SpeckleUnityManagerTests.html#SpeckleUnity_Tests_SpeckleUnityManagerTests_AfterTest_
+  commentId: Overload:SpeckleUnity.Tests.SpeckleUnityManagerTests.AfterTest
+  isSpec: "True"
+  fullName: SpeckleUnity.Tests.SpeckleUnityManagerTests.AfterTest
+  nameWithType: SpeckleUnityManagerTests.AfterTest
+- uid: SpeckleUnity.Tests.SpeckleUnityManagerTests.BeforeAllTests
+  name: BeforeAllTests()
+  href: api/SpeckleUnity.Tests.SpeckleUnityManagerTests.html#SpeckleUnity_Tests_SpeckleUnityManagerTests_BeforeAllTests
+  commentId: M:SpeckleUnity.Tests.SpeckleUnityManagerTests.BeforeAllTests
+  fullName: SpeckleUnity.Tests.SpeckleUnityManagerTests.BeforeAllTests()
+  nameWithType: SpeckleUnityManagerTests.BeforeAllTests()
+- uid: SpeckleUnity.Tests.SpeckleUnityManagerTests.BeforeAllTests*
+  name: BeforeAllTests
+  href: api/SpeckleUnity.Tests.SpeckleUnityManagerTests.html#SpeckleUnity_Tests_SpeckleUnityManagerTests_BeforeAllTests_
+  commentId: Overload:SpeckleUnity.Tests.SpeckleUnityManagerTests.BeforeAllTests
+  isSpec: "True"
+  fullName: SpeckleUnity.Tests.SpeckleUnityManagerTests.BeforeAllTests
+  nameWithType: SpeckleUnityManagerTests.BeforeAllTests
+- uid: SpeckleUnity.Tests.SpeckleUnityManagerTests.BeforeTest
+  name: BeforeTest()
+  href: api/SpeckleUnity.Tests.SpeckleUnityManagerTests.html#SpeckleUnity_Tests_SpeckleUnityManagerTests_BeforeTest
+  commentId: M:SpeckleUnity.Tests.SpeckleUnityManagerTests.BeforeTest
+  fullName: SpeckleUnity.Tests.SpeckleUnityManagerTests.BeforeTest()
+  nameWithType: SpeckleUnityManagerTests.BeforeTest()
+- uid: SpeckleUnity.Tests.SpeckleUnityManagerTests.BeforeTest*
+  name: BeforeTest
+  href: api/SpeckleUnity.Tests.SpeckleUnityManagerTests.html#SpeckleUnity_Tests_SpeckleUnityManagerTests_BeforeTest_
+  commentId: Overload:SpeckleUnity.Tests.SpeckleUnityManagerTests.BeforeTest
+  isSpec: "True"
+  fullName: SpeckleUnity.Tests.SpeckleUnityManagerTests.BeforeTest
+  nameWithType: SpeckleUnityManagerTests.BeforeTest
+- uid: SpeckleUnity.Tests.SpeckleUnityManagerTests.ConnectToInvalidServer
+  name: ConnectToInvalidServer()
+  href: api/SpeckleUnity.Tests.SpeckleUnityManagerTests.html#SpeckleUnity_Tests_SpeckleUnityManagerTests_ConnectToInvalidServer
+  commentId: M:SpeckleUnity.Tests.SpeckleUnityManagerTests.ConnectToInvalidServer
+  fullName: SpeckleUnity.Tests.SpeckleUnityManagerTests.ConnectToInvalidServer()
+  nameWithType: SpeckleUnityManagerTests.ConnectToInvalidServer()
+- uid: SpeckleUnity.Tests.SpeckleUnityManagerTests.ConnectToInvalidServer*
+  name: ConnectToInvalidServer
+  href: api/SpeckleUnity.Tests.SpeckleUnityManagerTests.html#SpeckleUnity_Tests_SpeckleUnityManagerTests_ConnectToInvalidServer_
+  commentId: Overload:SpeckleUnity.Tests.SpeckleUnityManagerTests.ConnectToInvalidServer
+  isSpec: "True"
+  fullName: SpeckleUnity.Tests.SpeckleUnityManagerTests.ConnectToInvalidServer
+  nameWithType: SpeckleUnityManagerTests.ConnectToInvalidServer
+- uid: SpeckleUnity.Tests.SpeckleUnityManagerTests.GetProjectMetaDataSuccess
+  name: GetProjectMetaDataSuccess()
+  href: api/SpeckleUnity.Tests.SpeckleUnityManagerTests.html#SpeckleUnity_Tests_SpeckleUnityManagerTests_GetProjectMetaDataSuccess
+  commentId: M:SpeckleUnity.Tests.SpeckleUnityManagerTests.GetProjectMetaDataSuccess
+  fullName: SpeckleUnity.Tests.SpeckleUnityManagerTests.GetProjectMetaDataSuccess()
+  nameWithType: SpeckleUnityManagerTests.GetProjectMetaDataSuccess()
+- uid: SpeckleUnity.Tests.SpeckleUnityManagerTests.GetProjectMetaDataSuccess*
+  name: GetProjectMetaDataSuccess
+  href: api/SpeckleUnity.Tests.SpeckleUnityManagerTests.html#SpeckleUnity_Tests_SpeckleUnityManagerTests_GetProjectMetaDataSuccess_
+  commentId: Overload:SpeckleUnity.Tests.SpeckleUnityManagerTests.GetProjectMetaDataSuccess
+  isSpec: "True"
+  fullName: SpeckleUnity.Tests.SpeckleUnityManagerTests.GetProjectMetaDataSuccess
+  nameWithType: SpeckleUnityManagerTests.GetProjectMetaDataSuccess
+- uid: SpeckleUnity.Tests.SpeckleUnityManagerTests.GetProjectMetaDataWithoutLogin
+  name: GetProjectMetaDataWithoutLogin()
+  href: api/SpeckleUnity.Tests.SpeckleUnityManagerTests.html#SpeckleUnity_Tests_SpeckleUnityManagerTests_GetProjectMetaDataWithoutLogin
+  commentId: M:SpeckleUnity.Tests.SpeckleUnityManagerTests.GetProjectMetaDataWithoutLogin
+  fullName: SpeckleUnity.Tests.SpeckleUnityManagerTests.GetProjectMetaDataWithoutLogin()
+  nameWithType: SpeckleUnityManagerTests.GetProjectMetaDataWithoutLogin()
+- uid: SpeckleUnity.Tests.SpeckleUnityManagerTests.GetProjectMetaDataWithoutLogin*
+  name: GetProjectMetaDataWithoutLogin
+  href: api/SpeckleUnity.Tests.SpeckleUnityManagerTests.html#SpeckleUnity_Tests_SpeckleUnityManagerTests_GetProjectMetaDataWithoutLogin_
+  commentId: Overload:SpeckleUnity.Tests.SpeckleUnityManagerTests.GetProjectMetaDataWithoutLogin
+  isSpec: "True"
+  fullName: SpeckleUnity.Tests.SpeckleUnityManagerTests.GetProjectMetaDataWithoutLogin
+  nameWithType: SpeckleUnityManagerTests.GetProjectMetaDataWithoutLogin
+- uid: SpeckleUnity.Tests.SpeckleUnityManagerTests.GetStreamMetaDataWithoutLogin
+  name: GetStreamMetaDataWithoutLogin()
+  href: api/SpeckleUnity.Tests.SpeckleUnityManagerTests.html#SpeckleUnity_Tests_SpeckleUnityManagerTests_GetStreamMetaDataWithoutLogin
+  commentId: M:SpeckleUnity.Tests.SpeckleUnityManagerTests.GetStreamMetaDataWithoutLogin
+  fullName: SpeckleUnity.Tests.SpeckleUnityManagerTests.GetStreamMetaDataWithoutLogin()
+  nameWithType: SpeckleUnityManagerTests.GetStreamMetaDataWithoutLogin()
+- uid: SpeckleUnity.Tests.SpeckleUnityManagerTests.GetStreamMetaDataWithoutLogin*
+  name: GetStreamMetaDataWithoutLogin
+  href: api/SpeckleUnity.Tests.SpeckleUnityManagerTests.html#SpeckleUnity_Tests_SpeckleUnityManagerTests_GetStreamMetaDataWithoutLogin_
+  commentId: Overload:SpeckleUnity.Tests.SpeckleUnityManagerTests.GetStreamMetaDataWithoutLogin
+  isSpec: "True"
+  fullName: SpeckleUnity.Tests.SpeckleUnityManagerTests.GetStreamMetaDataWithoutLogin
+  nameWithType: SpeckleUnityManagerTests.GetStreamMetaDataWithoutLogin
+- uid: SpeckleUnity.Tests.SpeckleUnityManagerTests.GetStreamtMetaDataSuccess
+  name: GetStreamtMetaDataSuccess()
+  href: api/SpeckleUnity.Tests.SpeckleUnityManagerTests.html#SpeckleUnity_Tests_SpeckleUnityManagerTests_GetStreamtMetaDataSuccess
+  commentId: M:SpeckleUnity.Tests.SpeckleUnityManagerTests.GetStreamtMetaDataSuccess
+  fullName: SpeckleUnity.Tests.SpeckleUnityManagerTests.GetStreamtMetaDataSuccess()
+  nameWithType: SpeckleUnityManagerTests.GetStreamtMetaDataSuccess()
+- uid: SpeckleUnity.Tests.SpeckleUnityManagerTests.GetStreamtMetaDataSuccess*
+  name: GetStreamtMetaDataSuccess
+  href: api/SpeckleUnity.Tests.SpeckleUnityManagerTests.html#SpeckleUnity_Tests_SpeckleUnityManagerTests_GetStreamtMetaDataSuccess_
+  commentId: Overload:SpeckleUnity.Tests.SpeckleUnityManagerTests.GetStreamtMetaDataSuccess
+  isSpec: "True"
+  fullName: SpeckleUnity.Tests.SpeckleUnityManagerTests.GetStreamtMetaDataSuccess
+  nameWithType: SpeckleUnityManagerTests.GetStreamtMetaDataSuccess
+- uid: SpeckleUnity.Tests.SpeckleUnityManagerTests.LoginCallback(User)
+  name: LoginCallback(User)
+  href: api/SpeckleUnity.Tests.SpeckleUnityManagerTests.html#SpeckleUnity_Tests_SpeckleUnityManagerTests_LoginCallback_User_
+  commentId: M:SpeckleUnity.Tests.SpeckleUnityManagerTests.LoginCallback(User)
+  fullName: SpeckleUnity.Tests.SpeckleUnityManagerTests.LoginCallback(User)
+  nameWithType: SpeckleUnityManagerTests.LoginCallback(User)
+- uid: SpeckleUnity.Tests.SpeckleUnityManagerTests.LoginCallback*
+  name: LoginCallback
+  href: api/SpeckleUnity.Tests.SpeckleUnityManagerTests.html#SpeckleUnity_Tests_SpeckleUnityManagerTests_LoginCallback_
+  commentId: Overload:SpeckleUnity.Tests.SpeckleUnityManagerTests.LoginCallback
+  isSpec: "True"
+  fullName: SpeckleUnity.Tests.SpeckleUnityManagerTests.LoginCallback
+  nameWithType: SpeckleUnityManagerTests.LoginCallback
+- uid: SpeckleUnity.Tests.SpeckleUnityManagerTests.LoginSuccess
+  name: LoginSuccess()
+  href: api/SpeckleUnity.Tests.SpeckleUnityManagerTests.html#SpeckleUnity_Tests_SpeckleUnityManagerTests_LoginSuccess
+  commentId: M:SpeckleUnity.Tests.SpeckleUnityManagerTests.LoginSuccess
+  fullName: SpeckleUnity.Tests.SpeckleUnityManagerTests.LoginSuccess()
+  nameWithType: SpeckleUnityManagerTests.LoginSuccess()
+- uid: SpeckleUnity.Tests.SpeckleUnityManagerTests.LoginSuccess*
+  name: LoginSuccess
+  href: api/SpeckleUnity.Tests.SpeckleUnityManagerTests.html#SpeckleUnity_Tests_SpeckleUnityManagerTests_LoginSuccess_
+  commentId: Overload:SpeckleUnity.Tests.SpeckleUnityManagerTests.LoginSuccess
+  isSpec: "True"
+  fullName: SpeckleUnity.Tests.SpeckleUnityManagerTests.LoginSuccess
+  nameWithType: SpeckleUnityManagerTests.LoginSuccess
+- uid: SpeckleUnity.Tests.SpeckleUnityManagerTests.LoginThenLogoutSuccess
+  name: LoginThenLogoutSuccess()
+  href: api/SpeckleUnity.Tests.SpeckleUnityManagerTests.html#SpeckleUnity_Tests_SpeckleUnityManagerTests_LoginThenLogoutSuccess
+  commentId: M:SpeckleUnity.Tests.SpeckleUnityManagerTests.LoginThenLogoutSuccess
+  fullName: SpeckleUnity.Tests.SpeckleUnityManagerTests.LoginThenLogoutSuccess()
+  nameWithType: SpeckleUnityManagerTests.LoginThenLogoutSuccess()
+- uid: SpeckleUnity.Tests.SpeckleUnityManagerTests.LoginThenLogoutSuccess*
+  name: LoginThenLogoutSuccess
+  href: api/SpeckleUnity.Tests.SpeckleUnityManagerTests.html#SpeckleUnity_Tests_SpeckleUnityManagerTests_LoginThenLogoutSuccess_
+  commentId: Overload:SpeckleUnity.Tests.SpeckleUnityManagerTests.LoginThenLogoutSuccess
+  isSpec: "True"
+  fullName: SpeckleUnity.Tests.SpeckleUnityManagerTests.LoginThenLogoutSuccess
+  nameWithType: SpeckleUnityManagerTests.LoginThenLogoutSuccess
+- uid: SpeckleUnity.Tests.SpeckleUnityManagerTests.LoginWithWrongEmailOrPassword
+  name: LoginWithWrongEmailOrPassword()
+  href: api/SpeckleUnity.Tests.SpeckleUnityManagerTests.html#SpeckleUnity_Tests_SpeckleUnityManagerTests_LoginWithWrongEmailOrPassword
+  commentId: M:SpeckleUnity.Tests.SpeckleUnityManagerTests.LoginWithWrongEmailOrPassword
+  fullName: SpeckleUnity.Tests.SpeckleUnityManagerTests.LoginWithWrongEmailOrPassword()
+  nameWithType: SpeckleUnityManagerTests.LoginWithWrongEmailOrPassword()
+- uid: SpeckleUnity.Tests.SpeckleUnityManagerTests.LoginWithWrongEmailOrPassword*
+  name: LoginWithWrongEmailOrPassword
+  href: api/SpeckleUnity.Tests.SpeckleUnityManagerTests.html#SpeckleUnity_Tests_SpeckleUnityManagerTests_LoginWithWrongEmailOrPassword_
+  commentId: Overload:SpeckleUnity.Tests.SpeckleUnityManagerTests.LoginWithWrongEmailOrPassword
+  isSpec: "True"
+  fullName: SpeckleUnity.Tests.SpeckleUnityManagerTests.LoginWithWrongEmailOrPassword
+  nameWithType: SpeckleUnityManagerTests.LoginWithWrongEmailOrPassword
+- uid: SpeckleUnity.Tests.SpeckleUnityManagerTests.OnStartDoNothingSuccess
+  name: OnStartDoNothingSuccess()
+  href: api/SpeckleUnity.Tests.SpeckleUnityManagerTests.html#SpeckleUnity_Tests_SpeckleUnityManagerTests_OnStartDoNothingSuccess
+  commentId: M:SpeckleUnity.Tests.SpeckleUnityManagerTests.OnStartDoNothingSuccess
+  fullName: SpeckleUnity.Tests.SpeckleUnityManagerTests.OnStartDoNothingSuccess()
+  nameWithType: SpeckleUnityManagerTests.OnStartDoNothingSuccess()
+- uid: SpeckleUnity.Tests.SpeckleUnityManagerTests.OnStartDoNothingSuccess*
+  name: OnStartDoNothingSuccess
+  href: api/SpeckleUnity.Tests.SpeckleUnityManagerTests.html#SpeckleUnity_Tests_SpeckleUnityManagerTests_OnStartDoNothingSuccess_
+  commentId: Overload:SpeckleUnity.Tests.SpeckleUnityManagerTests.OnStartDoNothingSuccess
+  isSpec: "True"
+  fullName: SpeckleUnity.Tests.SpeckleUnityManagerTests.OnStartDoNothingSuccess
+  nameWithType: SpeckleUnityManagerTests.OnStartDoNothingSuccess
+- uid: SpeckleUnity.Tests.SpeckleUnityManagerTests.OnStartJustLoginSuccess
+  name: OnStartJustLoginSuccess()
+  href: api/SpeckleUnity.Tests.SpeckleUnityManagerTests.html#SpeckleUnity_Tests_SpeckleUnityManagerTests_OnStartJustLoginSuccess
+  commentId: M:SpeckleUnity.Tests.SpeckleUnityManagerTests.OnStartJustLoginSuccess
+  fullName: SpeckleUnity.Tests.SpeckleUnityManagerTests.OnStartJustLoginSuccess()
+  nameWithType: SpeckleUnityManagerTests.OnStartJustLoginSuccess()
+- uid: SpeckleUnity.Tests.SpeckleUnityManagerTests.OnStartJustLoginSuccess*
+  name: OnStartJustLoginSuccess
+  href: api/SpeckleUnity.Tests.SpeckleUnityManagerTests.html#SpeckleUnity_Tests_SpeckleUnityManagerTests_OnStartJustLoginSuccess_
+  commentId: Overload:SpeckleUnity.Tests.SpeckleUnityManagerTests.OnStartJustLoginSuccess
+  isSpec: "True"
+  fullName: SpeckleUnity.Tests.SpeckleUnityManagerTests.OnStartJustLoginSuccess
+  nameWithType: SpeckleUnityManagerTests.OnStartJustLoginSuccess
+- uid: SpeckleUnity.Tests.SpeckleUnityManagerTests.OnStartLoginAndReceiveStreamsSuccess
+  name: OnStartLoginAndReceiveStreamsSuccess()
+  href: api/SpeckleUnity.Tests.SpeckleUnityManagerTests.html#SpeckleUnity_Tests_SpeckleUnityManagerTests_OnStartLoginAndReceiveStreamsSuccess
+  commentId: M:SpeckleUnity.Tests.SpeckleUnityManagerTests.OnStartLoginAndReceiveStreamsSuccess
+  fullName: SpeckleUnity.Tests.SpeckleUnityManagerTests.OnStartLoginAndReceiveStreamsSuccess()
+  nameWithType: SpeckleUnityManagerTests.OnStartLoginAndReceiveStreamsSuccess()
+- uid: SpeckleUnity.Tests.SpeckleUnityManagerTests.OnStartLoginAndReceiveStreamsSuccess*
+  name: OnStartLoginAndReceiveStreamsSuccess
+  href: api/SpeckleUnity.Tests.SpeckleUnityManagerTests.html#SpeckleUnity_Tests_SpeckleUnityManagerTests_OnStartLoginAndReceiveStreamsSuccess_
+  commentId: Overload:SpeckleUnity.Tests.SpeckleUnityManagerTests.OnStartLoginAndReceiveStreamsSuccess
+  isSpec: "True"
+  fullName: SpeckleUnity.Tests.SpeckleUnityManagerTests.OnStartLoginAndReceiveStreamsSuccess
+  nameWithType: SpeckleUnityManagerTests.OnStartLoginAndReceiveStreamsSuccess
+- uid: SpeckleUnity.Tests.SpeckleUnityManagerTests.ProjectCallback(Project[])
+  name: ProjectCallback(Project[])
+  href: api/SpeckleUnity.Tests.SpeckleUnityManagerTests.html#SpeckleUnity_Tests_SpeckleUnityManagerTests_ProjectCallback_Project___
+  commentId: M:SpeckleUnity.Tests.SpeckleUnityManagerTests.ProjectCallback(Project[])
+  name.vb: ProjectCallback(Project())
+  fullName: SpeckleUnity.Tests.SpeckleUnityManagerTests.ProjectCallback(Project[])
+  fullName.vb: SpeckleUnity.Tests.SpeckleUnityManagerTests.ProjectCallback(Project())
+  nameWithType: SpeckleUnityManagerTests.ProjectCallback(Project[])
+  nameWithType.vb: SpeckleUnityManagerTests.ProjectCallback(Project())
+- uid: SpeckleUnity.Tests.SpeckleUnityManagerTests.ProjectCallback*
+  name: ProjectCallback
+  href: api/SpeckleUnity.Tests.SpeckleUnityManagerTests.html#SpeckleUnity_Tests_SpeckleUnityManagerTests_ProjectCallback_
+  commentId: Overload:SpeckleUnity.Tests.SpeckleUnityManagerTests.ProjectCallback
+  isSpec: "True"
+  fullName: SpeckleUnity.Tests.SpeckleUnityManagerTests.ProjectCallback
+  nameWithType: SpeckleUnityManagerTests.ProjectCallback
+- uid: SpeckleUnity.Tests.SpeckleUnityManagerTests.StreamCallback(SpeckleStream[])
+  name: StreamCallback(SpeckleStream[])
+  href: api/SpeckleUnity.Tests.SpeckleUnityManagerTests.html#SpeckleUnity_Tests_SpeckleUnityManagerTests_StreamCallback_SpeckleStream___
+  commentId: M:SpeckleUnity.Tests.SpeckleUnityManagerTests.StreamCallback(SpeckleStream[])
+  name.vb: StreamCallback(SpeckleStream())
+  fullName: SpeckleUnity.Tests.SpeckleUnityManagerTests.StreamCallback(SpeckleStream[])
+  fullName.vb: SpeckleUnity.Tests.SpeckleUnityManagerTests.StreamCallback(SpeckleStream())
+  nameWithType: SpeckleUnityManagerTests.StreamCallback(SpeckleStream[])
+  nameWithType.vb: SpeckleUnityManagerTests.StreamCallback(SpeckleStream())
+- uid: SpeckleUnity.Tests.SpeckleUnityManagerTests.StreamCallback*
+  name: StreamCallback
+  href: api/SpeckleUnity.Tests.SpeckleUnityManagerTests.html#SpeckleUnity_Tests_SpeckleUnityManagerTests_StreamCallback_
+  commentId: Overload:SpeckleUnity.Tests.SpeckleUnityManagerTests.StreamCallback
+  isSpec: "True"
+  fullName: SpeckleUnity.Tests.SpeckleUnityManagerTests.StreamCallback
+  nameWithType: SpeckleUnityManagerTests.StreamCallback
+- uid: SpeckleUnity.Tests.TestInput
+  name: TestInput
+  href: api/SpeckleUnity.Tests.TestInput.html
+  commentId: T:SpeckleUnity.Tests.TestInput
+  fullName: SpeckleUnity.Tests.TestInput
+  nameWithType: TestInput
+- uid: SpeckleUnity.Tests.TestInput.email
+  name: email
+  href: api/SpeckleUnity.Tests.TestInput.html#SpeckleUnity_Tests_TestInput_email
+  commentId: F:SpeckleUnity.Tests.TestInput.email
+  fullName: SpeckleUnity.Tests.TestInput.email
+  nameWithType: TestInput.email
+- uid: SpeckleUnity.Tests.TestInput.password
+  name: password
+  href: api/SpeckleUnity.Tests.TestInput.html#SpeckleUnity_Tests_TestInput_password
+  commentId: F:SpeckleUnity.Tests.TestInput.password
+  fullName: SpeckleUnity.Tests.TestInput.password
+  nameWithType: TestInput.password
+- uid: SpeckleUnity.Tests.TestInput.streamID
+  name: streamID
+  href: api/SpeckleUnity.Tests.TestInput.html#SpeckleUnity_Tests_TestInput_streamID
+  commentId: F:SpeckleUnity.Tests.TestInput.streamID
+  fullName: SpeckleUnity.Tests.TestInput.streamID
+  nameWithType: TestInput.streamID
 - uid: SpeckleUnity.UpdateType
   name: UpdateType
   href: api/SpeckleUnity.UpdateType.html

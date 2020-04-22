@@ -20,7 +20,7 @@ public class Example : MonoBehaviour
     public void Login (string email, string password)
     {
         // a callback is needed to handle the result of the login
-        manager.Login (email, password, HandleLoginResult); 
+        manager.LoginAsync (email, password, HandleLoginResult); 
     }
 
     // your callback needs to be a void method that only takes a User.
@@ -57,7 +57,7 @@ public class Example : MonoBehaviour
     public void GetStreams ()
     {
         // a callback is needed to handle the result of the download
-        manager.GetAllStreamMetaDataForUser (HandleStreamResultForUser); 
+        manager.GetAllStreamMetaDataForUserAsync (HandleStreamResultForUser); 
     }
 
     // your callback needs to be a void method that only takes a SpeckleStream array.
@@ -87,7 +87,7 @@ public class Example : MonoBehaviour
         // The arguments are the ID of the stream to receive, the transform
         // for it to spawn under and whether or not the stream should start being 
         // streamed when calling this line of code.
-        manager.AddReceiver ("some stream ID", null, true);
+        manager.AddReceiverAsync ("some stream ID", null, true);
 
         // cleans up everything the AddReceiver method created except for the root transform
         // there are overloads for removing by stream ID or by root transform reference
@@ -145,78 +145,34 @@ public class Example : MonoBehaviour
 }
 ```
 
-## Putting It All Together
+## Get Update Percentage
 
-Here's an example of all the above usecases being used together in some theoretical Unity app that allows its users to provide an email and password, login as themself, get the data of the streams they have access to, pick a stream to start receiving and print the speckle data associated to a given object after its selected:
+Whether if it's for a loading bar or giving some other feedback to users of what's going on in the background, here's a simple way of doing it:
 
 ``` cs
 using UnityEngine;
 using SpeckleUnity;
 using SpeckleCore; // needed for referencing streams and users
 
-public class Example : MonoBehaviour
+// Add this component to a GameObject that's under a Canvas in your scene
+[RequireComponent (typeof (Text))]
+public class TextSetter : MonoBehaviour
 {
-    public SpeckleUnityManager manager;
+    Text label;
 
-    private User loggedInUser; // you can display user properties in the UI
-    private SpeckleStream[] userStreams; // you can display stream options in the UI
-
-    public void Login (string email, string password)
+    void Start ()
     {
-        manager.Login (email, password, HandleLoginResult);
+        label = GetComponent<Text> ();
     }
 
-    private void HandleLoginResult (User resultUser)
+    // Write a public void method that takes only a SpeckleUnityUpdate object.
+    // Assign this to the SpeckleUnityManager's onUpdateProgress field as a dynamic callback (not static).
+    // When a stream is updated this method will automatically be called.
+    // You can use the data coming from it to make things like a loading bar for each stream.
+    // The update data has more fields like the id of the stream the update came from and so on.
+    public void SetText (SpeckleUnityUpdate data)
     {
-        if (resultUser != null) 
-        {
-            loggedInUser = resultUser; // cache the user for later use
-            manager.GetAllStreamsForUser (HandleStreamResultForUser);
-        }
-        else
-        {
-            Debug.LogError ("Could not log in to the server");
-        }
-    }
-
-    private void HandleStreamResultForUser (SpeckleStream[] streams)
-    {
-        if (streams != null)
-        {
-            userStreams = streams; // cache the array for later use
-        }
-        else
-        {
-            Debug.LogError ("Could not get streams for user");
-        }
-    }
-
-    // This method could be called from a dropdown UI or button or whatever else
-    public void SelectStream (int index)
-    {
-        manager.AddReceiver (userStreams[index].StreamId, null, true);
-    }
-
-    // run a method like this after selecting the object you want via raycast or another way
-    public void PrintObjectData (GameObject gameObjectKey)
-    {
-        // use the gameobject as an ID to get back the data associated to it
-        if (manager.TryGetSpeckleObject (gameObjectKey, out SpeckleObject data))
-        {
-            // basic data is stored at the root of the SpeckleObject
-            Debug.Log (data._id);
-            Debug.Log (data.Owner);
-            Debug.Log (data.Type); 
-            
-            if (data.Properties.TryGetValue ("myPropertyKey", out object propertyValue))
-            {
-                Debug.Log (propertyValue.ToString ());
-            }
-        }
-        else
-        {
-            Debug.LogError ("The GameObect was either null or not a SpeckleObject");
-        }
+        label.text = string.Format ("Loading...: {0}%", Mathf.Floor (data.updateProgress * 100));
     }
 }
 ```

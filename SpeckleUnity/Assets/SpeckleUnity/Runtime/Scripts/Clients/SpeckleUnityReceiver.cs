@@ -55,6 +55,11 @@ namespace SpeckleUnity
 		internal Dictionary<GameObject, SpeckleObject> speckleObjectLookup;
 
 		/// <summary>
+		/// 
+		/// </summary>
+		protected MaterialPropertyBlock propertyBlock;
+
+		/// <summary>
 		/// Creates an uninitialized instance of a <c>SpeckleUnityReceiver</c>.
 		/// </summary>
 		/// <param name="streamID">The stream ID to be received.</param>
@@ -72,8 +77,8 @@ namespace SpeckleUnity
 		/// <param name="manager">The manager instance that provides inspector values for this client.</param>
 		/// <param name="url">The url of the speckle server to connect to.</param>
 		/// <param name="apiToken">The authentication token of the user to connect as.</param>
-		/// <returns>An IEnumerator to yield or start as a new coroutine.</returns>
-		public override IEnumerator InitializeClient (SpeckleUnityManager manager, string url, string apiToken)
+		/// <returns>An async <c>Task</c> of the new operation.</returns>
+		public override async Task InitializeClient (SpeckleUnityManager manager, string url, string apiToken)
 		{
 			if (streamRoot == null)
 			{
@@ -87,22 +92,17 @@ namespace SpeckleUnity
 			client.BaseUrl = url;
 			RegisterClient ();
 
-			//Initialize receiver
-			client.IntializeReceiver (streamID, "SpeckleUnity", "Unity", Guid.NewGuid ().ToString (), apiToken);
+			await client.IntializeReceiver (streamID, "SpeckleUnity", "Unity", Guid.NewGuid ().ToString (), apiToken);
 
 			Debug.Log ("Initialized stream: " + streamID);
 
-			//wait for receiver to be connected
-			while (!client.IsConnected) yield return null;
 
 			deserializedStreamObjects = new List<object> ();
 			layerLookup = new Dictionary<Layer, Transform> ();
 			speckleObjectLookup = new Dictionary<GameObject, SpeckleObject> ();
 
-			Debug.Log ("Connected");
-
 			//after connected, call update global to get geometry
-			yield return manager.StartCoroutine (UpdateGlobal ());
+			await UpdateGlobal ();
 		}
 
 		/// <summary>
@@ -145,7 +145,7 @@ namespace SpeckleUnity
 				switch (messageContent)
 				{
 					case "update-global":
-						manager.StartCoroutine (UpdateGlobal ());
+						_ = UpdateGlobal ();
 						break;
 					case "update-meta":
 						//UpdateMeta();
@@ -168,28 +168,27 @@ namespace SpeckleUnity
 		/// Coroutine for the global update message for the stream. Simply put, it redownloads the stream data,
 		/// cleans up everything locally and respawns the whole stream.
 		/// </summary>
-		/// <returns>An IEnumerator to yield or start as a new coroutine.</returns>
-		protected virtual IEnumerator UpdateGlobal ()
+		/// <returns>An async <c>Task</c> of the new operation.</returns>
+		protected virtual async Task UpdateGlobal ()
 		{
 			Debug.Log ("Getting Stream");
 
 			// notify all user code that subsribed to this event in the manager inspector so that their code
 			// can respond to the global update of this stream.
-			manager.onUpdateStarted.Invoke (new SpeckleUnityUpdate (streamID, streamRoot, UpdateType.Global));
+			manager.onUpdateProgress.Invoke (new SpeckleUnityUpdate (streamID, streamRoot, UpdateType.Global, 0));
 
-			//TODO - use LocalContext for caching, etc
-			Task<ResponseStream> streamGet = client.StreamGetAsync (streamID, null);
-			while (!streamGet.IsCompleted) yield return null;
+			ResponseStream streamGet = await client.StreamGetAsync (streamID, null);
+
 			Debug.Log ("Got Stream");
 
-			if (streamGet.Result == null)
+			if (streamGet == null)
 			{
 				Debug.LogError ("Stream '" + streamID + "' Result was null");
 			}
 			else
 			{
 
-				client.Stream = streamGet.Result.Resource;
+				client.Stream = streamGet.Resource;
 
 				string[] payload = client.Stream.Objects.Where (o => o.Type == "Placeholder").Select (obj => obj._id).ToArray ();
 
@@ -202,20 +201,18 @@ namespace SpeckleUnity
 				// jump in `maxObjRequestCount` increments through the payload array
 				for (int i = 0; i < payload.Length; i += maxObjRequestCount)
 				{
-					Debug.Log (streamID + " Download: " + (float)i / payload.Length * 100 + "%");
+					manager.onUpdateProgress.Invoke (new SpeckleUnityUpdate (streamID, streamRoot, UpdateType.Global, (float)i / (payload.Length * 2)));
 
 					// create a subset
 					string[] subPayload = payload.Skip (i).Take (maxObjRequestCount).ToArray ();
 
 					// get it sync as this is always execed out of the main thread
 					//Task<ResponseObject> getTask = Client.ObjectGetBulkAsync(subPayload, "omit=displayValue");
-					Task<ResponseObject> getTask = client.ObjectGetBulkAsync (subPayload, "");
-					while (!getTask.IsCompleted) yield return null;
-
-					ResponseObject response = getTask.Result;
+					ResponseObject response = await client.ObjectGetBulkAsync (subPayload, "");
 
 					// put them in our bucket
 					newObjects.AddRange (response.Resources);
+					await Task.Yield ();
 				}
 
 				// populate the retrieved objects in the original stream's object list
@@ -224,29 +221,14 @@ namespace SpeckleUnity
 					int indexInStream = client.Stream.Objects.FindIndex (o => o._id == objects._id);
 					try { client.Stream.Objects[indexInStream] = objects; } catch { }
 				}
-				Debug.Log (streamID + " Download: 100%");
-				yield return manager.StartCoroutine (DisplayContents ());
 
+				RemoveContents ();
+				await CreateContents ();
 				// notify all user code that subsribed to this event in the manager inspector so that their code
 				// can respond to the global update of this stream.
-				manager.onUpdateReceived.Invoke (new SpeckleUnityUpdate (streamID, streamRoot, UpdateType.Global));
+				manager.onUpdateProgress.Invoke (new SpeckleUnityUpdate (streamID, streamRoot, UpdateType.Global, 1));
 				Debug.Log (streamID + " Download Complete");
 			}
-		}
-
-
-		/// <summary>
-		/// Assuming the stream is already downloaded, clean up all local gameobjects for it and 
-		/// Reconstruct them for the stream in its current state.
-		/// </summary>
-		/// <returns>An IEnumerator to yield or start as a new coroutine.</returns>
-		protected virtual IEnumerator DisplayContents ()
-		{
-			//TODO - update existing objects instead of destroying/recreating all of them
-
-			RemoveContents ();
-
-			yield return manager.StartCoroutine (CreateContents ());
 		}
 
 		/// <summary>
@@ -254,10 +236,12 @@ namespace SpeckleUnity
 		/// objects into Unity gameobjects. The speed of this process is determined by
 		/// <c>SpeckleUnityManager.spawnSpeed</c>.
 		/// </summary>
-		/// <returns>An IEnumerator to yield or start as a new coroutine.</returns>
-		protected virtual IEnumerator CreateContents ()
+		/// <returns>An async <c>Task</c> of the new operation.</returns>
+		protected virtual async Task CreateContents ()
 		{
 			ConstructLayers ();
+
+			propertyBlock = new MaterialPropertyBlock ();
 
 			for (int i = 0; i < client.Stream.Objects.Count; i++)
 			{
@@ -266,7 +250,11 @@ namespace SpeckleUnity
 
 				PostProcessObject (deserializedStreamObject, i);
 
-				if (i % (int)manager.spawnSpeed == 0 && i != 0) yield return null;
+				if (i % (int)manager.spawnSpeed == 0 && i != 0)
+				{
+					manager.onUpdateProgress.Invoke (new SpeckleUnityUpdate (streamID, streamRoot, UpdateType.Global, (float)(i + client.Stream.Objects.Count) / (client.Stream.Objects.Count * 2)));
+					await Task.Yield ();
+				}
 			}
 		}
 
@@ -356,21 +344,24 @@ namespace SpeckleUnity
 						break;
 					}
 				}
-			}
 
-			if (deserializedStreamObject is SpeckleUnityMesh mesh)
-			{
-				mesh.meshRenderer.material = manager.meshMaterial;
-			}
+				geometry.renderer.material = manager.meshMaterial;
 
-			if (deserializedStreamObject is SpeckleUnityPolyline line)
-			{
-				line.lineRenderer.material = manager.lineMaterial;
+				manager.renderingRule?.ApplyRuleToObject (geometry.renderer, client.Stream.Objects[objectIndex], propertyBlock);
 			}
+		}
 
-			if (deserializedStreamObject is SpeckleUnityPoint point)
+		/// <summary>
+		/// 
+		/// </summary>
+		public virtual void ReApplyRenderingRule ()
+		{
+			for (int i = 0; i < deserializedStreamObjects.Count; i++)
 			{
-				point.lineRenderer.material = manager.pointMaterial;
+				if (deserializedStreamObjects[i] is SpeckleUnityGeometry geometry)
+				{
+					manager.renderingRule?.ApplyRuleToObject (geometry.renderer, client.Stream.Objects[i], propertyBlock);
+				}
 			}
 		}
 
@@ -379,10 +370,13 @@ namespace SpeckleUnity
 		/// </summary>
 		public virtual void RemoveContents ()
 		{
-			//Clear existing objects including layer objects
-			for (int i = 0; i < streamRoot.childCount; i++)
+			if (streamRoot != null)
 			{
-				GameObject.Destroy (streamRoot.GetChild (i));
+				//Clear existing objects including layer objects
+				for (int i = 0; i < streamRoot.childCount; i++)
+				{
+					GameObject.Destroy (streamRoot.GetChild (i));
+				}
 			}
 
 			deserializedStreamObjects.Clear ();

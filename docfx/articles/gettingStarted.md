@@ -19,8 +19,8 @@ A single instance of a manager is designed to connect to a single speckle server
 In the inspector of our manager object, there are a number of fields exposed to us but for this quick start guide we will be focussing only on the following fields:
 
 * Server Url
-* Login Email
-* Login Password
+* Start Login Email
+* Start Login Password
 * Mesh Material
 * Receivers
 

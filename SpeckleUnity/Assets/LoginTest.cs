@@ -11,17 +11,17 @@ public class LoginTest : MonoBehaviour
 
 	void Start ()
 	{
-		manager.Login ("email", "password", HandleLogin);
+		manager.LoginAsync ("email", "password", HandleLogin);
 	}
 
 	public void HandleLogin (User resultUser)
 	{
-		if (resultUser != null) manager.GetAllStreamMetaDataForUser (HandleStreamsForUser);
+		if (resultUser != null) manager.GetAllStreamMetaDataForUserAsync (HandleStreamsForUser);
 	}
 
 	public void HandleStreamsForUser (SpeckleStream[] streamIDs)
 	{
-		if (streamIDs != null) manager.AddReceiver (streamIDs[0].StreamId, null, true);
+		if (streamIDs != null) manager.AddReceiverAsync (streamIDs[0].StreamId, null, true);
 	}
 
 	public void PrintObjectData (GameObject gameObjectKey)

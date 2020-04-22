@@ -49,32 +49,17 @@ namespace SpeckleUnity
 		/// <summary>
 		/// 
 		/// </summary>
+		public Renderer renderer;
+
+		/// <summary>
+		/// 
+		/// </summary>
 		public SpeckleUnityGeometry ()
 		{
 			gameObject = new GameObject ();
 
 		}
-
-		/// <summary>
-		/// 
-		/// </summary>
-		/// <param name="go"></param>
-		public SpeckleUnityGeometry (GameObject go)
-		{
-			this.gameObject = go;
-		}
 	}
-
-	/// <summary>
-	/// A plain transform object from the stream.
-	/// </summary>
-	//Currently converting to a point to send to speckle
-	//TODO - write Unity kit to implement SpeckleTransform along with converters for Rhino/GH/Dynamo/Etc?
-	public class SpeckleUnityTransform : SpeckleUnityGeometry
-	{
-		public SpeckleUnityTransform (GameObject go) : base (go) { }
-	}
-
 
 	/// <summary>
 	/// A stream object represented as a gameobject with a <c>MeshRenderer</c>. Also adds a 
@@ -97,7 +82,7 @@ namespace SpeckleUnity
 		{
 			gameObject.name = type;
 
-			meshRenderer = gameObject.AddComponent<MeshRenderer> ();
+			renderer = meshRenderer = gameObject.AddComponent<MeshRenderer> ();
 			Mesh mesh = gameObject.AddComponent<MeshFilter> ().mesh;
 
 			mesh.vertices = verts;
@@ -132,7 +117,7 @@ namespace SpeckleUnity
 			gameObject.name = type;
 
 			//create line renderer       
-			lineRenderer = gameObject.AddComponent<LineRenderer> ();
+			renderer = lineRenderer = gameObject.AddComponent<LineRenderer> ();
 			lineRenderer.positionCount = points.Length;
 			lineRenderer.SetPositions (points);
 			lineRenderer.numCapVertices = 1;
@@ -170,7 +155,7 @@ namespace SpeckleUnity
 			this.point = point;
 
 			//create line renderer       
-			lineRenderer = gameObject.AddComponent<LineRenderer> ();
+			renderer = lineRenderer = gameObject.AddComponent<LineRenderer> ();
 			lineRenderer.SetPositions (new Vector3[2] { point, point });
 			lineRenderer.numCapVertices = 1;
 			lineRenderer.startWidth = 1;

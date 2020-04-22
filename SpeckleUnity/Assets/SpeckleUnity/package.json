@@ -1,10 +1,10 @@
 {
   "name": "com.open.speckleunity",
   "displayName": "SpeckleUnity",
-  "author": "Jak Hussain, Dean Giddy, Christopher Morse, Luis E. Fraguadam",
-  "version": "0.5.2-preview",
+  "author": "Jakir Hussain, Dean Giddy, Christopher Morse, Luis E. Fraguadam",
+  "version": "0.6.4-preview",
   "unity": "2019.3",
-  "description": "Send and receive Speckle Streams from your Unity application to a Speckle Server of your choice. \n\nRequires .NET 4.x. \n\nDocumentation available on GitHub.",
+  "description": "Receive Speckle Streams from your Unity application to a Speckle Server of your choice. \n\nRequires .NET 4.x. \n\nDocumentation available on GitHub.",
   "keywords": [
     "Open Source",
     "Module",
