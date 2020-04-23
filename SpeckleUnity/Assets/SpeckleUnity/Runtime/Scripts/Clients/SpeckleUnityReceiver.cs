@@ -52,12 +52,12 @@ namespace SpeckleUnity
 		/// Key value pairs of Unity <c>GameObject</c>s and SpeckleCore <c>SpeckleObject</c>s to help with 
 		/// looking up the corresponding object data to the objects rendered in the scene.
 		/// </summary>
-		internal Dictionary<GameObject, SpeckleObject> speckleObjectLookup;
+		internal Dictionary<GameObject, SpeckleObject> speckleObjectLookup = new Dictionary<GameObject, SpeckleObject> ();
 
 		/// <summary>
 		/// 
 		/// </summary>
-		protected MaterialPropertyBlock propertyBlock;
+		protected MaterialPropertyBlock propertyBlock = null;
 
 		/// <summary>
 		/// Creates an uninitialized instance of a <c>SpeckleUnityReceiver</c>.
@@ -88,8 +88,8 @@ namespace SpeckleUnity
 
 			this.manager = manager;
 
-			client = new SpeckleApiClient (url, true);
-			client.BaseUrl = url;
+			client = new SpeckleApiClient (url.Trim (), true);
+			client.BaseUrl = url.Trim ();
 			RegisterClient ();
 
 			await client.IntializeReceiver (streamID, "SpeckleUnity", "Unity", Guid.NewGuid ().ToString (), apiToken);
@@ -379,7 +379,7 @@ namespace SpeckleUnity
 				}
 			}
 
-			deserializedStreamObjects.Clear ();
+			deserializedStreamObjects?.Clear ();
 		}
 	}
 }

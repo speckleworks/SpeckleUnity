@@ -1,6 +1,6 @@
 # SpeckleUnity
 
-[![openupm](https://img.shields.io/npm/v/com.open.speckleunity?label=openupm&registry_uri=https://package.openupm.com)](https://openupm.com/packages/com.open.speckleunity/) ![CodeCoverage](badge_linecoverage.svg)
+[![openupm](https://img.shields.io/npm/v/com.open.speckleunity?label=openupm&registry_uri=https://package.openupm.com)](https://openupm.com/packages/com.open.speckleunity/) ![CodeCoverage](badge_linecoverage.svg) [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)
 
 In this repository you will find the source code, assets and project settings of the SpeckleUnity package for Unity app development (Unity 2019.3 or newer recommended) along with a DocFX project containing documentation assets and articles.
 
@@ -9,7 +9,7 @@ In this repository you will find the source code, assets and project settings of
 * [Documentation can be found here](https://speckleworks.github.io/SpeckleUnity/).
 * [Supported platforms can be found here](https://speckleworks.github.io/SpeckleUnity/articles/supportedPlatforms.html).
 * Only displays mesh, point, and line data types. Breps, Curves and PolyLines are converted using their display values.
-* Does not use the Speckle Kit workflow. Any additional Speckle Kit DLLs must be added manually to the Unity Project. 
+* Does not use the Speckle Kit workflow for portability reasons. Any additional Speckle Kit DLLs must be added manually to the Unity Project. 
 
 ## How To Install
 
@@ -25,7 +25,7 @@ See instructions in [this](https://speckleworks.github.io/SpeckleUnity/articles/
 | ------- | -------------------------------------------------------------------------------- |
 | ~0.1~   | ~First prototype release~   								 			         |
 | ~0.2~   | ~Restructure and release as UPM package~								         |
-| ~0.3~   | ~Custom materials assigned via inspector~								         |
+| ~0.3~   | ~New component workflow and custom materials assigned via inspector~			 |
 | ~0.4~   | ~Spawn geometry in transform heirarchy based on layer data~		    	         |
 | ~0.5~   | ~User login API, get Stream API and no dependency on a local install of Speckle~ |
 | ~0.6~   | ~Android Support, Rendering Rule API and Async Refactor~                         |

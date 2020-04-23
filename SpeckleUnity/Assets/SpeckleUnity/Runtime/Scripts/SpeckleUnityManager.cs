@@ -116,14 +116,8 @@ namespace SpeckleUnity
 		{
 			if (onStartBehaviour > StartMode.DoNothing)
 			{
-				if (!string.IsNullOrWhiteSpace (startLoginEmail) && !string.IsNullOrWhiteSpace (startLoginPassword))
-				{
-					await LoginAsync (startLoginEmail, startLoginPassword, null);
-				}
-				else
-				{
-					Debug.LogError ("The Email and Password fields need to be filled in if you wish to login on start.");
-				}
+				SetServerUrl (serverUrl);
+				await LoginAsync (startLoginEmail, startLoginPassword, null);
 			}
 
 			if (onStartBehaviour > StartMode.JustLogin)
@@ -146,7 +140,7 @@ namespace SpeckleUnity
 		public virtual void SetServerUrl (string newServerUrl)
 		{
 			Logout ();
-			serverUrl = newServerUrl;
+			serverUrl = newServerUrl.Trim ();
 		}
 
 		/// <summary>
@@ -160,9 +154,14 @@ namespace SpeckleUnity
 		/// is passed. Need to be using the <c>SpeckleCore</c> namespace to access this type.</remarks>
 		public virtual async Task LoginAsync (string email, string password, Action<User> callBack)
 		{
-			SpeckleApiClient loginClient = new SpeckleApiClient (serverUrl);
+			if (string.IsNullOrWhiteSpace (email) || string.IsNullOrWhiteSpace (password))
+			{
+				throw new InvalidOperationException ("The Email and Password arguments both need to be filled in if you wish to login.");
+			}
 
-			User user = new User { Email = email, Password = password };
+			SpeckleApiClient loginClient = new SpeckleApiClient (serverUrl.Trim ());
+
+			User user = new User { Email = email.Trim (), Password = password.Trim () };
 
 			ResponseUser userGet = await loginClient.UserLoginAsync (user);
 
@@ -208,7 +207,7 @@ namespace SpeckleUnity
 				throw new UnauthorizedAccessException ("Need to be logged in before getting project data.");
 			}
 
-			SpeckleApiClient userProjectsClient = new SpeckleApiClient (serverUrl);
+			SpeckleApiClient userProjectsClient = new SpeckleApiClient (serverUrl.Trim ());
 			userProjectsClient.AuthToken = loggedInUser.Apitoken;
 
 			ResponseProject projectsGet = await userProjectsClient.ProjectGetAllAsync ();
@@ -245,7 +244,7 @@ namespace SpeckleUnity
 				throw new UnauthorizedAccessException ("Need to be logged in before getting stream meta data.");
 			}
 
-			SpeckleApiClient userStreamsClient = new SpeckleApiClient (serverUrl);
+			SpeckleApiClient userStreamsClient = new SpeckleApiClient (serverUrl.Trim ());
 			userStreamsClient.AuthToken = loggedInUser.Apitoken;
 
 			ResponseStream streamsGet = await userStreamsClient.StreamsGetAllAsync (null);
