@@ -139,6 +139,11 @@ namespace SpeckleUnity
 		/// <param name="newServerUrl">The url of the new Speckle server to point to suffixed with "/api/".</param>
 		public virtual void SetServerUrl (string newServerUrl)
 		{
+			if (string.IsNullOrWhiteSpace (newServerUrl))
+			{
+				throw new InvalidOperationException ("The server URL can't be null");
+			}
+
 			Logout ();
 			serverUrl = newServerUrl.Trim ();
 		}
@@ -156,7 +161,7 @@ namespace SpeckleUnity
 		{
 			if (string.IsNullOrWhiteSpace (email) || string.IsNullOrWhiteSpace (password))
 			{
-				throw new InvalidOperationException ("The Email and Password arguments both need to be filled in if you wish to login.");
+				throw new InvalidOperationException ("The email and password arguments both need to be provided if you wish to login.");
 			}
 
 			SpeckleApiClient loginClient = new SpeckleApiClient (serverUrl.Trim ());
