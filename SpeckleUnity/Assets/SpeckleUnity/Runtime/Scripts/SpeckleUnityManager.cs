@@ -144,7 +144,6 @@ namespace SpeckleUnity
 				throw new InvalidOperationException ("The server URL can't be null");
 			}
 
-			Logout ();
 			serverUrl = newServerUrl.Trim ();
 		}
 
@@ -193,8 +192,11 @@ namespace SpeckleUnity
 		/// </summary>
 		public virtual void Logout ()
 		{
-			loggedInUser = null;
-			ClearReceivers ();
+			if (loggedInUser != null)
+			{
+				loggedInUser = null;
+				ClearReceivers ();
+			}
 		}
 
 		/// <summary>
@@ -384,7 +386,7 @@ namespace SpeckleUnity
 		/// </summary>
 		public virtual void ClearReceivers ()
 		{
-			for (int i = 0; i < receivers.Count; i++)
+			for (int i = receivers.Count - 1; i >= 0; i--)
 			{
 				RemoveReceiver (i);
 			}
