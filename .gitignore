@@ -4,7 +4,6 @@
 
 !.gitignore
 !README.md
-!badge_linecoverage.svg
 
 # Include the main folders needed
 !SpeckleUnity/

@@ -175,7 +175,7 @@ namespace SpeckleUnity
 
 			// notify all user code that subsribed to this event in the manager inspector so that their code
 			// can respond to the global update of this stream.
-			manager.onUpdateProgress.Invoke (new SpeckleUnityUpdate (streamID, streamRoot, UpdateType.Global, 0));
+			manager.onUpdateProgress.Invoke (new SpeckleUnityUpdate (streamID, streamRoot, UpdateType.Global, 0f));
 
 			ResponseStream streamGet = await client.StreamGetAsync (streamID, null);
 
@@ -226,7 +226,7 @@ namespace SpeckleUnity
 				await CreateContents ();
 				// notify all user code that subsribed to this event in the manager inspector so that their code
 				// can respond to the global update of this stream.
-				manager.onUpdateProgress.Invoke (new SpeckleUnityUpdate (streamID, streamRoot, UpdateType.Global, 1));
+				manager.onUpdateProgress.Invoke (new SpeckleUnityUpdate (streamID, streamRoot, UpdateType.Global, 1f));
 				Debug.Log (streamID + " Download Complete");
 			}
 		}

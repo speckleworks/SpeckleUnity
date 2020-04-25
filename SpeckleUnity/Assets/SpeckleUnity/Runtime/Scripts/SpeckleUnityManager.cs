@@ -167,9 +167,9 @@ namespace SpeckleUnity
 
 			User user = new User { Email = email.Trim (), Password = password.Trim () };
 
-			ResponseUser userGet = await loginClient.UserLoginAsync (user);
-
 			Debug.Log ("Atempting login");
+
+			ResponseUser userGet = await loginClient.UserLoginAsync (user);
 
 			if (userGet == null)
 			{
