@@ -372,13 +372,18 @@ namespace SpeckleUnity
 		public virtual void RemoveReceiver (int receiverIndex)
 		{
 			if (receiverIndex < 0 || receiverIndex >= receivers.Count)
-				throw new Exception ("Receiver could not be removed because it does not exist");
+				throw new InvalidOperationException ("Receiver could not be removed because it does not exist");
 
 			SpeckleUnityReceiver receiver = receivers[receiverIndex];
 			receivers.RemoveAt (receiverIndex);
 
 			receiver.RemoveContents ();
 			receiver.client?.Dispose ();
+
+			if (receiver.streamRoot.name.Contains ("Default Stream Root: "))
+			{
+				Destroy (receiver.streamRoot.gameObject);
+			}
 		}
 
 		/// <summary>
@@ -439,6 +444,37 @@ namespace SpeckleUnity
 				throw new Exception ("Receiver could not be updated because it does not exist");
 
 			receivers[receiverIndex].ReApplyRenderingRule ();
+		}
+
+		/// <summary>
+		/// Creates a bounding box that tightly encapsulates all objects in all current streams.
+		/// </summary>
+		/// <returns>A bounding box value encapsulating all stream objects in the scene.</returns>
+		public virtual Bounds GetBoundsForAllReceivedStreams ()
+		{
+			if (receivers.Count == 0) throw new InvalidOperationException ("There are no streams");
+			if (receivers[0].streamRoot.childCount == 0) throw new InvalidOperationException ("There are no stream objects");
+
+			MeshRenderer[] meshes = receivers[0].streamRoot.GetComponentsInChildren<MeshRenderer> ();
+
+			Bounds bounds = meshes[0].bounds;
+
+			for (int i = 1; i < meshes.Length; i++)
+			{
+				bounds.Encapsulate (meshes[i].bounds);
+			}
+
+			for (int i = 1; i < receivers.Count; i++)
+			{
+				MeshRenderer[] otherMeshes = receivers[i].streamRoot.GetComponentsInChildren<MeshRenderer> ();
+
+				for (int j = 0; j < otherMeshes.Length; j++)
+				{
+					bounds.Encapsulate (otherMeshes[j].bounds);
+				}
+			}
+
+			return bounds;
 		}
 	}
 
