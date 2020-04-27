@@ -392,6 +392,14 @@ namespace SpeckleUnity
 			}
 		}
 
+		/// <summary>
+		/// Get a <c>SpeckleStream</c> object for each receiver.
+		/// </summary>
+		/// <returns>An array of <c>SpeckleStream</c>s.</returns>
+		public virtual SpeckleStream[] GetCurrentReceivedStreamMetaData ()
+		{
+			return receivers.Select (r => r.client.Stream).ToArray ();
+		}
 
 		/// <summary>
 		/// Checks through all receivers and looks up their <c>GameObject</c> to <c>SpeckleObject</c> dictionaries and outputs 

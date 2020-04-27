@@ -171,15 +171,14 @@ namespace SpeckleUnity
 		/// <returns>An async <c>Task</c> of the new operation.</returns>
 		protected virtual async Task UpdateGlobal ()
 		{
-			Debug.Log ("Getting Stream");
+			Debug.Log ("Getting Stream Meta Data");
 
 			// notify all user code that subsribed to this event in the manager inspector so that their code
 			// can respond to the global update of this stream.
 			manager.onUpdateProgress.Invoke (new SpeckleUnityUpdate (streamID, streamRoot, UpdateType.Global, 0f));
 
 			ResponseStream streamGet = await client.StreamGetAsync (streamID, null);
-
-			Debug.Log ("Got Stream");
+			Debug.Log ("Got Stream Meta Data");
 
 			if (streamGet == null)
 			{
@@ -375,7 +374,7 @@ namespace SpeckleUnity
 				//Clear existing objects including layer objects
 				for (int i = 0; i < streamRoot.childCount; i++)
 				{
-					GameObject.Destroy (streamRoot.GetChild (i));
+					GameObject.Destroy (streamRoot.GetChild (i).gameObject);
 				}
 			}
 
