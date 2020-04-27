@@ -112,7 +112,7 @@ namespace SpeckleUnity
 		/// <param name="e">Arguments passed from the event.</param>
 		protected virtual void ClientOnError (object source, SpeckleEventArgs e)
 		{
-			Debug.LogError ("INTERNAL ERROR: " + e.EventData);
+			Debug.LogError (string.Format ("INTERNAL ERROR ({0}): {1}", e.EventName, e.EventData));
 		}
 	}
 }

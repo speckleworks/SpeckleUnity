@@ -378,7 +378,7 @@ namespace SpeckleUnity
 			receivers.RemoveAt (receiverIndex);
 
 			receiver.RemoveContents ();
-			receiver.client?.Dispose (true);
+			receiver.client?.Dispose ();
 		}
 
 		/// <summary>
