@@ -193,7 +193,7 @@ namespace SpeckleUnity
 				string[] payload = client.Stream.Objects.Where (o => o.Type == "Placeholder").Select (obj => obj._id).ToArray ();
 
 				// how many objects to request from the api at a time
-				int maxObjRequestCount = 20;
+				int maxObjRequestCount = 100;
 
 				// list to hold them into
 				List<SpeckleObject> newObjects = new List<SpeckleObject> ();
