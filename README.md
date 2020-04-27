@@ -1,6 +1,6 @@
 # SpeckleUnity
 
-[![registry](https://img.shields.io/badge/registry-v0.6.4--preview-orange)](https://img.shields.io/badge/registry-v0.6.4--preview-orange) [![openupm](https://img.shields.io/npm/v/com.open.speckleunity?label=openupm&registry_uri=https://package.openupm.com)](https://openupm.com/packages/com.open.speckleunity/) ![codeCoverage](https://img.shields.io/badge/coverage-53.3%-orange) [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen)](http://makeapullrequest.com)
+[![registry](https://img.shields.io/badge/registry-v0.6.4--preview-orange)](https://img.shields.io/badge/registry-v0.6.4--preview-orange) [![openupm](https://img.shields.io/npm/v/com.open.speckleunity?label=openupm&registry_uri=https://package.openupm.com)](https://openupm.com/packages/com.open.speckleunity/) ![![codeCoverage](https://img.shields.io/badge/coverage-53.3%25-orange)](https://img.shields.io/badge/coverage-53.3%25-orange) [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen)](http://makeapullrequest.com)
 
 In this repository you will find the source code, assets and project settings of the SpeckleUnity package for Unity app development (Unity 2019.3 or newer recommended) along with a DocFX project containing documentation assets and articles.
 
