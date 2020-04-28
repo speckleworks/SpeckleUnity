@@ -54,6 +54,10 @@ namespace SpeckleUnity
 		/// </summary>
 		internal Dictionary<GameObject, SpeckleObject> speckleObjectLookup = new Dictionary<GameObject, SpeckleObject> ();
 
+		internal List<float> numbers = new List<float> ();
+
+		internal List<string> strings = new List<string> ();
+
 		/// <summary>
 		/// 
 		/// </summary>
@@ -100,6 +104,8 @@ namespace SpeckleUnity
 			deserializedStreamObjects = new List<object> ();
 			layerLookup = new Dictionary<Layer, Transform> ();
 			speckleObjectLookup = new Dictionary<GameObject, SpeckleObject> ();
+			numbers = new List<float> ();
+			strings = new List<string> ();
 
 			//after connected, call update global to get geometry
 			await UpdateGlobal ();
@@ -348,6 +354,16 @@ namespace SpeckleUnity
 
 				manager.renderingRule?.ApplyRuleToObject (geometry.renderer, client.Stream.Objects[objectIndex], propertyBlock);
 			}
+
+			if (deserializedStreamObject is float numberValue)
+			{
+				numbers.Add (numberValue);
+			}
+
+			if (deserializedStreamObject is string stringValue)
+			{
+				strings.Add (stringValue);
+			}
 		}
 
 		/// <summary>
@@ -379,6 +395,9 @@ namespace SpeckleUnity
 			}
 
 			deserializedStreamObjects?.Clear ();
+			speckleObjectLookup?.Clear ();
+			numbers?.Clear ();
+			strings?.Clear ();
 		}
 	}
 }

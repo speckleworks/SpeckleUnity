@@ -74,7 +74,7 @@ namespace SpeckleUnity
 		/// <returns></returns>
 		public static SpeckleNumber ToSpeckle (this SpeckleUnityNumber obj)
 		{
-			var result = new SpeckleNumber (obj.value);
+			var result = new SpeckleNumber (obj.Value);
 			return result;
 		}
 
@@ -83,10 +83,9 @@ namespace SpeckleUnity
 		/// </summary>
 		/// <param name="number"></param>
 		/// <returns></returns>
-		public static SpeckleUnityNumber ToNative (this SpeckleNumber number)
+		public static float ToNative (this SpeckleNumber number)
 		{
-			var result = new SpeckleUnityNumber ((float)number.Value);
-			return result;
+			return (float)number.Value;
 		}
 
 		/// <summary>
@@ -96,8 +95,7 @@ namespace SpeckleUnity
 		/// <returns></returns>
 		public static string ToNative (this SpeckleString str)
 		{
-			var result = str.Value;
-			return result;
+			return str.Value;
 		}
 
 		/// <summary>

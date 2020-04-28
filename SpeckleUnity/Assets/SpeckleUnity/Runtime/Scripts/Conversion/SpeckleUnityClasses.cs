@@ -171,7 +171,12 @@ namespace SpeckleUnity
 		/// <summary>
 		/// 
 		/// </summary>
-		public float value;
+		private readonly float value;
+
+		/// <summary>
+		/// 
+		/// </summary>
+		public float Value => value;
 
 		/// <summary>
 		/// 
