@@ -2,7 +2,7 @@
 
 [![registry](https://img.shields.io/badge/registry-v0.7.0--preview-orange)](https://img.shields.io/badge/registry-v0.7.0--preview-orange) [![openupm](https://img.shields.io/npm/v/com.open.speckleunity?label=openupm&registry_uri=https://package.openupm.com)](https://openupm.com/packages/com.open.speckleunity/) ![![codeCoverage](https://img.shields.io/badge/coverage-51.4%25-orange)](https://img.shields.io/badge/coverage-51.4%25-orange) [![speckleCoreVersion](https://img.shields.io/badge/SpeckleCore-v1.8.0(modified)-brightgreen)](https://github.com/speckleworks/SpeckleCore/tree/1.8.0-unity-standalone-support) [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen)](http://makeapullrequest.com)
 
-In this repository you will find the source code, assets and project settings of the SpeckleUnity package for Unity app development (Unity 2019.3 or newer recommended) along with a DocFX project containing documentation assets and articles.
+In this repository you will find the source code, assets and project settings of the SpeckleUnity package for Unity app development (Unity 2020.1 or newer recommended) along with a DocFX project containing documentation assets and articles.
 
 ## NOTICE
 
