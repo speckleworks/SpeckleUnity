@@ -6,6 +6,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using SpeckleCore;
 using System.Threading.Tasks;
+using Newtonsoft.Json.Linq;
 
 namespace SpeckleUnity
 {
@@ -52,12 +53,16 @@ namespace SpeckleUnity
 		/// Key value pairs of Unity <c>GameObject</c>s and SpeckleCore <c>SpeckleObject</c>s to help with 
 		/// looking up the corresponding object data to the objects rendered in the scene.
 		/// </summary>
-		internal Dictionary<GameObject, SpeckleObject> speckleObjectLookup;
+		internal Dictionary<GameObject, SpeckleObject> speckleObjectLookup = new Dictionary<GameObject, SpeckleObject> ();
+
+		internal List<float> numbers = new List<float> ();
+
+		internal List<string> strings = new List<string> ();
 
 		/// <summary>
 		/// 
 		/// </summary>
-		protected MaterialPropertyBlock propertyBlock;
+		protected MaterialPropertyBlock propertyBlock = null;
 
 		/// <summary>
 		/// Creates an uninitialized instance of a <c>SpeckleUnityReceiver</c>.
@@ -88,8 +93,8 @@ namespace SpeckleUnity
 
 			this.manager = manager;
 
-			client = new SpeckleApiClient (url, true);
-			client.BaseUrl = url;
+			client = new SpeckleApiClient (url.Trim (), true);
+			client.BaseUrl = url.Trim ();
 			RegisterClient ();
 
 			await client.IntializeReceiver (streamID, "SpeckleUnity", "Unity", Guid.NewGuid ().ToString (), apiToken);
@@ -100,6 +105,8 @@ namespace SpeckleUnity
 			deserializedStreamObjects = new List<object> ();
 			layerLookup = new Dictionary<Layer, Transform> ();
 			speckleObjectLookup = new Dictionary<GameObject, SpeckleObject> ();
+			numbers = new List<float> ();
+			strings = new List<string> ();
 
 			//after connected, call update global to get geometry
 			await UpdateGlobal ();
@@ -171,15 +178,14 @@ namespace SpeckleUnity
 		/// <returns>An async <c>Task</c> of the new operation.</returns>
 		protected virtual async Task UpdateGlobal ()
 		{
-			Debug.Log ("Getting Stream");
+			Debug.Log ("Getting Stream Meta Data");
 
 			// notify all user code that subsribed to this event in the manager inspector so that their code
 			// can respond to the global update of this stream.
-			manager.onUpdateProgress.Invoke (new SpeckleUnityUpdate (streamID, streamRoot, UpdateType.Global, 0));
+			manager.onUpdateProgress.Invoke (new SpeckleUnityUpdate (streamID, streamRoot, UpdateType.Global, 0f));
 
 			ResponseStream streamGet = await client.StreamGetAsync (streamID, null);
-
-			Debug.Log ("Got Stream");
+			Debug.Log ("Got Stream Meta Data");
 
 			if (streamGet == null)
 			{
@@ -190,10 +196,12 @@ namespace SpeckleUnity
 
 				client.Stream = streamGet.Resource;
 
+				SetScaleFactorAccordingToStream ();
+
 				string[] payload = client.Stream.Objects.Where (o => o.Type == "Placeholder").Select (obj => obj._id).ToArray ();
 
 				// how many objects to request from the api at a time
-				int maxObjRequestCount = 20;
+				int maxObjRequestCount = 100;
 
 				// list to hold them into
 				List<SpeckleObject> newObjects = new List<SpeckleObject> ();
@@ -226,7 +234,7 @@ namespace SpeckleUnity
 				await CreateContents ();
 				// notify all user code that subsribed to this event in the manager inspector so that their code
 				// can respond to the global update of this stream.
-				manager.onUpdateProgress.Invoke (new SpeckleUnityUpdate (streamID, streamRoot, UpdateType.Global, 1));
+				manager.onUpdateProgress.Invoke (new SpeckleUnityUpdate (streamID, streamRoot, UpdateType.Global, 1f));
 				Debug.Log (streamID + " Download Complete");
 			}
 		}
@@ -349,6 +357,16 @@ namespace SpeckleUnity
 
 				manager.renderingRule?.ApplyRuleToObject (geometry.renderer, client.Stream.Objects[objectIndex], propertyBlock);
 			}
+
+			if (deserializedStreamObject is float numberValue)
+			{
+				numbers.Add (numberValue);
+			}
+
+			if (deserializedStreamObject is string stringValue)
+			{
+				strings.Add (stringValue);
+			}
 		}
 
 		/// <summary>
@@ -375,11 +393,69 @@ namespace SpeckleUnity
 				//Clear existing objects including layer objects
 				for (int i = 0; i < streamRoot.childCount; i++)
 				{
-					GameObject.Destroy (streamRoot.GetChild (i));
+					GameObject.Destroy (streamRoot.GetChild (i).gameObject);
 				}
 			}
 
-			deserializedStreamObjects.Clear ();
+			deserializedStreamObjects?.Clear ();
+			speckleObjectLookup?.Clear ();
+			numbers?.Clear ();
+			strings?.Clear ();
+		}
+
+		/// <summary>
+		/// 
+		/// </summary>
+		protected virtual void SetScaleFactorAccordingToStream ()
+		{
+			string units = "";
+
+			bool gotUnits = client.Stream.BaseProperties.TryGetValue ("units", out JToken value);
+
+			if (gotUnits && value != null)
+			{
+				units = value.ToString ().ToLower ();
+
+				switch (units)
+				{
+					case "meters":
+					case "metres":
+						Conversions.scaleFactor = 1;
+						break;
+
+					case "centimeters":
+					case "centimetres":
+						Conversions.scaleFactor = 0.01;
+						break;
+
+					case "millimeters":
+					case "millimetres":
+						Conversions.scaleFactor = 0.001;
+						break;
+
+					case "yards":
+						Conversions.scaleFactor = 0.914402757;
+						break;
+
+					case "feet":
+						Conversions.scaleFactor = 0.304799990;
+						break;
+
+					case "inches":
+						Conversions.scaleFactor = 0.025399986;
+						break;
+
+					default:
+						Conversions.scaleFactor = 0.01;
+						Debug.LogWarning (units + " is not a recognised unit, default scale factor will be 0.001 (millimetres to metres).");
+						break;
+				}
+			}
+			else
+			{
+				Conversions.scaleFactor = 0.01;
+				Debug.LogWarning ("No unit data found on stream, default scale factor will be 0.001 (millimetres to metres).");
+			}			
 		}
 	}
 }

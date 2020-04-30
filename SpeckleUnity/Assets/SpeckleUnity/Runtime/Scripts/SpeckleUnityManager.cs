@@ -61,13 +61,6 @@ namespace SpeckleUnity
 		public Material pointMaterial;
 
 		/// <summary>
-		/// A value for easily setting the static <c>Conversions.scaleFactor</c> value via the inspector.
-		/// This class assigs the value once on <c>Start ()</c>. Default value is 0.001 because it's assuming
-		/// that the stream was modelled in milimeters and needs to be scaled to 
-		/// </summary>
-		[SerializeField] protected double scaleFactor = 0.001;
-
-		/// <summary>
 		/// An optional rendering rule to inject into the stream update process which defines how the stream looks in the scene.
 		/// </summary>
 		public RenderingRule renderingRule;
@@ -103,7 +96,6 @@ namespace SpeckleUnity
 		protected virtual async void Start ()
 		{
 			SpeckleInitializer.Initialize (false);
-			Conversions.scaleFactor = scaleFactor;
 
 			await RunStartBehaviourAsync ();
 		}
@@ -116,14 +108,8 @@ namespace SpeckleUnity
 		{
 			if (onStartBehaviour > StartMode.DoNothing)
 			{
-				if (!string.IsNullOrWhiteSpace (startLoginEmail) && !string.IsNullOrWhiteSpace (startLoginPassword))
-				{
-					await LoginAsync (startLoginEmail, startLoginPassword, null);
-				}
-				else
-				{
-					Debug.LogError ("The Email and Password fields need to be filled in if you wish to login on start.");
-				}
+				SetServerUrl (serverUrl);
+				await LoginAsync (startLoginEmail, startLoginPassword, null);
 			}
 
 			if (onStartBehaviour > StartMode.JustLogin)
@@ -145,8 +131,12 @@ namespace SpeckleUnity
 		/// <param name="newServerUrl">The url of the new Speckle server to point to suffixed with "/api/".</param>
 		public virtual void SetServerUrl (string newServerUrl)
 		{
-			Logout ();
-			serverUrl = newServerUrl;
+			if (string.IsNullOrWhiteSpace (newServerUrl))
+			{
+				throw new InvalidOperationException ("The server URL can't be null");
+			}
+
+			serverUrl = newServerUrl.Trim ();
 		}
 
 		/// <summary>
@@ -160,13 +150,18 @@ namespace SpeckleUnity
 		/// is passed. Need to be using the <c>SpeckleCore</c> namespace to access this type.</remarks>
 		public virtual async Task LoginAsync (string email, string password, Action<User> callBack)
 		{
-			SpeckleApiClient loginClient = new SpeckleApiClient (serverUrl);
+			if (string.IsNullOrWhiteSpace (email) || string.IsNullOrWhiteSpace (password))
+			{
+				throw new InvalidOperationException ("The email and password arguments both need to be provided if you wish to login.");
+			}
 
-			User user = new User { Email = email, Password = password };
+			SpeckleApiClient loginClient = new SpeckleApiClient (serverUrl.Trim ());
 
-			ResponseUser userGet = await loginClient.UserLoginAsync (user);
+			User user = new User { Email = email.Trim (), Password = password.Trim () };
 
 			Debug.Log ("Atempting login");
+
+			ResponseUser userGet = await loginClient.UserLoginAsync (user);
 
 			if (userGet == null)
 			{
@@ -189,8 +184,11 @@ namespace SpeckleUnity
 		/// </summary>
 		public virtual void Logout ()
 		{
-			loggedInUser = null;
-			ClearReceivers ();
+			if (loggedInUser != null)
+			{
+				loggedInUser = null;
+				ClearReceivers ();
+			}
 		}
 
 		/// <summary>
@@ -208,7 +206,7 @@ namespace SpeckleUnity
 				throw new UnauthorizedAccessException ("Need to be logged in before getting project data.");
 			}
 
-			SpeckleApiClient userProjectsClient = new SpeckleApiClient (serverUrl);
+			SpeckleApiClient userProjectsClient = new SpeckleApiClient (serverUrl.Trim ());
 			userProjectsClient.AuthToken = loggedInUser.Apitoken;
 
 			ResponseProject projectsGet = await userProjectsClient.ProjectGetAllAsync ();
@@ -245,7 +243,7 @@ namespace SpeckleUnity
 				throw new UnauthorizedAccessException ("Need to be logged in before getting stream meta data.");
 			}
 
-			SpeckleApiClient userStreamsClient = new SpeckleApiClient (serverUrl);
+			SpeckleApiClient userStreamsClient = new SpeckleApiClient (serverUrl.Trim ());
 			userStreamsClient.AuthToken = loggedInUser.Apitoken;
 
 			ResponseStream streamsGet = await userStreamsClient.StreamsGetAllAsync (null);
@@ -366,13 +364,18 @@ namespace SpeckleUnity
 		public virtual void RemoveReceiver (int receiverIndex)
 		{
 			if (receiverIndex < 0 || receiverIndex >= receivers.Count)
-				throw new Exception ("Receiver could not be removed because it does not exist");
+				throw new ArgumentOutOfRangeException ("Receiver could not be removed because it does not exist");
 
 			SpeckleUnityReceiver receiver = receivers[receiverIndex];
 			receivers.RemoveAt (receiverIndex);
 
 			receiver.RemoveContents ();
-			receiver.client?.Dispose (true);
+			receiver.client?.Dispose ();
+
+			if (receiver.streamRoot.name.Contains ("Default Stream Root: "))
+			{
+				Destroy (receiver.streamRoot.gameObject);
+			}
 		}
 
 		/// <summary>
@@ -380,12 +383,20 @@ namespace SpeckleUnity
 		/// </summary>
 		public virtual void ClearReceivers ()
 		{
-			for (int i = 0; i < receivers.Count; i++)
+			for (int i = receivers.Count - 1; i >= 0; i--)
 			{
 				RemoveReceiver (i);
 			}
 		}
 
+		/// <summary>
+		/// Get a <c>SpeckleStream</c> object for each receiver.
+		/// </summary>
+		/// <returns>An array of <c>SpeckleStream</c>s.</returns>
+		public virtual SpeckleStream[] GetCurrentReceivedStreamMetaData ()
+		{
+			return receivers.Select (r => r.client.Stream).ToArray ();
+		}
 
 		/// <summary>
 		/// Checks through all receivers and looks up their <c>GameObject</c> to <c>SpeckleObject</c> dictionaries and outputs 
@@ -418,13 +429,104 @@ namespace SpeckleUnity
 		/// <summary>
 		/// 
 		/// </summary>
+		/// <param name="streamID"></param>
+		public virtual List<float> GetNumbersFromStream (string streamID)
+		{
+			for (int i = 0; i < receivers.Count; i++)
+			{
+				if (receivers[i].streamID == streamID)
+				{
+					return GetNumbersFromStream (i);
+				}
+			}
+
+			return GetNumbersFromStream (-1);
+		}
+
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="receiverIndex"></param>
+		/// <returns></returns>
+		public virtual List<float> GetNumbersFromStream (int receiverIndex)
+		{
+			if (receiverIndex < 0 || receiverIndex >= receivers.Count)
+				throw new ArgumentOutOfRangeException ("Receiver could not be accessed because it does not exist");
+
+			return receivers[receiverIndex].numbers;
+		}
+
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="streamID"></param>
+		public virtual List<string> GetStringsFromStream (string streamID)
+		{
+			for (int i = 0; i < receivers.Count; i++)
+			{
+				if (receivers[i].streamID == streamID)
+				{
+					return GetStringsFromStream (i);
+				}
+			}
+
+			return GetStringsFromStream (-1);
+		}
+
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="receiverIndex"></param>
+		/// <returns></returns>
+		public virtual List<string> GetStringsFromStream (int receiverIndex)
+		{
+			if (receiverIndex < 0 || receiverIndex >= receivers.Count)
+				throw new ArgumentOutOfRangeException ("Receiver could not be accessed because it does not exist");
+
+			return receivers[receiverIndex].strings;
+		}
+
+		/// <summary>
+		/// 
+		/// </summary>
 		/// <param name="receiverIndex"></param>
 		public virtual void ReApplyRenderingRule (int receiverIndex)
 		{
 			if (receiverIndex < 0 || receiverIndex >= receivers.Count)
-				throw new Exception ("Receiver could not be updated because it does not exist");
+				throw new ArgumentOutOfRangeException ("Receiver could not be updated because it does not exist");
 
 			receivers[receiverIndex].ReApplyRenderingRule ();
+		}
+
+		/// <summary>
+		/// Creates a bounding box that tightly encapsulates all objects in all current streams.
+		/// </summary>
+		/// <returns>A bounding box value encapsulating all stream objects in the scene.</returns>
+		public virtual Bounds GetBoundsForAllReceivedStreams ()
+		{
+			if (receivers.Count == 0) throw new InvalidOperationException ("There are no streams");
+			if (receivers[0].streamRoot.childCount == 0) throw new InvalidOperationException ("There are no stream objects");
+
+			MeshRenderer[] meshes = receivers[0].streamRoot.GetComponentsInChildren<MeshRenderer> ();
+
+			Bounds bounds = meshes[0].bounds;
+
+			for (int i = 1; i < meshes.Length; i++)
+			{
+				bounds.Encapsulate (meshes[i].bounds);
+			}
+
+			for (int i = 1; i < receivers.Count; i++)
+			{
+				MeshRenderer[] otherMeshes = receivers[i].streamRoot.GetComponentsInChildren<MeshRenderer> ();
+
+				for (int j = 0; j < otherMeshes.Length; j++)
+				{
+					bounds.Encapsulate (otherMeshes[j].bounds);
+				}
+			}
+
+			return bounds;
 		}
 	}
 

@@ -1,0 +1,9 @@
+<linker>
+  <!--Preserve an entire assembly-->
+  <assembly fullname="SpeckleUnity" preserve="all"/>
+  <assembly fullname="SpeckleCore" preserve="all"/>
+  <assembly fullname="SpeckleCoreGeometry" preserve="all"/>
+  <assembly fullname="SpeckleCoreGeometryClasses" preserve="all"/>
+  <assembly fullname="SpeckleElements" preserve="all"/>
+  <assembly fullname="SpeckleElementsClasses" preserve="all"/>
+</linker>

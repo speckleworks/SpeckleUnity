@@ -85,6 +85,9 @@ namespace SpeckleUnity
 			renderer = meshRenderer = gameObject.AddComponent<MeshRenderer> ();
 			Mesh mesh = gameObject.AddComponent<MeshFilter> ().mesh;
 
+			if (verts.Length >= 65535)
+				mesh.indexFormat = UnityEngine.Rendering.IndexFormat.UInt32;
+
 			mesh.vertices = verts;
 			mesh.triangles = tris;
 			mesh.RecalculateNormals ();
@@ -171,7 +174,12 @@ namespace SpeckleUnity
 		/// <summary>
 		/// 
 		/// </summary>
-		public float value;
+		private readonly float value;
+
+		/// <summary>
+		/// 
+		/// </summary>
+		public float Value => value;
 
 		/// <summary>
 		/// 
