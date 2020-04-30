@@ -6,6 +6,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using SpeckleCore;
 using System.Threading.Tasks;
+using Newtonsoft.Json.Linq;
 
 namespace SpeckleUnity
 {
@@ -194,6 +195,8 @@ namespace SpeckleUnity
 			{
 
 				client.Stream = streamGet.Resource;
+
+				SetScaleFactorAccordingToStream ();
 
 				string[] payload = client.Stream.Objects.Where (o => o.Type == "Placeholder").Select (obj => obj._id).ToArray ();
 
@@ -398,6 +401,61 @@ namespace SpeckleUnity
 			speckleObjectLookup?.Clear ();
 			numbers?.Clear ();
 			strings?.Clear ();
+		}
+
+		/// <summary>
+		/// 
+		/// </summary>
+		protected virtual void SetScaleFactorAccordingToStream ()
+		{
+			string units = "";
+
+			bool gotUnits = client.Stream.BaseProperties.TryGetValue ("units", out JToken value);
+
+			if (gotUnits && value != null)
+			{
+				units = value.ToString ().ToLower ();
+
+				switch (units)
+				{
+					case "meters":
+					case "metres":
+						Conversions.scaleFactor = 1;
+						break;
+
+					case "centimeters":
+					case "centimetres":
+						Conversions.scaleFactor = 0.01;
+						break;
+
+					case "millimeters":
+					case "millimetres":
+						Conversions.scaleFactor = 0.001;
+						break;
+
+					case "yards":
+						Conversions.scaleFactor = 0.914402757;
+						break;
+
+					case "feet":
+						Conversions.scaleFactor = 0.304799990;
+						break;
+
+					case "inches":
+						Conversions.scaleFactor = 0.025399986;
+						break;
+
+					default:
+						Conversions.scaleFactor = 0.01;
+						Debug.LogWarning (units + " is not a recognised unit, default scale factor will be 0.001 (millimetres to metres).");
+						break;
+				}
+			}
+			else
+			{
+				Conversions.scaleFactor = 0.01;
+				Debug.LogWarning ("No unit data found on stream, default scale factor will be 0.001 (millimetres to metres).");
+			}			
 		}
 	}
 }

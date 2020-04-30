@@ -61,13 +61,6 @@ namespace SpeckleUnity
 		public Material pointMaterial;
 
 		/// <summary>
-		/// A value for easily setting the static <c>Conversions.scaleFactor</c> value via the inspector.
-		/// This class assigs the value once on <c>Start ()</c>. Default value is 0.001 because it's assuming
-		/// that the stream was modelled in milimeters and needs to be scaled to 
-		/// </summary>
-		[SerializeField] protected double scaleFactor = 0.001;
-
-		/// <summary>
 		/// An optional rendering rule to inject into the stream update process which defines how the stream looks in the scene.
 		/// </summary>
 		public RenderingRule renderingRule;
@@ -103,7 +96,6 @@ namespace SpeckleUnity
 		protected virtual async void Start ()
 		{
 			SpeckleInitializer.Initialize (false);
-			Conversions.scaleFactor = scaleFactor;
 
 			await RunStartBehaviourAsync ();
 		}
