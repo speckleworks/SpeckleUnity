@@ -108,7 +108,7 @@
 <h1 id="supported-platforms">Supported Platforms</h1>
 
 <p>Since the package is still in preview, support for all of Unity's build options hasn't been tested yet. This is mainly due to lack of hardware to test the builds but if you do discover a new working possible build option (or a way to achieve it) please let us know!</p>
-<p>Here is a table breaking down all the build options in Unity and if SpeckleUnity is known to support them:</p>
+<p>Here is a table breaking down all the build options in Unity and if SpeckleUnity is known to support them. This list is inclusive of both .NET Framework 4.x and .NET Standard 2.0:</p>
 <table>
 <thead>
 <tr>
@@ -133,14 +133,14 @@
 </tr>
 <tr>
 <td>Windows IL2CPP</td>
-<td></td>
 <td>X</td>
+<td></td>
 <td></td>
 </tr>
 <tr>
 <td>Android IL2CPP</td>
-<td></td>
 <td>X</td>
+<td></td>
 <td></td>
 </tr>
 <tr>
@@ -170,6 +170,19 @@
 </tbody>
 </table>
 <p>WebGl isn't supported because web sockets simply won't work on the platform via Unity. For web viewing purposes please check out <a href="https://app.speckle.systems/">https://app.speckle.systems/</a> as an alternative.</p>
+<h1 id="ios-and-il2cpp">iOS and IL2CPP</h1>
+<p>In order for Unity to successfully build to iOS (untested) and any other target that uses an IL2CPP scripting backend, a <code>link.xml</code> file needs to be added to the root of your project's Assets folder with the following content to prevent the build process from stripping any of Speckle's code:</p>
+<pre><code class="lang-xml">&lt;linker&gt;
+  &lt;!--Preserve these entire assemblies--&gt;
+  &lt;assembly fullname=&quot;SpeckleUnity&quot; preserve=&quot;all&quot;/&gt;
+  &lt;assembly fullname=&quot;SpeckleCore&quot; preserve=&quot;all&quot;/&gt;
+  &lt;assembly fullname=&quot;SpeckleCoreGeometry&quot; preserve=&quot;all&quot;/&gt;
+  &lt;assembly fullname=&quot;SpeckleCoreGeometryClasses&quot; preserve=&quot;all&quot;/&gt;
+  &lt;assembly fullname=&quot;SpeckleElements&quot; preserve=&quot;all&quot;/&gt;
+  &lt;assembly fullname=&quot;SpeckleElementsClasses&quot; preserve=&quot;all&quot;/&gt;
+&lt;/linker&gt;
+</code></pre>
+<p>If you have additional Speckle Kits or other bits of code that you want to mark as preserved during the build process, just add those to this file before building.</p>
 </article>
           </div>
           

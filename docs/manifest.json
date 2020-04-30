@@ -33,7 +33,7 @@
       "output": {
         ".html": {
           "relative_path": "api/SpeckleUnity.Conversions.html",
-          "hash": "5xzLMgc4rkKr0jx30Dk7og=="
+          "hash": "1iWCvKMS+kKle1etoLijEg=="
         }
       },
       "is_incremental": false,
@@ -48,7 +48,7 @@
           "hash": "wbm8T8dgt0PxQlOzTIgytA=="
         }
       },
-      "is_incremental": false,
+      "is_incremental": true,
       "version": ""
     },
     {
@@ -60,7 +60,7 @@
           "hash": "u65UR2nILYg5f3SOKVxFWQ=="
         }
       },
-      "is_incremental": false,
+      "is_incremental": true,
       "version": ""
     },
     {
@@ -117,7 +117,7 @@
       "output": {
         ".html": {
           "relative_path": "api/SpeckleUnity.SpeckleUnityManager.html",
-          "hash": "FJSzC3pE7iKuNAqVHveNpQ=="
+          "hash": "trAUABSuAmMPBgaJqv+C5g=="
         }
       },
       "is_incremental": false,
@@ -141,7 +141,7 @@
       "output": {
         ".html": {
           "relative_path": "api/SpeckleUnity.SpeckleUnityNumber.html",
-          "hash": "thaezvIvCVSwXOGFFTpITw=="
+          "hash": "DsFyxABHA4jQfCM4wxwDxw=="
         }
       },
       "is_incremental": false,
@@ -360,7 +360,7 @@
           "hash": "3x9exgqJR9nEdm6Vh9Ya+A=="
         }
       },
-      "is_incremental": false,
+      "is_incremental": true,
       "version": ""
     },
     {
@@ -372,7 +372,7 @@
           "hash": "ovs54hG7ihbOLWDO94B2Zw=="
         }
       },
-      "is_incremental": false,
+      "is_incremental": true,
       "version": ""
     },
     {
@@ -381,7 +381,7 @@
       "output": {
         ".html": {
           "relative_path": "articles/gettingStarted.html",
-          "hash": "2Tog34QLoHaM/Gn5ijaU1A=="
+          "hash": "O59XAq0+Tp1d9OGjYm95dQ=="
         }
       },
       "is_incremental": false,
@@ -396,7 +396,7 @@
           "hash": "LAQqFZ6v7vakyW5adv+Qcg=="
         }
       },
-      "is_incremental": false,
+      "is_incremental": true,
       "version": ""
     },
     {
@@ -429,7 +429,7 @@
       "output": {
         ".html": {
           "relative_path": "articles/supportedPlatforms.html",
-          "hash": "8Ke1qdC3hB6stURQ6mRzJg=="
+          "hash": "vaiHp91TLd25YSjCG9+T0w=="
         }
       },
       "is_incremental": false,
@@ -505,13 +505,13 @@
           "can_incremental": true,
           "incrementalPhase": "build",
           "total_file_count": 8,
-          "skipped_file_count": 4
+          "skipped_file_count": 6
         },
         "ManagedReferenceDocumentProcessor": {
           "can_incremental": true,
           "incrementalPhase": "build",
           "total_file_count": 29,
-          "skipped_file_count": 2
+          "skipped_file_count": 3
         },
         "ResourceDocumentProcessor": {
           "can_incremental": false,

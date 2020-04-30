@@ -372,7 +372,7 @@ namespace SpeckleUnity
 		public virtual void RemoveReceiver (int receiverIndex)
 		{
 			if (receiverIndex < 0 || receiverIndex >= receivers.Count)
-				throw new InvalidOperationException ("Receiver could not be removed because it does not exist");
+				throw new ArgumentOutOfRangeException ("Receiver could not be removed because it does not exist");
 
 			SpeckleUnityReceiver receiver = receivers[receiverIndex];
 			receivers.RemoveAt (receiverIndex);
@@ -437,11 +437,71 @@ namespace SpeckleUnity
 		/// <summary>
 		/// 
 		/// </summary>
+		/// <param name="streamID"></param>
+		public virtual List<float> GetNumbersFromStream (string streamID)
+		{
+			for (int i = 0; i < receivers.Count; i++)
+			{
+				if (receivers[i].streamID == streamID)
+				{
+					return GetNumbersFromStream (i);
+				}
+			}
+
+			return GetNumbersFromStream (-1);
+		}
+
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="receiverIndex"></param>
+		/// <returns></returns>
+		public virtual List<float> GetNumbersFromStream (int receiverIndex)
+		{
+			if (receiverIndex < 0 || receiverIndex >= receivers.Count)
+				throw new ArgumentOutOfRangeException ("Receiver could not be accessed because it does not exist");
+
+			return receivers[receiverIndex].numbers;
+		}
+
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="streamID"></param>
+		public virtual List<string> GetStringsFromStream (string streamID)
+		{
+			for (int i = 0; i < receivers.Count; i++)
+			{
+				if (receivers[i].streamID == streamID)
+				{
+					return GetStringsFromStream (i);
+				}
+			}
+
+			return GetStringsFromStream (-1);
+		}
+
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="receiverIndex"></param>
+		/// <returns></returns>
+		public virtual List<string> GetStringsFromStream (int receiverIndex)
+		{
+			if (receiverIndex < 0 || receiverIndex >= receivers.Count)
+				throw new ArgumentOutOfRangeException ("Receiver could not be accessed because it does not exist");
+
+			return receivers[receiverIndex].strings;
+		}
+
+		/// <summary>
+		/// 
+		/// </summary>
 		/// <param name="receiverIndex"></param>
 		public virtual void ReApplyRenderingRule (int receiverIndex)
 		{
 			if (receiverIndex < 0 || receiverIndex >= receivers.Count)
-				throw new Exception ("Receiver could not be updated because it does not exist");
+				throw new ArgumentOutOfRangeException ("Receiver could not be updated because it does not exist");
 
 			receivers[receiverIndex].ReApplyRenderingRule ();
 		}

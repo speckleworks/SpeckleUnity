@@ -38,6 +38,6 @@ This will add a new receiver instance which you can further configure with the I
 
 ## Step 3: Receive a Stream
 
-If you enter play mode now, assuming you configured your manager correctly, you should be able to see your stream appear after a moment, rendered with the material you assigned! **The waiting time is proportional to the size of the stream**. This includes the number of objects in the stream as well as the size of the meta data per object. As your stream is being processed, the Unity console should show you logs of what the progress percentage is or if anything went wrong.
+If you enter play mode now, assuming you configured your manager correctly, you should be able to see your stream appear after a moment, rendered with the material you assigned! **The waiting time is proportional to the size of the stream**. This includes the number of objects in the stream as well as the size of the meta data per object. To get feedback on how far along the download process is, see [this part of the Example Code section](https://speckleworks.github.io/SpeckleUnity/articles/exampleCode.html#get-update-percentage).
 
 ![Figure4](~/images/gettingStarted4.png)

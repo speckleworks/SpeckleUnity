@@ -740,6 +740,228 @@ is passed. Need to be using the <code>SpeckleCore</code> namespace to access thi
 </div>
   
   
+  <a id="SpeckleUnity_SpeckleUnityManager_GetBoundsForAllReceivedStreams_" data-uid="SpeckleUnity.SpeckleUnityManager.GetBoundsForAllReceivedStreams*"></a>
+  <h4 id="SpeckleUnity_SpeckleUnityManager_GetBoundsForAllReceivedStreams" data-uid="SpeckleUnity.SpeckleUnityManager.GetBoundsForAllReceivedStreams">GetBoundsForAllReceivedStreams()</h4>
+  <div class="markdown level1 summary"><p>Creates a bounding box that tightly encapsulates all objects in all current streams.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual Bounds GetBoundsForAllReceivedStreams()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Bounds</span></td>
+        <td><p>A bounding box value encapsulating all stream objects in the scene.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="SpeckleUnity_SpeckleUnityManager_GetCurrentReceivedStreamMetaData_" data-uid="SpeckleUnity.SpeckleUnityManager.GetCurrentReceivedStreamMetaData*"></a>
+  <h4 id="SpeckleUnity_SpeckleUnityManager_GetCurrentReceivedStreamMetaData" data-uid="SpeckleUnity.SpeckleUnityManager.GetCurrentReceivedStreamMetaData">GetCurrentReceivedStreamMetaData()</h4>
+  <div class="markdown level1 summary"><p>Get a <code>SpeckleStream</code> object for each receiver.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual SpeckleStream[] GetCurrentReceivedStreamMetaData()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">SpeckleStream</span>[]</td>
+        <td><p>An array of <code>SpeckleStream</code>s.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="SpeckleUnity_SpeckleUnityManager_GetNumbersFromStream_" data-uid="SpeckleUnity.SpeckleUnityManager.GetNumbersFromStream*"></a>
+  <h4 id="SpeckleUnity_SpeckleUnityManager_GetNumbersFromStream_System_Int32_" data-uid="SpeckleUnity.SpeckleUnityManager.GetNumbersFromStream(System.Int32)">GetNumbersFromStream(Int32)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual List&lt;float&gt; GetNumbersFromStream(int receiverIndex)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Int32</span></td>
+        <td><span class="parametername">receiverIndex</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Collections.Generic.List</span>&lt;<span class="xref">System.Single</span>&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="SpeckleUnity_SpeckleUnityManager_GetNumbersFromStream_" data-uid="SpeckleUnity.SpeckleUnityManager.GetNumbersFromStream*"></a>
+  <h4 id="SpeckleUnity_SpeckleUnityManager_GetNumbersFromStream_System_String_" data-uid="SpeckleUnity.SpeckleUnityManager.GetNumbersFromStream(System.String)">GetNumbersFromStream(String)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual List&lt;float&gt; GetNumbersFromStream(string streamID)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">streamID</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Collections.Generic.List</span>&lt;<span class="xref">System.Single</span>&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="SpeckleUnity_SpeckleUnityManager_GetStringsFromStream_" data-uid="SpeckleUnity.SpeckleUnityManager.GetStringsFromStream*"></a>
+  <h4 id="SpeckleUnity_SpeckleUnityManager_GetStringsFromStream_System_Int32_" data-uid="SpeckleUnity.SpeckleUnityManager.GetStringsFromStream(System.Int32)">GetStringsFromStream(Int32)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual List&lt;string&gt; GetStringsFromStream(int receiverIndex)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Int32</span></td>
+        <td><span class="parametername">receiverIndex</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Collections.Generic.List</span>&lt;<span class="xref">System.String</span>&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="SpeckleUnity_SpeckleUnityManager_GetStringsFromStream_" data-uid="SpeckleUnity.SpeckleUnityManager.GetStringsFromStream*"></a>
+  <h4 id="SpeckleUnity_SpeckleUnityManager_GetStringsFromStream_System_String_" data-uid="SpeckleUnity.SpeckleUnityManager.GetStringsFromStream(System.String)">GetStringsFromStream(String)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual List&lt;string&gt; GetStringsFromStream(string streamID)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">streamID</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Collections.Generic.List</span>&lt;<span class="xref">System.String</span>&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
   <a id="SpeckleUnity_SpeckleUnityManager_InitializeAllClientsAsync_" data-uid="SpeckleUnity.SpeckleUnityManager.InitializeAllClientsAsync*"></a>
   <h4 id="SpeckleUnity_SpeckleUnityManager_InitializeAllClientsAsync" data-uid="SpeckleUnity.SpeckleUnityManager.InitializeAllClientsAsync">InitializeAllClientsAsync()</h4>
   <div class="markdown level1 summary"><p>Loops through each receiver and starts each of their initialization coroutines.</p>
