@@ -20,7 +20,7 @@ See instructions in [this](https://speckleworks.github.io/SpeckleUnity/articles/
 
 ## Roadmap
 
-> Roadmap is subject to change. Last reviewed 22nd of April 2020.
+> Roadmap is subject to change. Last reviewed 30th of April 2020.
 
 | Version | Defining Feature                  						  				         |
 | ------- | -------------------------------------------------------------------------------- |
@@ -30,5 +30,7 @@ See instructions in [this](https://speckleworks.github.io/SpeckleUnity/articles/
 | ~0.4~   | ~Spawn geometry in transform heirarchy based on layer data~		    	         |
 | ~0.5~   | ~User login API, get Stream API and no dependency on a local install of Speckle~ |
 | ~0.6~   | ~Android Support, Rendering Rule API and Async Refactor~                         |
-| 0.7     | Local caching of Speckle streams			                                     |
-| 0.8     | Implement SpeckleUnitySender API    			                                 |
+| ~0.7~   | ~Support for IL2CPP, .NET Standard, Unity 2020.1, SpeckleNumbers and SpeckleText~|
+| 0.8     | Local caching of Speckle streams			                                     |
+| 0.9     | Implement SpeckleUnitySender API    			                                 |
+| 1.0     | Production ready (out of preview)      			                                 |
