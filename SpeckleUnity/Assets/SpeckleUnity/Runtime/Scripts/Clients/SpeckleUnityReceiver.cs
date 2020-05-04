@@ -215,7 +215,6 @@ namespace SpeckleUnity
 					string[] subPayload = payload.Skip (i).Take (maxObjRequestCount).ToArray ();
 
 					// get it sync as this is always execed out of the main thread
-					//Task<ResponseObject> getTask = Client.ObjectGetBulkAsync(subPayload, "omit=displayValue");
 					ResponseObject response = await client.ObjectGetBulkAsync (subPayload, "");
 
 					// put them in our bucket
@@ -309,17 +308,31 @@ namespace SpeckleUnity
 		protected Transform FindParentInHierarchy (string[] parents)
 		{
 			int layerDepth = 0;
+			bool foundNextParent;
 			Transform layerToSearchIn = streamRoot;
+
 			while (layerDepth < parents.Length)
 			{
+				foundNextParent = false;
+
 				for (int i = 0; i < layerToSearchIn.childCount; i++)
 				{
 					if (layerToSearchIn.GetChild (i).name == parents[layerDepth])
 					{
 						layerToSearchIn = layerToSearchIn.GetChild (i);
 						layerDepth++;
+						foundNextParent = true;
 						break;
 					}
+				}
+
+				if (foundNextParent == false)
+				{
+					Transform emptyLayer = new GameObject ().transform;
+					emptyLayer.name = parents[layerDepth];
+					emptyLayer.parent = layerToSearchIn;
+					layerToSearchIn = emptyLayer;
+					layerDepth++;
 				}
 			}
 
@@ -353,9 +366,11 @@ namespace SpeckleUnity
 					}
 				}
 
+				// assign a material
 				geometry.renderer.material = manager.meshMaterial;
 
-				manager.renderingRule?.ApplyRuleToObject (geometry.renderer, client.Stream.Objects[objectIndex], propertyBlock);
+				// assign properties to this renderer
+				manager.renderingRule?.ApplyRuleToObject (geometry.renderer, client.Stream, objectIndex, propertyBlock);
 			}
 
 			if (deserializedStreamObject is float numberValue)
@@ -374,11 +389,13 @@ namespace SpeckleUnity
 		/// </summary>
 		public virtual void ReApplyRenderingRule ()
 		{
+			if (deserializedStreamObjects == null) return;
+
 			for (int i = 0; i < deserializedStreamObjects.Count; i++)
 			{
 				if (deserializedStreamObjects[i] is SpeckleUnityGeometry geometry)
 				{
-					manager.renderingRule?.ApplyRuleToObject (geometry.renderer, client.Stream.Objects[i], propertyBlock);
+					manager.renderingRule?.ApplyRuleToObject (geometry.renderer, client.Stream, i, propertyBlock);
 				}
 			}
 		}

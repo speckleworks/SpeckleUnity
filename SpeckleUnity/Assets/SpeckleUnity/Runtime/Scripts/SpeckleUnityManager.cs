@@ -63,7 +63,7 @@ namespace SpeckleUnity
 		/// <summary>
 		/// An optional rendering rule to inject into the stream update process which defines how the stream looks in the scene.
 		/// </summary>
-		public RenderingRule renderingRule;
+		[SerializeField] protected internal RenderingRule renderingRule;
 
 		/// <summary>
 		/// Speed value to allow for instantiation to happen gradually over many frames in case of 
@@ -489,13 +489,18 @@ namespace SpeckleUnity
 		/// <summary>
 		/// 
 		/// </summary>
-		/// <param name="receiverIndex"></param>
-		public virtual void ReApplyRenderingRule (int receiverIndex)
+		/// <param name="newRenderingRule"></param>
+		public virtual void SetRenderingRule (RenderingRule newRenderingRule)
 		{
-			if (receiverIndex < 0 || receiverIndex >= receivers.Count)
-				throw new ArgumentOutOfRangeException ("Receiver could not be updated because it does not exist");
+			if (newRenderingRule == null) 
+				throw new ArgumentNullException ("Cannot set a null rendering rule.");
 
-			receivers[receiverIndex].ReApplyRenderingRule ();
+			renderingRule = newRenderingRule;
+
+			for (int i = 0; i < receivers.Count; i++)
+			{
+				receivers[i].ReApplyRenderingRule ();
+			}
 		}
 
 		/// <summary>
@@ -504,8 +509,8 @@ namespace SpeckleUnity
 		/// <returns>A bounding box value encapsulating all stream objects in the scene.</returns>
 		public virtual Bounds GetBoundsForAllReceivedStreams ()
 		{
-			if (receivers.Count == 0) throw new InvalidOperationException ("There are no streams");
-			if (receivers[0].streamRoot.childCount == 0) throw new InvalidOperationException ("There are no stream objects");
+			if (receivers.Count == 0) 
+				return new Bounds (Vector3.zero, Vector3.one);
 
 			MeshRenderer[] meshes = receivers[0].streamRoot.GetComponentsInChildren<MeshRenderer> ();
 

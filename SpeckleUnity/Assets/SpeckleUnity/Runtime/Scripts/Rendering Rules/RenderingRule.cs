@@ -14,8 +14,9 @@ namespace SpeckleUnity
 		/// 
 		/// </summary>
 		/// <param name="renderer"></param>
-		/// <param name="speckleObject"></param>
+		/// <param name="speckleStream"></param>
+		/// <param name="objectIndex"></param>
 		/// <param name="block"></param>
-		public abstract void ApplyRuleToObject (Renderer renderer, SpeckleObject speckleObject, MaterialPropertyBlock block);
+		public abstract void ApplyRuleToObject (Renderer renderer, SpeckleStream speckleStream, int objectIndex, MaterialPropertyBlock block);
 	}
 }

@@ -9,8 +9,8 @@ namespace SpeckleUnity
 	/// <summary>
 	/// 
 	/// </summary>
-	[CreateAssetMenu (menuName = "SpeckleUnity/Rendering Rule: Color By Type")]
-	public class ColorByType : RenderingRule
+	[CreateAssetMenu (menuName = "SpeckleUnity/Rendering Rule: Color By Layer")]
+	public class ColorByLayer : RenderingRule
 	{
 		/// <summary>
 		/// 
@@ -55,51 +55,29 @@ namespace SpeckleUnity
 
 			if (colorLookup.Count == 0) colorKey.Clear ();
 
-			if (!colorLookup.ContainsKey (speckleStream.Objects[objectIndex].Type))
+			List<Layer> layers = speckleStream.Layers;
+
+			for (int i = 0; i < layers.Count; i++)
 			{
-				colorToApply = gradient.Evaluate (Random.Range (0f, 1f));
+				if (!colorLookup.ContainsKey (layers[i].Name))
+				{
+					colorToApply = gradient.Evaluate (Random.Range (0f, 1f));
 
-				colorLookup.Add (speckleStream.Objects[objectIndex].Type, colorToApply);
-				colorKey.Add (new ColorKey (speckleStream.Objects[objectIndex].Type, colorToApply));
+					colorLookup.Add (layers[i].Name, colorToApply);
+					colorKey.Add (new ColorKey (layers[i].Name, colorToApply));
+				}
+
+				if (objectIndex >= layers[i].StartIndex && objectIndex < (layers[i].StartIndex + layers[i].ObjectCount))
+				{
+					colorLookup.TryGetValue (layers[i].Name, out colorToApply);
+
+					block.SetColor (colorName, colorToApply);
+					renderer.SetPropertyBlock (block);
+
+					renderer.receiveShadows = receiveShadows;
+					renderer.shadowCastingMode = shadowCastingMode;
+				}
 			}
-			else
-			{
-				colorLookup.TryGetValue (speckleStream.Objects[objectIndex].Type, out colorToApply);
-			}
-
-			block.SetColor (colorName, colorToApply);
-			renderer.SetPropertyBlock (block);
-
-			renderer.receiveShadows = receiveShadows;
-			renderer.shadowCastingMode = shadowCastingMode;
-		}
-	}
-
-	/// <summary>
-	/// 
-	/// </summary>
-	[System.Serializable]
-	public class ColorKey
-	{
-		/// <summary>
-		/// 
-		/// </summary>
-		public string name;
-
-		/// <summary>
-		/// 
-		/// </summary>
-		public Color color;
-
-		/// <summary>
-		/// 
-		/// </summary>
-		/// <param name="n"></param>
-		/// <param name="c"></param>
-		public ColorKey (string n, Color c)
-		{
-			name = n;
-			color = c;
 		}
 	}
 }
