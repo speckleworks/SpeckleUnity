@@ -4,6 +4,7 @@ using System.Linq;
 using UnityEngine;
 using SpeckleCore;
 using SpeckleCoreGeometryClasses;
+using SpeckleStructuralClasses;
 
 //TODO
 //Should this live in a speckle kit along with the speckle unity classes?
@@ -168,7 +169,16 @@ namespace SpeckleUnity
 		/// <returns></returns>
 		public static SpeckleUnityMesh ToNative (this SpeckleMesh speckleMesh)
 		{
-			speckleMesh.Scale (scaleFactor);
+			try
+			{
+				speckleMesh.Properties = null;
+				speckleMesh.Scale (scaleFactor);
+
+			}
+			catch (Exception e)
+			{
+				Debug.Log (e);
+			}
 
 			//convert speckleMesh.Faces into triangle array           
 			List<int> tris = new List<int> ();
@@ -212,6 +222,11 @@ namespace SpeckleUnity
 		{
 			SpeckleMesh speckleMesh = brep.DisplayValue;
 			return speckleMesh.ToNative ();
+		}
+
+		public static SpeckleUnityMesh ToNative (this Structural2DElementMesh structuralMesh)
+		{
+			return ((SpeckleMesh)structuralMesh).ToNative ();
 		}
 	}
 }

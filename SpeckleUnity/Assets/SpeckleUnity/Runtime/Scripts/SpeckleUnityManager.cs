@@ -234,6 +234,7 @@ namespace SpeckleUnity
 		/// available.
 		/// </summary>
 		/// <param name="callBack">A method callback which takes a <c>SpeckleStream</c> array.</param>
+		/// <returns>An async Task which can be awaited with a coroutine or just ignored.</returns>
 		/// <remarks>If download was successful, the resulting array is passed back. If failed, null
 		/// is passed. Need to be using the <c>SpeckleCore</c> namespace to access this type.</remarks>
 		public virtual async Task GetAllStreamMetaDataForUserAsync (Action<SpeckleStream[]> callBack)
@@ -267,6 +268,7 @@ namespace SpeckleUnity
 		/// <summary>
 		/// Loops through each receiver and starts each of their initialization coroutines.
 		/// </summary>
+		/// <returns>An async Task which can be awaited with a coroutine or just ignored.</returns>
 		public virtual async Task InitializeAllClientsAsync ()
 		{
 			Task[] tasks = new Task[receivers.Count];
@@ -306,10 +308,12 @@ namespace SpeckleUnity
 		/// <param name="streamRoot">Optionally, you can provide a <c>Transform</c> for the geometry to be spawned
 		/// under.</param>
 		/// <param name="initialiseOnCreation">Optionally, the stream can have its <c>InitializeClient</c>
-		/// coroutine started after being created.</param>
-		public virtual async Task AddReceiverAsync (string streamID, Transform streamRoot = null, bool initialiseOnCreation = false)
+		/// method started after being created.</param>
+		/// <param name="receiveUpdates"></param>
+		/// <returns>An async Task which can be awaited with a coroutine or just ignored.</returns>
+		public virtual async Task AddReceiverAsync (string streamID, Transform streamRoot = null, bool initialiseOnCreation = false, bool receiveUpdates = true)
 		{
-			SpeckleUnityReceiver newReceiver = new SpeckleUnityReceiver (streamID, streamRoot);
+			SpeckleUnityReceiver newReceiver = new SpeckleUnityReceiver (streamID, streamRoot, receiveUpdates);
 			receivers.Add (newReceiver);
 
 			if (initialiseOnCreation)
