@@ -71,7 +71,7 @@ namespace SpeckleUnity
 		/// 
 		/// </summary>
 		public MeshRenderer meshRenderer;
-		
+
 		/// <summary>
 		/// 
 		/// </summary>
@@ -82,17 +82,38 @@ namespace SpeckleUnity
 		{
 			gameObject.name = type;
 
-			renderer = meshRenderer = gameObject.AddComponent<MeshRenderer> ();
 			Mesh mesh = gameObject.AddComponent<MeshFilter> ().mesh;
+			renderer = meshRenderer = gameObject.AddComponent<MeshRenderer> ();
 
 			if (verts.Length >= 65535)
 				mesh.indexFormat = UnityEngine.Rendering.IndexFormat.UInt32;
 
+			// center transform pivot according to the bounds of the model
+			Bounds meshBounds = new Bounds ();
+			meshBounds.center = verts[0];
+
+			for (int i = 1; i < verts.Length; i++)
+			{
+				meshBounds.Encapsulate (verts[i]);
+			}
+
+			gameObject.transform.position = meshBounds.center;
+
+			// offset mesh vertices
+			for (int i = 0; i < verts.Length; i++)
+			{
+				verts[i] -= meshBounds.center;
+			}
+
+			// assign mesh properties
 			mesh.vertices = verts;
 			mesh.triangles = tris;
+
 			mesh.RecalculateNormals ();
 			mesh.RecalculateTangents ();
-			GenerateUVs (ref mesh);
+
+			//generate uvs doesn't work as intended. Leaving out for now
+			//GenerateUVs (ref mesh);
 
 			//Add mesh collider
 			MeshCollider mc = gameObject.AddComponent<MeshCollider> ();

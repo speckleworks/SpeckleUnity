@@ -169,16 +169,13 @@ namespace SpeckleUnity
 		/// <returns></returns>
 		public static SpeckleUnityMesh ToNative (this SpeckleMesh speckleMesh)
 		{
-			try
+			if (speckleMesh.Vertices.Count == 0 || speckleMesh.Faces.Count == 0)
 			{
-				speckleMesh.Properties = null;
-				speckleMesh.Scale (scaleFactor);
+				return null;
+			}
 
-			}
-			catch (Exception e)
-			{
-				Debug.Log (e);
-			}
+			speckleMesh.Properties = null;
+			speckleMesh.Scale (scaleFactor);
 
 			//convert speckleMesh.Faces into triangle array           
 			List<int> tris = new List<int> ();
@@ -208,9 +205,7 @@ namespace SpeckleUnity
 				}
 			}
 
-			SpeckleUnityMesh result = new SpeckleUnityMesh (speckleMesh.Type, speckleMesh.Vertices.ToPoints (), tris.ToArray ());
-
-			return result;
+			return new SpeckleUnityMesh (speckleMesh.Type, speckleMesh.Vertices.ToPoints (), tris.ToArray ());
 		}
 
 		/// <summary>

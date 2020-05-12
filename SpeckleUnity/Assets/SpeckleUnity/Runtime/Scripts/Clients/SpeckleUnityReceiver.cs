@@ -217,7 +217,7 @@ namespace SpeckleUnity
 				string[] payload = client.Stream.Objects.Where (o => o.Type == "Placeholder").Select (obj => obj._id).ToArray ();
 
 				// how many objects to request from the api at a time
-				int maxObjRequestCount = 100;
+				int maxObjRequestCount = 20;
 
 				// list to hold them into
 				List<SpeckleObject> newObjects = new List<SpeckleObject> ();
@@ -235,7 +235,6 @@ namespace SpeckleUnity
 					newObjects.AddRange (response.Resources);
 
 					manager.onUpdateProgress.Invoke (new SpeckleUnityUpdate (streamID, streamRoot, UpdateType.Global, (float)i / (payload.Length * 2)));
-					await Task.Yield ();
 				}
 
 				// populate the retrieved objects in the original stream's object list

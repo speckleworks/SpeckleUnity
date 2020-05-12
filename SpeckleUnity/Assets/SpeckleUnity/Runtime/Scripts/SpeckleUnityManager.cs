@@ -496,7 +496,7 @@ namespace SpeckleUnity
 		/// <param name="newRenderingRule"></param>
 		public virtual void SetRenderingRule (RenderingRule newRenderingRule)
 		{
-			if (newRenderingRule == null) 
+			if (newRenderingRule == null)
 				throw new ArgumentNullException ("Cannot set a null rendering rule.");
 
 			renderingRule = newRenderingRule;
@@ -513,7 +513,7 @@ namespace SpeckleUnity
 		/// <returns>A bounding box value encapsulating all stream objects in the scene.</returns>
 		public virtual Bounds GetBoundsForAllReceivedStreams ()
 		{
-			if (receivers.Count == 0) 
+			if (receivers.Count == 0)
 				return new Bounds (Vector3.zero, Vector3.one);
 
 			MeshRenderer[] meshes = receivers[0].streamRoot.GetComponentsInChildren<MeshRenderer> ();
