@@ -65,6 +65,11 @@ namespace SpeckleUnity
 		/// </summary>
 		[SerializeField] protected internal RenderingRule renderingRule;
 
+		[Header ("Object Settings")]
+		[SerializeField] protected bool recentreMeshTransforms = false;
+		[SerializeField] [Range (0.1f, 10f)] protected float lineWidth = 1;
+		[SerializeField] [Range (0.1f, 10f)] protected float pointDiameter = 1;
+
 		/// <summary>
 		/// Speed value to allow for instantiation to happen gradually over many frames in case of 
 		/// performance issues with large streams that get initialized / updated.
@@ -96,6 +101,10 @@ namespace SpeckleUnity
 		protected virtual async void Start ()
 		{
 			SpeckleInitializer.Initialize (false);
+
+			SpeckleUnityMesh.RecentreMeshTransforms = recentreMeshTransforms;
+			SpeckleUnityPolyline.LineWidth = lineWidth;
+			SpeckleUnityPoint.PointDiameter = pointDiameter;
 
 			await RunStartBehaviourAsync ();
 		}

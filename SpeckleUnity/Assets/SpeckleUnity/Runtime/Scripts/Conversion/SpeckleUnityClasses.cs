@@ -17,7 +17,7 @@ namespace SpeckleUnity
 	/// <summary>
 	/// Base class for all native SpeckleUnity objects 
 	/// </summary>
-	public class SpeckleUnityObject
+	public abstract class SpeckleUnityObject
 	{
 		//onchanged event for senders to implement to signal a sending update
 		/// <summary>
@@ -70,6 +70,11 @@ namespace SpeckleUnity
 		/// <summary>
 		/// 
 		/// </summary>
+		public static bool RecentreMeshTransforms = false;
+
+		/// <summary>
+		/// 
+		/// </summary>
 		public MeshRenderer meshRenderer;
 
 		/// <summary>
@@ -89,20 +94,23 @@ namespace SpeckleUnity
 				mesh.indexFormat = UnityEngine.Rendering.IndexFormat.UInt32;
 
 			// center transform pivot according to the bounds of the model
-			Bounds meshBounds = new Bounds ();
-			meshBounds.center = verts[0];
-
-			for (int i = 1; i < verts.Length; i++)
+			if (RecentreMeshTransforms)
 			{
-				meshBounds.Encapsulate (verts[i]);
-			}
+				Bounds meshBounds = new Bounds ();
+				meshBounds.center = verts[0];
 
-			gameObject.transform.position = meshBounds.center;
+				for (int i = 1; i < verts.Length; i++)
+				{
+					meshBounds.Encapsulate (verts[i]);
+				}
 
-			// offset mesh vertices
-			for (int i = 0; i < verts.Length; i++)
-			{
-				verts[i] -= meshBounds.center;
+				gameObject.transform.position = meshBounds.center;
+
+				// offset mesh vertices
+				for (int i = 0; i < verts.Length; i++)
+				{
+					verts[i] -= meshBounds.center;
+				}
 			}
 
 			// assign mesh properties
@@ -191,6 +199,11 @@ namespace SpeckleUnity
 		/// <summary>
 		/// 
 		/// </summary>
+		public static float LineWidth = 1;
+
+		/// <summary>
+		/// 
+		/// </summary>
 		public LineRenderer lineRenderer;
 
 		/// <summary>
@@ -204,11 +217,11 @@ namespace SpeckleUnity
 
 			//create line renderer       
 			renderer = lineRenderer = gameObject.AddComponent<LineRenderer> ();
+
 			lineRenderer.positionCount = points.Length;
 			lineRenderer.SetPositions (points);
-			lineRenderer.numCapVertices = 1;
-			lineRenderer.startWidth = 1;
-			lineRenderer.endWidth = 1;
+			lineRenderer.numCornerVertices = lineRenderer.numCapVertices = 8;
+			lineRenderer.startWidth = lineRenderer.endWidth = LineWidth;
 		}
 	}
 
@@ -219,6 +232,11 @@ namespace SpeckleUnity
 	/// </summary>
 	public class SpeckleUnityPoint : SpeckleUnityGeometry
 	{
+		/// <summary>
+		/// 
+		/// </summary>
+		public static float PointDiameter = 1;
+
 		/// <summary>
 		/// 
 		/// </summary>
@@ -243,9 +261,8 @@ namespace SpeckleUnity
 			//create line renderer       
 			renderer = lineRenderer = gameObject.AddComponent<LineRenderer> ();
 			lineRenderer.SetPositions (new Vector3[2] { point, point });
-			lineRenderer.numCapVertices = 1;
-			lineRenderer.startWidth = 1;
-			lineRenderer.endWidth = 1;
+			lineRenderer.numCornerVertices = lineRenderer.numCapVertices = 8;
+			lineRenderer.startWidth = lineRenderer.endWidth = PointDiameter;
 		}
 	}
 
