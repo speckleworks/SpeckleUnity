@@ -85,6 +85,11 @@ namespace SpeckleUnity
 		/// <summary>
 		/// 
 		/// </summary>
+		public Mesh mesh;
+
+		/// <summary>
+		/// 
+		/// </summary>
 		public MeshRenderer meshRenderer;
 
 		/// <summary>
@@ -97,7 +102,7 @@ namespace SpeckleUnity
 		{
 			gameObject.name = type;
 
-			Mesh mesh = gameObject.AddComponent<MeshFilter> ().mesh;
+			mesh = gameObject.AddComponent<MeshFilter> ().mesh;
 			renderer = meshRenderer = gameObject.AddComponent<MeshRenderer> ();
 
 			if (verts.Length >= 65535)

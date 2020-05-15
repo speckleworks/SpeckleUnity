@@ -513,6 +513,68 @@ namespace SpeckleUnity
 		/// <summary>
 		/// 
 		/// </summary>
+		/// <param name="streamID"></param>
+		/// <returns></returns>
+		public virtual List<Mesh> GetMeshesFromStream (string streamID)
+		{
+			for (int i = 0; i < receivers.Count; i++)
+			{
+				if (receivers[i].streamID == streamID)
+				{
+					return GetMeshesFromStream (i);
+				}
+			}
+
+			return GetMeshesFromStream (-1);
+		}
+
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="receiverIndex"></param>
+		/// <returns></returns>
+		public virtual List<Mesh> GetMeshesFromStream (int receiverIndex)
+		{
+			if (receiverIndex < 0 || receiverIndex >= receivers.Count)
+				throw new ArgumentOutOfRangeException ("Receiver could not be accessed because it does not exist");
+
+			return receivers[receiverIndex].meshes;
+		}
+
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="streamID"></param>
+		/// <returns></returns>
+		public virtual List<MeshRenderer> GetMeshRenderersFromStream (string streamID)
+		{
+			for (int i = 0; i < receivers.Count; i++)
+			{
+				if (receivers[i].streamID == streamID)
+				{
+					return GetMeshRenderersFromStream (i);
+				}
+			}
+
+			return GetMeshRenderersFromStream (-1);
+		}
+
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="receiverIndex"></param>
+		/// <returns></returns>
+		public virtual List<MeshRenderer> GetMeshRenderersFromStream (int receiverIndex)
+		{
+			if (receiverIndex < 0 || receiverIndex >= receivers.Count)
+				throw new ArgumentOutOfRangeException ("Receiver could not be accessed because it does not exist");
+
+			return receivers[receiverIndex].meshRenderers;
+		}
+
+		/// <summary>
+		/// 
+		/// </summary>
 		/// <param name="newRenderingRule"></param>
 		public virtual void SetRenderingRule (RenderingRule newRenderingRule)
 		{

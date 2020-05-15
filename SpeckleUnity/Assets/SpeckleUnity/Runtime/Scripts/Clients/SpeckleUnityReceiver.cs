@@ -74,6 +74,16 @@ namespace SpeckleUnity
 		/// <summary>
 		/// 
 		/// </summary>
+		internal List<Mesh> meshes = new List<Mesh> ();
+
+		/// <summary>
+		/// 
+		/// </summary>
+		internal List<MeshRenderer> meshRenderers = new List<MeshRenderer> ();
+
+		/// <summary>
+		/// 
+		/// </summary>
 		protected MaterialPropertyBlock propertyBlock = null;
 
 		/// <summary>
@@ -126,6 +136,8 @@ namespace SpeckleUnity
 			speckleObjectLookup = new Dictionary<GameObject, SpeckleObject> ();
 			numbers = new List<float> ();
 			strings = new List<string> ();
+			meshes = new List<Mesh> ();
+			meshRenderers = new List<MeshRenderer> ();
 
 			//after connected, call update global to get geometry
 			await UpdateGlobal ();
@@ -396,8 +408,17 @@ namespace SpeckleUnity
 
 				// assign properties to this renderer
 				manager.renderingRule?.ApplyRuleToObject (geometry.renderer, client.Stream, objectIndex, propertyBlock);
+
+				if (geometry is SpeckleUnityMesh mesh)
+				{
+					meshes.Add (mesh.mesh);
+					meshRenderers.Add (mesh.meshRenderer);
+				}
+
 				return;
 			}
+
+			
 
 			if (deserializedStreamObject is float numberValue)
 			{
@@ -457,6 +478,8 @@ namespace SpeckleUnity
 			speckleObjectLookup?.Clear ();
 			numbers?.Clear ();
 			strings?.Clear ();
+			meshes?.Clear ();
+			meshRenderers?.Clear ();
 		}
 
 		/// <summary>
