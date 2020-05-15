@@ -21,7 +21,7 @@ namespace SpeckleUnity.CustomEditors
 			instance.name = "SpeckleUnityManager";
 			SpeckleUnityManager manager = instance.AddComponent<SpeckleUnityManager> ();
 
-			manager.renderingRule = Resources.Load<ColorByType> ("Color By Type");
+			manager.SetRenderingRule (Resources.Load<ColorByType> ("Color By Type"));
 
 			GameObject currentSelection = (GameObject)command.context;
 

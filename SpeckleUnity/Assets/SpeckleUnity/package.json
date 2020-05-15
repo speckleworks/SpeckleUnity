@@ -2,7 +2,7 @@
   "name": "com.open.speckleunity",
   "displayName": "SpeckleUnity",
   "author": "Jakir Hussain, Dean Giddy, Christopher Morse, Luis E. Fraguadam",
-  "version": "0.7.0-preview",
+  "version": "0.7.6-preview",
   "unity": "2020.1",
   "description": "Stream live 3D data into Unity with the open data platform for BIM - Speckle! \n\nDocumentation available on GitHub.",
   "keywords": [

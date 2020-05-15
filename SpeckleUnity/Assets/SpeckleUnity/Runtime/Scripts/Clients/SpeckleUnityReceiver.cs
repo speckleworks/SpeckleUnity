@@ -7,6 +7,7 @@ using UnityEngine.Events;
 using SpeckleCore;
 using System.Threading.Tasks;
 using Newtonsoft.Json.Linq;
+using SpeckleCore.Data;
 
 namespace SpeckleUnity
 {
@@ -18,6 +19,18 @@ namespace SpeckleUnity
 	[Serializable]
 	public class SpeckleUnityReceiver : SpeckleUnityClient
 	{
+		/// <summary>
+		/// An optional <c>Transform</c> that can be optionally set in the inspector for the received stream
+		/// to be spawned under. If left null, a new one will be created and named after the stream ID.
+		/// </summary>
+		public Transform streamRoot;
+
+		/// <summary>
+		/// Toggles whether or not live updates to the stream from other clients will be listened to.
+		/// Disable this if you want to keep a consistent model during runtime.
+		/// </summary>
+		public bool receiveUpdates = true;
+
 		/// <summary>
 		/// Boolean used to help with the coroutine workaround. Is set to true when the web socket event
 		/// is fired for the manager to respond against and then immediately set back to false.
@@ -31,12 +44,6 @@ namespace SpeckleUnity
 		protected string messageContent;
 
 		/// <summary>
-		/// An optional <c>Transform</c> that can be optionally set in the inspector for the received stream
-		/// to be spawned under. If left null, a new one will be created and named after the stream ID.
-		/// </summary>
-		public Transform streamRoot;
-
-		/// <summary>
 		/// A list containing all the Speckle objects from the stream AFTER they had been converted into native
 		/// Unity objects.
 		/// </summary>
@@ -48,16 +55,31 @@ namespace SpeckleUnity
 		/// </summary>
 		protected Dictionary<Layer, Transform> layerLookup = new Dictionary<Layer, Transform> ();
 
-
 		/// <summary>
 		/// Key value pairs of Unity <c>GameObject</c>s and SpeckleCore <c>SpeckleObject</c>s to help with 
 		/// looking up the corresponding object data to the objects rendered in the scene.
 		/// </summary>
 		internal Dictionary<GameObject, SpeckleObject> speckleObjectLookup = new Dictionary<GameObject, SpeckleObject> ();
 
+		/// <summary>
+		/// 
+		/// </summary>
 		internal List<float> numbers = new List<float> ();
 
+		/// <summary>
+		/// 
+		/// </summary>
 		internal List<string> strings = new List<string> ();
+
+		/// <summary>
+		/// 
+		/// </summary>
+		internal List<Mesh> meshes = new List<Mesh> ();
+
+		/// <summary>
+		/// 
+		/// </summary>
+		internal List<MeshRenderer> meshRenderers = new List<MeshRenderer> ();
 
 		/// <summary>
 		/// 
@@ -65,14 +87,21 @@ namespace SpeckleUnity
 		protected MaterialPropertyBlock propertyBlock = null;
 
 		/// <summary>
+		/// 
+		/// </summary>
+		protected int unsupportedObjects = 0;
+
+		/// <summary>
 		/// Creates an uninitialized instance of a <c>SpeckleUnityReceiver</c>.
 		/// </summary>
 		/// <param name="streamID">The stream ID to be received.</param>
 		/// <param name="streamRoot">An optional root object for the stream to be spawnted under.</param>
-		public SpeckleUnityReceiver (string streamID, Transform streamRoot = null)
+		/// <param name="receiveUpdates"></param>
+		public SpeckleUnityReceiver (string streamID, Transform streamRoot = null, bool receiveUpdates = true)
 		{
 			this.streamID = streamID;
 			this.streamRoot = streamRoot;
+			this.receiveUpdates = receiveUpdates;
 		}
 
 		/// <summary>
@@ -97,7 +126,7 @@ namespace SpeckleUnity
 			client.BaseUrl = url.Trim ();
 			RegisterClient ();
 
-			await client.IntializeReceiver (streamID, "SpeckleUnity", "Unity", Guid.NewGuid ().ToString (), apiToken);
+			await client.IntializeReceiver (streamID, Application.productName, "Unity", Guid.NewGuid ().ToString (), apiToken);
 
 			Debug.Log ("Initialized stream: " + streamID);
 
@@ -107,6 +136,8 @@ namespace SpeckleUnity
 			speckleObjectLookup = new Dictionary<GameObject, SpeckleObject> ();
 			numbers = new List<float> ();
 			strings = new List<string> ();
+			meshes = new List<Mesh> ();
+			meshRenderers = new List<MeshRenderer> ();
 
 			//after connected, call update global to get geometry
 			await UpdateGlobal ();
@@ -124,6 +155,8 @@ namespace SpeckleUnity
 		/// to this method being invoked.</remarks>
 		protected override void ClientOnWsMessage (object source, SpeckleEventArgs e)
 		{
+			if (!receiveUpdates) return;
+
 			if (e == null) return;
 			//if (e.EventObject == null) return;
 
@@ -201,7 +234,7 @@ namespace SpeckleUnity
 				string[] payload = client.Stream.Objects.Where (o => o.Type == "Placeholder").Select (obj => obj._id).ToArray ();
 
 				// how many objects to request from the api at a time
-				int maxObjRequestCount = 100;
+				int maxObjRequestCount = 20;
 
 				// list to hold them into
 				List<SpeckleObject> newObjects = new List<SpeckleObject> ();
@@ -209,18 +242,16 @@ namespace SpeckleUnity
 				// jump in `maxObjRequestCount` increments through the payload array
 				for (int i = 0; i < payload.Length; i += maxObjRequestCount)
 				{
-					manager.onUpdateProgress.Invoke (new SpeckleUnityUpdate (streamID, streamRoot, UpdateType.Global, (float)i / (payload.Length * 2)));
-
 					// create a subset
 					string[] subPayload = payload.Skip (i).Take (maxObjRequestCount).ToArray ();
 
 					// get it sync as this is always execed out of the main thread
-					//Task<ResponseObject> getTask = Client.ObjectGetBulkAsync(subPayload, "omit=displayValue");
 					ResponseObject response = await client.ObjectGetBulkAsync (subPayload, "");
 
 					// put them in our bucket
 					newObjects.AddRange (response.Resources);
-					await Task.Yield ();
+
+					manager.onUpdateProgress.Invoke (new SpeckleUnityUpdate (streamID, streamRoot, UpdateType.Global, (float)i / (payload.Length * 2)));
 				}
 
 				// populate the retrieved objects in the original stream's object list
@@ -250,10 +281,12 @@ namespace SpeckleUnity
 			ConstructLayers ();
 
 			propertyBlock = new MaterialPropertyBlock ();
+			unsupportedObjects = 0;
 
 			for (int i = 0; i < client.Stream.Objects.Count; i++)
 			{
 				object deserializedStreamObject = Converter.Deserialise (client.Stream.Objects[i]);
+
 				deserializedStreamObjects.Add (deserializedStreamObject);
 
 				PostProcessObject (deserializedStreamObject, i);
@@ -264,6 +297,9 @@ namespace SpeckleUnity
 					await Task.Yield ();
 				}
 			}
+
+			if (unsupportedObjects > 0)
+				Debug.LogWarning (string.Format ("The stream '{0}' contained {1} objects that are unsupported by SpeckleUnity at this time.", streamID, unsupportedObjects));
 		}
 
 		/// <summary>
@@ -309,17 +345,31 @@ namespace SpeckleUnity
 		protected Transform FindParentInHierarchy (string[] parents)
 		{
 			int layerDepth = 0;
+			bool foundNextParent;
 			Transform layerToSearchIn = streamRoot;
+
 			while (layerDepth < parents.Length)
 			{
+				foundNextParent = false;
+
 				for (int i = 0; i < layerToSearchIn.childCount; i++)
 				{
 					if (layerToSearchIn.GetChild (i).name == parents[layerDepth])
 					{
 						layerToSearchIn = layerToSearchIn.GetChild (i);
 						layerDepth++;
+						foundNextParent = true;
 						break;
 					}
+				}
+
+				if (foundNextParent == false)
+				{
+					Transform emptyLayer = new GameObject ().transform;
+					emptyLayer.name = parents[layerDepth];
+					emptyLayer.parent = layerToSearchIn;
+					layerToSearchIn = emptyLayer;
+					layerDepth++;
 				}
 			}
 
@@ -353,19 +403,44 @@ namespace SpeckleUnity
 					}
 				}
 
+				// assign a material
 				geometry.renderer.material = manager.meshMaterial;
 
-				manager.renderingRule?.ApplyRuleToObject (geometry.renderer, client.Stream.Objects[objectIndex], propertyBlock);
+				// assign properties to this renderer
+				manager.renderingRule?.ApplyRuleToObject (geometry.renderer, client.Stream, objectIndex, propertyBlock);
+
+				if (geometry is SpeckleUnityMesh mesh)
+				{
+					meshes.Add (mesh.mesh);
+					meshRenderers.Add (mesh.meshRenderer);
+				}
+
+				return;
 			}
+
+			
 
 			if (deserializedStreamObject is float numberValue)
 			{
 				numbers.Add (numberValue);
+				return;
 			}
 
 			if (deserializedStreamObject is string stringValue)
 			{
 				strings.Add (stringValue);
+				return;
+			}
+
+			if (deserializedStreamObject is SpeckleUnityUnsupportedObject unsupportedObject)
+			{
+				unsupportedObjects++;
+				return;
+			}
+
+			if (deserializedStreamObject is SpeckleConversionError error)
+			{
+				Debug.LogError (string.Format ("{0}: {1}", error.Message, error.Details));
 			}
 		}
 
@@ -374,11 +449,13 @@ namespace SpeckleUnity
 		/// </summary>
 		public virtual void ReApplyRenderingRule ()
 		{
+			if (deserializedStreamObjects == null) return;
+
 			for (int i = 0; i < deserializedStreamObjects.Count; i++)
 			{
 				if (deserializedStreamObjects[i] is SpeckleUnityGeometry geometry)
 				{
-					manager.renderingRule?.ApplyRuleToObject (geometry.renderer, client.Stream.Objects[i], propertyBlock);
+					manager.renderingRule?.ApplyRuleToObject (geometry.renderer, client.Stream, i, propertyBlock);
 				}
 			}
 		}
@@ -401,6 +478,8 @@ namespace SpeckleUnity
 			speckleObjectLookup?.Clear ();
 			numbers?.Clear ();
 			strings?.Clear ();
+			meshes?.Clear ();
+			meshRenderers?.Clear ();
 		}
 
 		/// <summary>
@@ -408,13 +487,11 @@ namespace SpeckleUnity
 		/// </summary>
 		protected virtual void SetScaleFactorAccordingToStream ()
 		{
-			string units = "";
-
 			bool gotUnits = client.Stream.BaseProperties.TryGetValue ("units", out JToken value);
 
 			if (gotUnits && value != null)
 			{
-				units = value.ToString ().ToLower ();
+				string units = value.ToString ().ToLower ();
 
 				switch (units)
 				{
@@ -455,7 +532,35 @@ namespace SpeckleUnity
 			{
 				Conversions.scaleFactor = 0.01;
 				Debug.LogWarning ("No unit data found on stream, default scale factor will be 0.001 (millimetres to metres).");
-			}			
+			}
+		}
+
+		/// <summary>
+		/// 
+		/// </summary>
+		public virtual void UpdateLineWidth ()
+		{
+			for (int i = 0; i < deserializedStreamObjects.Count; i++)
+			{
+				if (deserializedStreamObjects[i] is SpeckleUnityPolyline line)
+				{
+					line.lineRenderer.startWidth = line.lineRenderer.endWidth = SpeckleUnityPolyline.LineWidth;
+				}
+			}
+		}
+
+		/// <summary>
+		/// 
+		/// </summary>
+		public virtual void UpdatePointDiameter ()
+		{
+			for (int i = 0; i < deserializedStreamObjects.Count; i++)
+			{
+				if (deserializedStreamObjects[i] is SpeckleUnityPoint point)
+				{
+					point.lineRenderer.startWidth = point.lineRenderer.endWidth = SpeckleUnityPoint.PointDiameter;
+				}
+			}
 		}
 	}
 }

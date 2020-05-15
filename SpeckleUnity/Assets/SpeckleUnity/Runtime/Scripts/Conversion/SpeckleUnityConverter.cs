@@ -131,9 +131,13 @@ namespace SpeckleUnity
 		/// <returns></returns>
 		public static SpeckleUnityPolyline ToNative (this SpeckleLine line)
 		{
+			Vector3[] points = line.Value.ToPoints ();
+
+			if (points.Length == 0) return null;
+
 			line.Scale (scaleFactor);
 
-			return new SpeckleUnityPolyline (line.Type, line.Value.ToPoints ());
+			return new SpeckleUnityPolyline (line.Type, points);
 		}
 
 		/// <summary>
@@ -143,9 +147,13 @@ namespace SpeckleUnity
 		/// <returns></returns>
 		public static SpeckleUnityPolyline ToNative (this SpecklePolyline polyline)
 		{
+			Vector3[] points = polyline.Value.ToPoints ();
+
+			if (points.Length == 0) return null;
+
 			polyline.Scale (scaleFactor);
 
-			return new SpeckleUnityPolyline (polyline.Type, polyline.Value.ToPoints ());
+			return new SpeckleUnityPolyline (polyline.Type, points);
 		}
 
 		/// <summary>
@@ -155,6 +163,10 @@ namespace SpeckleUnity
 		/// <returns></returns>
 		public static SpeckleUnityPolyline ToNative (this SpeckleCurve curve)
 		{
+			Vector3[] points = curve.DisplayValue.Value.ToPoints ();
+
+			if (points.Length == 0) return null;
+
 			curve.Scale (scaleFactor);
 
 			return new SpeckleUnityPolyline (curve.Type, curve.DisplayValue.Value.ToPoints ());
@@ -168,6 +180,11 @@ namespace SpeckleUnity
 		/// <returns></returns>
 		public static SpeckleUnityMesh ToNative (this SpeckleMesh speckleMesh)
 		{
+			if (speckleMesh.Vertices.Count == 0 || speckleMesh.Faces.Count == 0)
+			{
+				return null;
+			}
+
 			speckleMesh.Scale (scaleFactor);
 
 			//convert speckleMesh.Faces into triangle array           
@@ -198,9 +215,7 @@ namespace SpeckleUnity
 				}
 			}
 
-			SpeckleUnityMesh result = new SpeckleUnityMesh (speckleMesh.Type, speckleMesh.Vertices.ToPoints (), tris.ToArray ());
-
-			return result;
+			return new SpeckleUnityMesh (speckleMesh.Type, speckleMesh.Vertices.ToPoints (), tris.ToArray ());
 		}
 
 		/// <summary>
@@ -212,6 +227,11 @@ namespace SpeckleUnity
 		{
 			SpeckleMesh speckleMesh = brep.DisplayValue;
 			return speckleMesh.ToNative ();
+		}
+
+		public static SpeckleUnityUnsupportedObject ToNative (this SpeckleObject speckleObject)
+		{
+			return new SpeckleUnityUnsupportedObject ();
 		}
 	}
 }

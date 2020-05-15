@@ -63,7 +63,23 @@ namespace SpeckleUnity
 		/// <summary>
 		/// An optional rendering rule to inject into the stream update process which defines how the stream looks in the scene.
 		/// </summary>
-		public RenderingRule renderingRule;
+		[SerializeField] protected internal RenderingRule renderingRule;
+
+		/// <summary>
+		/// 
+		/// </summary>
+		[Header ("Object Settings")]
+		[SerializeField] protected bool recentreMeshTransforms = false;
+
+		/// <summary>
+		/// 
+		/// </summary>
+		[SerializeField] [Range (0.1f, 10f)] protected float lineWidth = 0.5f;
+
+		/// <summary>
+		/// 
+		/// </summary>
+		[SerializeField] [Range (0.1f, 10f)] protected float pointDiameter = 1;
 
 		/// <summary>
 		/// Speed value to allow for instantiation to happen gradually over many frames in case of 
@@ -96,6 +112,10 @@ namespace SpeckleUnity
 		protected virtual async void Start ()
 		{
 			SpeckleInitializer.Initialize (false);
+
+			SpeckleUnityMesh.RecentreMeshTransforms = recentreMeshTransforms;
+			SpeckleUnityPolyline.LineWidth = lineWidth;
+			SpeckleUnityPoint.PointDiameter = pointDiameter;
 
 			await RunStartBehaviourAsync ();
 		}
@@ -234,6 +254,7 @@ namespace SpeckleUnity
 		/// available.
 		/// </summary>
 		/// <param name="callBack">A method callback which takes a <c>SpeckleStream</c> array.</param>
+		/// <returns>An async Task which can be awaited with a coroutine or just ignored.</returns>
 		/// <remarks>If download was successful, the resulting array is passed back. If failed, null
 		/// is passed. Need to be using the <c>SpeckleCore</c> namespace to access this type.</remarks>
 		public virtual async Task GetAllStreamMetaDataForUserAsync (Action<SpeckleStream[]> callBack)
@@ -267,6 +288,7 @@ namespace SpeckleUnity
 		/// <summary>
 		/// Loops through each receiver and starts each of their initialization coroutines.
 		/// </summary>
+		/// <returns>An async Task which can be awaited with a coroutine or just ignored.</returns>
 		public virtual async Task InitializeAllClientsAsync ()
 		{
 			Task[] tasks = new Task[receivers.Count];
@@ -306,10 +328,12 @@ namespace SpeckleUnity
 		/// <param name="streamRoot">Optionally, you can provide a <c>Transform</c> for the geometry to be spawned
 		/// under.</param>
 		/// <param name="initialiseOnCreation">Optionally, the stream can have its <c>InitializeClient</c>
-		/// coroutine started after being created.</param>
-		public virtual async Task AddReceiverAsync (string streamID, Transform streamRoot = null, bool initialiseOnCreation = false)
+		/// method started after being created.</param>
+		/// <param name="receiveUpdates"></param>
+		/// <returns>An async Task which can be awaited with a coroutine or just ignored.</returns>
+		public virtual async Task AddReceiverAsync (string streamID, Transform streamRoot = null, bool initialiseOnCreation = false, bool receiveUpdates = true)
 		{
-			SpeckleUnityReceiver newReceiver = new SpeckleUnityReceiver (streamID, streamRoot);
+			SpeckleUnityReceiver newReceiver = new SpeckleUnityReceiver (streamID, streamRoot, receiveUpdates);
 			receivers.Add (newReceiver);
 
 			if (initialiseOnCreation)
@@ -489,13 +513,80 @@ namespace SpeckleUnity
 		/// <summary>
 		/// 
 		/// </summary>
+		/// <param name="streamID"></param>
+		/// <returns></returns>
+		public virtual List<Mesh> GetMeshesFromStream (string streamID)
+		{
+			for (int i = 0; i < receivers.Count; i++)
+			{
+				if (receivers[i].streamID == streamID)
+				{
+					return GetMeshesFromStream (i);
+				}
+			}
+
+			return GetMeshesFromStream (-1);
+		}
+
+		/// <summary>
+		/// 
+		/// </summary>
 		/// <param name="receiverIndex"></param>
-		public virtual void ReApplyRenderingRule (int receiverIndex)
+		/// <returns></returns>
+		public virtual List<Mesh> GetMeshesFromStream (int receiverIndex)
 		{
 			if (receiverIndex < 0 || receiverIndex >= receivers.Count)
-				throw new ArgumentOutOfRangeException ("Receiver could not be updated because it does not exist");
+				throw new ArgumentOutOfRangeException ("Receiver could not be accessed because it does not exist");
 
-			receivers[receiverIndex].ReApplyRenderingRule ();
+			return receivers[receiverIndex].meshes;
+		}
+
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="streamID"></param>
+		/// <returns></returns>
+		public virtual List<MeshRenderer> GetMeshRenderersFromStream (string streamID)
+		{
+			for (int i = 0; i < receivers.Count; i++)
+			{
+				if (receivers[i].streamID == streamID)
+				{
+					return GetMeshRenderersFromStream (i);
+				}
+			}
+
+			return GetMeshRenderersFromStream (-1);
+		}
+
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="receiverIndex"></param>
+		/// <returns></returns>
+		public virtual List<MeshRenderer> GetMeshRenderersFromStream (int receiverIndex)
+		{
+			if (receiverIndex < 0 || receiverIndex >= receivers.Count)
+				throw new ArgumentOutOfRangeException ("Receiver could not be accessed because it does not exist");
+
+			return receivers[receiverIndex].meshRenderers;
+		}
+
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="newRenderingRule"></param>
+		public virtual void SetRenderingRule (RenderingRule newRenderingRule)
+		{
+			if (newRenderingRule == null)
+				throw new ArgumentNullException ("Cannot set a null rendering rule.");
+
+			renderingRule = newRenderingRule;
+
+			for (int i = 0; i < receivers.Count; i++)
+			{
+				receivers[i].ReApplyRenderingRule ();
+			}
 		}
 
 		/// <summary>
@@ -504,8 +595,8 @@ namespace SpeckleUnity
 		/// <returns>A bounding box value encapsulating all stream objects in the scene.</returns>
 		public virtual Bounds GetBoundsForAllReceivedStreams ()
 		{
-			if (receivers.Count == 0) throw new InvalidOperationException ("There are no streams");
-			if (receivers[0].streamRoot.childCount == 0) throw new InvalidOperationException ("There are no stream objects");
+			if (receivers.Count == 0)
+				return new Bounds (Vector3.zero, Vector3.one);
 
 			MeshRenderer[] meshes = receivers[0].streamRoot.GetComponentsInChildren<MeshRenderer> ();
 
@@ -527,6 +618,50 @@ namespace SpeckleUnity
 			}
 
 			return bounds;
+		}
+
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="newWidth"></param>
+		public virtual void UpdateLineWidth (float newWidth)
+		{
+			if (newWidth <= 0)
+			{
+				throw new ArgumentException ("Line width needs to be greater than zero.");
+			}
+
+			if (newWidth == SpeckleUnityPolyline.LineWidth)
+				return;
+
+			SpeckleUnityPolyline.LineWidth = newWidth;
+
+			for (int i = 0; i < receivers.Count; i++)
+			{
+				receivers[i].UpdateLineWidth ();
+			}
+		}
+
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="newWidth"></param>
+		public virtual void UpdatePointDiameter (float newDiameter)
+		{
+			if (newDiameter <= 0)
+			{
+				throw new ArgumentException ("Point diameter needs to be greater than zero.");
+			}
+
+			if (newDiameter == SpeckleUnityPoint.PointDiameter)
+				return;
+
+			SpeckleUnityPoint.PointDiameter = newDiameter;
+
+			for (int i = 0; i < receivers.Count; i++)
+			{
+				receivers[i].UpdatePointDiameter ();
+			}
 		}
 	}
 
