@@ -77,6 +77,11 @@ namespace SpeckleUnity
 		protected MaterialPropertyBlock propertyBlock = null;
 
 		/// <summary>
+		/// 
+		/// </summary>
+		protected int unsupportedObjects = 0;
+
+		/// <summary>
 		/// Creates an uninitialized instance of a <c>SpeckleUnityReceiver</c>.
 		/// </summary>
 		/// <param name="streamID">The stream ID to be received.</param>
@@ -264,6 +269,7 @@ namespace SpeckleUnity
 			ConstructLayers ();
 
 			propertyBlock = new MaterialPropertyBlock ();
+			unsupportedObjects = 0;
 
 			for (int i = 0; i < client.Stream.Objects.Count; i++)
 			{
@@ -279,6 +285,9 @@ namespace SpeckleUnity
 					await Task.Yield ();
 				}
 			}
+
+			if (unsupportedObjects > 0)
+				Debug.LogWarning (string.Format ("The stream '{0}' contained {1} objects that are unsupported by SpeckleUnity at this time.", streamID, unsupportedObjects));
 		}
 
 		/// <summary>
@@ -387,21 +396,30 @@ namespace SpeckleUnity
 
 				// assign properties to this renderer
 				manager.renderingRule?.ApplyRuleToObject (geometry.renderer, client.Stream, objectIndex, propertyBlock);
+				return;
 			}
 
 			if (deserializedStreamObject is float numberValue)
 			{
 				numbers.Add (numberValue);
+				return;
 			}
 
 			if (deserializedStreamObject is string stringValue)
 			{
 				strings.Add (stringValue);
+				return;
+			}
+
+			if (deserializedStreamObject is SpeckleUnityUnsupportedObject unsupportedObject)
+			{
+				unsupportedObjects++;
+				return;
 			}
 
 			if (deserializedStreamObject is SpeckleConversionError error)
 			{
-				Debug.LogError (string.Format ("Conversion Error: {0} ({1})", error.Message, error.Details));
+				Debug.LogError (string.Format ("{0}: {1}", error.Message, error.Details));
 			}
 		}
 
@@ -491,7 +509,35 @@ namespace SpeckleUnity
 			{
 				Conversions.scaleFactor = 0.01;
 				Debug.LogWarning ("No unit data found on stream, default scale factor will be 0.001 (millimetres to metres).");
-			}			
+			}
+		}
+
+		/// <summary>
+		/// 
+		/// </summary>
+		public virtual void UpdateLineWidth ()
+		{
+			for (int i = 0; i < deserializedStreamObjects.Count; i++)
+			{
+				if (deserializedStreamObjects[i] is SpeckleUnityPolyline line)
+				{
+					line.lineRenderer.startWidth = line.lineRenderer.endWidth = SpeckleUnityPolyline.LineWidth;
+				}
+			}
+		}
+
+		/// <summary>
+		/// 
+		/// </summary>
+		public virtual void UpdatePointDiameter ()
+		{
+			for (int i = 0; i < deserializedStreamObjects.Count; i++)
+			{
+				if (deserializedStreamObjects[i] is SpeckleUnityPoint point)
+				{
+					point.lineRenderer.startWidth = point.lineRenderer.endWidth = SpeckleUnityPoint.PointDiameter;
+				}
+			}
 		}
 	}
 }

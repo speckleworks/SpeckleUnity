@@ -19,6 +19,7 @@ namespace SpeckleUnity
 	/// </summary>
 	public abstract class SpeckleUnityObject
 	{
+		/*
 		//onchanged event for senders to implement to signal a sending update
 		/// <summary>
 		/// 
@@ -32,6 +33,15 @@ namespace SpeckleUnity
 		{
 			ValueChanged?.Invoke (this);
 		}
+		*/
+	}
+
+	/// <summary>
+	/// 
+	/// </summary>
+	public class SpeckleUnityUnsupportedObject
+	{ 
+		
 	}
 
 	/// <summary>

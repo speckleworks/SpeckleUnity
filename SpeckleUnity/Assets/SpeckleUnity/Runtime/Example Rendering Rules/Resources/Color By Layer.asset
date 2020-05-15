@@ -45,11 +45,11 @@ MonoBehaviour:
   receiveShadows: 0
   shadowCastingMode: 0
   colorKey:
-  - name: Floors
-    color: {r: 0.33845323, g: 0.50591236, b: 0.93202096, a: 1}
-  - name: Walls
-    color: {r: 0.43527508, g: 0.9382054, b: 0.30135757, a: 1}
-  - name: Beams
-    color: {r: 0.61088777, g: 0.9581294, b: 0.33042464, a: 1}
-  - name: Foundation
-    color: {r: 0.8831742, g: 0.9890215, b: 0.37549293, a: 1}
+  - name: Text
+    color: {r: 0.39688778, g: 0.93378764, b: 0.30559805, a: 1}
+  - name: Mesh
+    color: {r: 0.3935845, g: 0.46141565, b: 0.92891645, a: 1}
+  - name: Content
+    color: {r: 0.5440147, g: 0.34000272, b: 0.92044544, a: 1}
+  - name: Points
+    color: {r: 0.8520269, g: 0.2630574, b: 0.2316887, a: 1}

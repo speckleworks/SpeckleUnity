@@ -4,7 +4,6 @@ using System.Linq;
 using UnityEngine;
 using SpeckleCore;
 using SpeckleCoreGeometryClasses;
-using SpeckleStructuralClasses;
 
 //TODO
 //Should this live in a speckle kit along with the speckle unity classes?
@@ -186,7 +185,6 @@ namespace SpeckleUnity
 				return null;
 			}
 
-			speckleMesh.Properties = null;
 			speckleMesh.Scale (scaleFactor);
 
 			//convert speckleMesh.Faces into triangle array           
@@ -231,9 +229,9 @@ namespace SpeckleUnity
 			return speckleMesh.ToNative ();
 		}
 
-		public static SpeckleUnityMesh ToNative (this Structural2DElementMesh structuralMesh)
+		public static SpeckleUnityUnsupportedObject ToNative (this SpeckleObject speckleObject)
 		{
-			return ((SpeckleMesh)structuralMesh).ToNative ();
+			return new SpeckleUnityUnsupportedObject ();
 		}
 	}
 }

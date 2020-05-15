@@ -45,15 +45,5 @@ MonoBehaviour:
   receiveShadows: 0
   shadowCastingMode: 0
   colorKey:
-  - name: Mesh/Wall
-    color: {r: 0.304502, g: 0.53878593, b: 0.9329882, a: 1}
-  - name: Mesh/Floor
-    color: {r: 0.86518145, g: 0.41705883, b: 0.24676678, a: 1}
-  - name: Mesh/FamilyInstance
-    color: {r: 0.87614465, g: 0.5454063, b: 0.2593331, a: 1}
-  - name: Mesh/GenericElement
-    color: {r: 0.8711942, g: 0.48745078, b: 0.25365877, a: 1}
-  - name: Mesh/Column
-    color: {r: 0.6621047, g: 0.9639402, b: 0.33890197, a: 1}
-  - name: Mesh/Beam
-    color: {r: 0.9337818, g: 0.80184275, b: 0.33266068, a: 1}
+  - name: Mesh
+    color: {r: 0.96959126, g: 0.9555731, b: 0.3783155, a: 1}

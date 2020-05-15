@@ -65,9 +65,20 @@ namespace SpeckleUnity
 		/// </summary>
 		[SerializeField] protected internal RenderingRule renderingRule;
 
+		/// <summary>
+		/// 
+		/// </summary>
 		[Header ("Object Settings")]
 		[SerializeField] protected bool recentreMeshTransforms = false;
-		[SerializeField] [Range (0.1f, 10f)] protected float lineWidth = 1;
+
+		/// <summary>
+		/// 
+		/// </summary>
+		[SerializeField] [Range (0.1f, 10f)] protected float lineWidth = 0.5f;
+
+		/// <summary>
+		/// 
+		/// </summary>
 		[SerializeField] [Range (0.1f, 10f)] protected float pointDiameter = 1;
 
 		/// <summary>
@@ -545,6 +556,50 @@ namespace SpeckleUnity
 			}
 
 			return bounds;
+		}
+
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="newWidth"></param>
+		public virtual void UpdateLineWidth (float newWidth)
+		{
+			if (newWidth <= 0)
+			{
+				throw new ArgumentException ("Line width needs to be greater than zero.");
+			}
+
+			if (newWidth == SpeckleUnityPolyline.LineWidth)
+				return;
+
+			SpeckleUnityPolyline.LineWidth = newWidth;
+
+			for (int i = 0; i < receivers.Count; i++)
+			{
+				receivers[i].UpdateLineWidth ();
+			}
+		}
+
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="newWidth"></param>
+		public virtual void UpdatePointDiameter (float newDiameter)
+		{
+			if (newDiameter <= 0)
+			{
+				throw new ArgumentException ("Point diameter needs to be greater than zero.");
+			}
+
+			if (newDiameter == SpeckleUnityPoint.PointDiameter)
+				return;
+
+			SpeckleUnityPoint.PointDiameter = newDiameter;
+
+			for (int i = 0; i < receivers.Count; i++)
+			{
+				receivers[i].UpdatePointDiameter ();
+			}
 		}
 	}
 
