@@ -128,6 +128,8 @@ namespace SpeckleUnity
 
 			await client.IntializeReceiver (streamID, Application.productName, "Unity", Guid.NewGuid ().ToString (), apiToken);
 
+
+
 			Debug.Log ("Initialized stream: " + streamID);
 
 

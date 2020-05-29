@@ -9,9 +9,13 @@ namespace SpeckleUnity
 	/// <summary>
 	/// 
 	/// </summary>
-	[CreateAssetMenu (menuName = "SpeckleUnity/Rendering Rules/Color By Layer")]
-	public class ColorByLayer : RenderingRule
+	public abstract class ColorByRevitType : RenderingRule
 	{
+		/// <summary>
+		/// 
+		/// </summary>
+		public Color fallback = Color.grey;
+
 		/// <summary>
 		/// 
 		/// </summary>
@@ -42,6 +46,8 @@ namespace SpeckleUnity
 		/// </summary>
 		protected Dictionary<string, Color> colorLookup = new Dictionary<string, Color> ();
 
+		protected string revitProperty;
+
 		/// <summary>
 		/// 
 		/// </summary>
@@ -55,29 +61,38 @@ namespace SpeckleUnity
 
 			if (colorLookup.Count == 0) colorKey.Clear ();
 
-			List<Layer> layers = speckleStream.Layers;
-
-			for (int i = 0; i < layers.Count; i++)
+			if (speckleStream.Objects[objectIndex].Properties.TryGetValue (revitProperty, out object revitType))
 			{
-				if (!colorLookup.ContainsKey (layers[i].Name))
+				string typeAsString = revitType.ToString ();
+				if (!colorLookup.ContainsKey (typeAsString))
 				{
 					colorToApply = gradient.Evaluate (Random.Range (0f, 1f));
 
-					colorLookup.Add (layers[i].Name, colorToApply);
-					colorKey.Add (new ColorKey (layers[i].Name, colorToApply));
+					colorLookup.Add (typeAsString, colorToApply);
+					colorKey.Add (new ColorKey (typeAsString, colorToApply));
 				}
-
-				if (objectIndex >= layers[i].StartIndex && objectIndex < (layers[i].StartIndex + layers[i].ObjectCount))
+				else
 				{
-					colorLookup.TryGetValue (layers[i].Name, out colorToApply);
-
-					block.SetColor (colorName, colorToApply);
-					renderer.SetPropertyBlock (block);
-
-					renderer.receiveShadows = receiveShadows;
-					renderer.shadowCastingMode = shadowCastingMode;
+					colorLookup.TryGetValue (typeAsString, out colorToApply);
 				}
 			}
+			else
+			{
+				colorToApply = fallback;
+
+				if (!colorLookup.ContainsKey ("No Value"))
+				{
+					colorLookup.Add ("No Value", colorToApply);
+					colorKey.Add (new ColorKey ("No Value", colorToApply));
+				}
+			}
+			
+
+			block.SetColor (colorName, colorToApply);
+			renderer.SetPropertyBlock (block);
+
+			renderer.receiveShadows = receiveShadows;
+			renderer.shadowCastingMode = shadowCastingMode;
 		}
 	}
 }

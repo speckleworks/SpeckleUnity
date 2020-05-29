@@ -9,7 +9,7 @@ namespace SpeckleUnity
 	/// <summary>
 	/// 
 	/// </summary>
-	[CreateAssetMenu (menuName = "SpeckleUnity/Rendering Rule: Color By Type")]
+	[CreateAssetMenu (menuName = "SpeckleUnity/Rendering Rules/Color By Type")]
 	public class ColorByType : RenderingRule
 	{
 		/// <summary>
