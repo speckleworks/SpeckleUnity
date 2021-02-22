@@ -4,6 +4,12 @@
 
 In this repository you will find the source code, assets and project settings of the SpeckleUnity package for Unity app development (Unity 2020.1 or newer recommended) along with a DocFX project containing documentation assets and articles.
 
+## ⚠️ IMPORTANT ⚠️
+
+Speckle v1 has reached EOL and is no longer mainatined. Check out our brand new 👉 [Speckle v2](https://github.com/specklesystems)!
+Read more about the announcemnt [here](https://speckle.systems/blog/speckle2-vision-and-faq) and check out or new [website](https://speckle.systems).
+
+
 ## NOTICE
 
 * [Documentation can be found here](https://speckleworks.github.io/SpeckleUnity/).
